@@ -1,4 +1,4 @@
-# Domaine de Grosbois — prototype
+# Domaine de Grosbois, prototype
 
 Prototype navigable du site (Astro + Tailwind), en français. Il sert à montrer l’accueil, l’agenda, une fiche d’espace et le formulaire de devis. Ce n’est pas le site de production.
 
@@ -35,7 +35,7 @@ Le mapping central est `src/data/images.ts`. Les événements et les espaces por
 
 - Textes, dates, jauges, téléphone, e-mail, adresse, témoignages.
 - Tarifs du devis : `src/data/tarifs-visites.json`. Le calcul se fait dans le navigateur. Rien n’est envoyé, aucun PDF, aucun paiement.
-- Billetterie : encart visible « compte Weezevent SETF — accès à venir ». Pas d’iframe, pas d’appel à Weezevent.
+- Billetterie : encart visible « compte Weezevent SETF, accès à venir ». Pas d’iframe, pas d’appel à Weezevent.
 - Bandeau cookies de démonstration (pas tarteaucitron).
 - Français seulement. Le sélecteur de langue n’est pas affiché.
 
@@ -51,3 +51,4 @@ npm run screenshots -- --out "<dossier>"
 ```
 
 Chrome installé sur la machine est utilisé (pas de téléchargement de navigateur).
+# domainedegrosbois
