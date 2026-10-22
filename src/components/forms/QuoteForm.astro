@@ -1,0 +1,438 @@
+---
+/**
+ * Formulaire de devis (visite ou privatisation).
+ * Calcul et récapitulatif dans le navigateur : aucun envoi, aucun PDF, aucun paiement.
+ */
+interface EspaceOption { id: string; nom: string }
+interface Props {
+  contexte: 'visite' | 'privatisation';
+  espaces: EspaceOption[];
+  intro: string;
+}
+const { contexte, espaces, intro } = Astro.props;
+const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-groupe';
+---
+
+<div class="section">
+  <div class="container-site grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+    <div>
+      <p class="badge badge-provisional">Tarifs provisoires — simulation à l'écran</p>
+      <h1 class="mt-3">{contexte === 'privatisation' ? 'Demander un devis' : 'Réserver une visite'}</h1>
+      <p class="section-lead mt-3">{intro}</p>
+
+      <form id="quote-form" class="mt-8 space-y-10" novalidate>
+        <fieldset class="space-y-3">
+          <legend class="font-display text-2xl text-bleu">Motif <span class="text-brique">*</span></legend>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <label class="choice-card">
+              <input class="checkbox" type="radio" name="motif" value="renseignement" />
+              <span><span class="block font-semibold text-nuit">Renseignement</span><span class="mt-1 block text-sm text-ardoise">Une question, sans chiffrage.</span></span>
+            </label>
+            <label class="choice-card">
+              <input class="checkbox" type="radio" name="motif" value="reservation" checked />
+              <span><span class="block font-semibold text-nuit">Réservation</span><span class="mt-1 block text-sm text-ardoise">Prépare un devis indicatif.</span></span>
+            </label>
+          </div>
+          <p id="erreur-motif" class="field-error" hidden></p>
+        </fieldset>
+
+        <fieldset class="space-y-4">
+          <legend class="font-display text-2xl text-bleu">Votre projet</legend>
+          <div class="grid gap-4 md:grid-cols-2">
+            <label class="field md:col-span-2">
+              <span class="field-label">Type de visite ou d'événement <span class="text-brique">*</span></span>
+              <select class="select" name="type" id="quote-type">
+                <option value="visite-individuelle" selected={defaultType === 'visite-individuelle'}>Visite individuelle</option>
+                <option value="visite-groupe" selected={defaultType === 'visite-groupe'}>Groupe adultes</option>
+                <option value="visite-scolaire" selected={defaultType === 'visite-scolaire'}>Groupe scolaire ou enfants</option>
+                <option value="visite-entreprise" selected={defaultType === 'visite-entreprise'}>Entreprise, CE, team-building</option>
+                <option value="privatisation" selected={defaultType === 'privatisation'}>Privatisation d'un espace</option>
+              </select>
+            </label>
+            <label class="field md:col-span-2" id="quote-espace-field" hidden={defaultType !== 'privatisation'}>
+              <span class="field-label">Espace <span class="text-brique">*</span></span>
+              <select class="select" name="espace" id="quote-espace">
+                <option value="">Choisir un espace</option>
+                {espaces.map((espace) => <option value={espace.id}>{espace.nom}</option>)}
+              </select>
+              <span id="erreur-espace" class="field-error" hidden></span>
+            </label>
+            <label class="field">
+              <span class="field-label">Date souhaitée <span class="text-brique">*</span></span>
+              <input class="input" type="date" name="date" id="quote-date" />
+              <span id="erreur-date" class="field-error" hidden></span>
+            </label>
+            <label class="choice-card self-end">
+              <input class="checkbox" type="checkbox" name="flexible" />
+              <span class="text-sm text-nuit">Je suis flexible sur la date</span>
+            </label>
+            <label class="field">
+              <span class="field-label">Heure de début</span>
+              <input class="input" type="time" name="heureDebut" value="10:00" />
+            </label>
+            <label class="field">
+              <span class="field-label">Heure de fin</span>
+              <input class="input" type="time" name="heureFin" value="17:00" />
+            </label>
+            <label class="field">
+              <span class="field-label">Adultes <span class="text-brique">*</span></span>
+              <input class="input" type="number" name="adultes" id="quote-adultes" min="0" step="1" value="10" inputmode="numeric" />
+            </label>
+            <label class="field">
+              <span class="field-label">Enfants</span>
+              <input class="input" type="number" name="enfants" id="quote-enfants" min="0" step="1" value="0" inputmode="numeric" />
+            </label>
+            <p id="erreur-participants" class="field-error md:col-span-2" hidden></p>
+            <label class="field md:col-span-2">
+              <span class="field-label">Langue de la visite</span>
+              <select class="select" name="langue">
+                <option value="fr" selected>Français</option>
+                <option value="en">Anglais (demande, non traduit automatiquement)</option>
+              </select>
+            </label>
+          </div>
+          <div class="grid gap-3">
+            <label class="choice-card"><input class="checkbox" type="checkbox" name="guide" /><span class="text-sm">Guide-conférencier</span></label>
+            <label class="choice-card"><input class="checkbox" type="checkbox" name="livret" /><span class="text-sm">Livret</span></label>
+            <label class="choice-card"><input class="checkbox" type="checkbox" name="restauration" /><span class="text-sm">Pause restauration</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="space-y-4">
+          <legend class="font-display text-2xl text-bleu">Coordonnées</legend>
+          <div class="grid gap-4 md:grid-cols-2">
+            <label class="field">
+              <span class="field-label">Prénom <span class="text-brique">*</span></span>
+              <input class="input" name="prenom" id="quote-prenom" autocomplete="given-name" />
+              <span id="erreur-prenom" class="field-error" hidden></span>
+            </label>
+            <label class="field">
+              <span class="field-label">Nom <span class="text-brique">*</span></span>
+              <input class="input" name="nom" id="quote-nom" autocomplete="family-name" />
+              <span id="erreur-nom" class="field-error" hidden></span>
+            </label>
+            <label class="field">
+              <span class="field-label">E-mail <span class="text-brique">*</span></span>
+              <input class="input" type="email" name="email" id="quote-email" autocomplete="email" />
+              <span id="erreur-email" class="field-error" hidden></span>
+            </label>
+            <label class="field">
+              <span class="field-label">Téléphone <span class="text-brique">*</span></span>
+              <input class="input" type="tel" name="telephone" id="quote-telephone" autocomplete="tel" />
+              <span id="erreur-telephone" class="field-error" hidden></span>
+            </label>
+            <div class="md:col-span-2 grid gap-3 sm:grid-cols-2">
+              <label class="choice-card">
+                <input class="checkbox" type="radio" name="organisation" value="particulier" checked />
+                <span class="text-sm font-semibold">Particulier</span>
+              </label>
+              <label class="choice-card">
+                <input class="checkbox" type="radio" name="organisation" value="organisation" />
+                <span class="text-sm font-semibold">Entreprise, association, établissement</span>
+              </label>
+            </div>
+            <label class="field" id="quote-raison-field" hidden>
+              <span class="field-label">Raison sociale</span>
+              <input class="input" name="raisonSociale" autocomplete="organization" />
+            </label>
+            <label class="field">
+              <span class="field-label">Adresse de facturation</span>
+              <input class="input" name="facturation" autocomplete="billing street-address" />
+              <span class="field-hint">Si elle diffère de l'adresse du contact.</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <label class="field">
+          <span class="field-label">Message</span>
+          <textarea class="textarea" name="message" id="quote-message" maxlength="2000"></textarea>
+          <span id="erreur-message" class="field-error" hidden></span>
+        </label>
+
+        <label class="choice-card">
+          <input class="checkbox" type="checkbox" name="rgpd" id="quote-rgpd" />
+          <span class="text-sm text-nuit">
+            J'accepte que la SETF utilise ces informations pour répondre à ma demande. Dans ce prototype, rien n'est envoyé ni enregistré : le récapitulatif reste dans le navigateur.
+            <span class="text-brique"> *</span>
+          </span>
+        </label>
+        <p id="erreur-rgpd" class="field-error" hidden></p>
+
+        <div id="quote-summary-error" class="rounded-md border border-erreur/40 bg-white p-4 text-sm text-erreur" role="alert" tabindex="-1" hidden></div>
+
+        <button type="submit" class="btn btn-cta btn-lg">Voir le récapitulatif</button>
+        <p class="text-sm text-ardoise">Pas de PDF, pas d'e-mail, pas de paiement. Les montants sont une hypothèse de travail.</p>
+      </form>
+
+      <div id="quote-result" class="mt-2 scroll-mt-28" hidden>
+        <p class="badge badge-provisional">Simulation — aucun document généré</p>
+        <h2 id="quote-result-title" class="mt-3" tabindex="-1"></h2>
+        <p id="quote-result-lead" class="mt-2 text-ardoise"></p>
+        <dl id="quote-result-meta" class="mt-6 grid gap-3 text-sm sm:grid-cols-2"></dl>
+        <div id="quote-result-table-wrap" class="mt-6 overflow-x-auto" hidden>
+          <table class="w-full min-w-[32rem] border-collapse text-left text-sm">
+            <thead>
+              <tr class="border-b border-bleu-clair text-xs uppercase tracking-wider text-ardoise">
+                <th class="py-2 pr-3 font-semibold">Désignation</th>
+                <th class="py-2 pr-3 font-semibold">Détail</th>
+                <th class="py-2 text-right font-semibold">Montant HT</th>
+              </tr>
+            </thead>
+            <tbody id="quote-result-lines"></tbody>
+            <tfoot id="quote-result-totals" class="font-semibold text-nuit"></tfoot>
+          </table>
+        </div>
+        <p id="quote-result-mention" class="mt-4 text-sm text-ardoise"></p>
+        <p class="mt-4 text-sm text-nuit">Aucun e-mail n'est envoyé. Aucun PDF n'est généré. Les informations restent dans votre navigateur.</p>
+        <button type="button" class="btn btn-outline mt-6" id="quote-edit">Modifier la demande</button>
+      </div>
+      <noscript class="mt-6 block text-sm text-ardoise">Activez JavaScript pour afficher le récapitulatif. Aucune donnée n'est transmise.</noscript>
+    </div>
+
+    <aside class="rounded-md border border-bleu-clair bg-gris-clair p-5 text-sm text-ardoise lg:sticky lg:top-28">
+      <h2 class="font-display text-xl text-bleu">Ce que fait ce formulaire</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-4">
+        <li>Il prépare un récapitulatif, chiffré seulement pour une réservation.</li>
+        <li>La grille de tarifs est provisoire (`src/data/tarifs-visites.json`).</li>
+        <li>Le compte Weezevent n'est pas utilisé ici : la billetterie grand public est sur l'agenda.</li>
+      </ul>
+    </aside>
+  </div>
+</div>
+
+<script>
+  import { computeQuote, formatEuros, type QuoteInput, type TypeDemande } from '@/lib/quote';
+
+  const form = document.querySelector<HTMLFormElement>('#quote-form');
+  const result = document.querySelector<HTMLElement>('#quote-result');
+  const typeSelect = document.querySelector<HTMLSelectElement>('#quote-type');
+  const espaceField = document.querySelector<HTMLElement>('#quote-espace-field');
+  const espaceSelect = document.querySelector<HTMLSelectElement>('#quote-espace');
+  if (!form || !result || !typeSelect || !espaceField || !espaceSelect) throw new Error('formulaire incomplet');
+
+  const params = new URLSearchParams(location.search);
+  const espaceParam = params.get('espace');
+  if (espaceParam && espaceSelect.querySelector(`option[value="${CSS.escape(espaceParam)}"]`)) {
+    typeSelect.value = 'privatisation';
+    espaceSelect.value = espaceParam;
+  }
+
+  const orgRadios = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="organisation"]'));
+  const raisonField = document.querySelector<HTMLElement>('#quote-raison-field');
+
+  function toggleEspace() {
+    const show = typeSelect.value === 'privatisation';
+    espaceField.hidden = !show;
+  }
+  function toggleRaison() {
+    const org = orgRadios.find((radio) => radio.checked)?.value;
+    if (raisonField) raisonField.hidden = org !== 'organisation';
+  }
+  typeSelect.addEventListener('change', toggleEspace);
+  orgRadios.forEach((radio) => radio.addEventListener('change', toggleRaison));
+  toggleEspace();
+  toggleRaison();
+
+  const errorIds = ['motif', 'espace', 'date', 'participants', 'prenom', 'nom', 'email', 'telephone', 'message', 'rgpd'] as const;
+
+  function clearErrors() {
+    for (const id of errorIds) {
+      const el = document.getElementById(`erreur-${id}`);
+      if (!el) continue;
+      el.hidden = true;
+      el.textContent = '';
+    }
+    const summary = document.getElementById('quote-summary-error');
+    if (summary) {
+      summary.hidden = true;
+      summary.textContent = '';
+    }
+  }
+
+  function showError(id: string, message: string) {
+    const el = document.getElementById(`erreur-${id}`);
+    if (!el) return;
+    el.hidden = false;
+    el.textContent = message;
+  }
+
+  function value(name: string): string {
+    const field = form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(`[name="${name}"]`);
+    if (field instanceof HTMLInputElement && (field.type === 'radio' || field.type === 'checkbox')) {
+      const checked = form.querySelector<HTMLInputElement>(`[name="${name}"]:checked`);
+      return checked?.value ?? '';
+    }
+    return field?.value.trim() ?? '';
+  }
+
+  function checked(name: string): boolean {
+    return Boolean(form.querySelector<HTMLInputElement>(`input[name="${name}"]`)?.checked);
+  }
+
+  function addMeta(label: string, text: string) {
+    const dl = document.getElementById('quote-result-meta');
+    if (!dl) return;
+    const wrap = document.createElement('div');
+    const dt = document.createElement('dt');
+    dt.className = 'text-xs font-semibold uppercase tracking-wider text-ardoise';
+    dt.textContent = label;
+    const dd = document.createElement('dd');
+    dd.className = 'mt-0.5 font-medium text-nuit';
+    dd.textContent = text;
+    wrap.append(dt, dd);
+    dl.append(wrap);
+  }
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    clearErrors();
+    const errors: string[] = [];
+    const motif = value('motif');
+    if (motif !== 'renseignement' && motif !== 'reservation') {
+      showError('motif', 'Indiquez si c’est un renseignement ou une réservation.');
+      errors.push('Motif');
+    }
+    const type = typeSelect.value as TypeDemande;
+    const espaceId = espaceSelect.value;
+    if (motif === 'reservation' && type === 'privatisation' && !espaceId) {
+      showError('espace', 'Choisissez un espace.');
+      errors.push('Espace');
+    }
+    const date = value('date');
+    if (motif === 'reservation' && !date) {
+      showError('date', 'Indiquez une date.');
+      errors.push('Date');
+    }
+    const adultes = Number(value('adultes') || '0');
+    const enfants = Number(value('enfants') || '0');
+    if (motif === 'reservation' && (!Number.isFinite(adultes) || !Number.isFinite(enfants) || adultes + enfants < 1)) {
+      showError('participants', 'Indiquez au moins un participant.');
+      errors.push('Participants');
+    }
+    const prenom = value('prenom');
+    const nom = value('nom');
+    const email = value('email');
+    const telephone = value('telephone');
+    if (prenom.length < 2) { showError('prenom', 'Indiquez un prénom.'); errors.push('Prénom'); }
+    if (nom.length < 2) { showError('nom', 'Indiquez un nom.'); errors.push('Nom'); }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('email', 'Indiquez un e-mail valide.'); errors.push('E-mail'); }
+    if (telephone.replace(/\D/g, '').length < 8) { showError('telephone', 'Indiquez un téléphone.'); errors.push('Téléphone'); }
+    const message = value('message');
+    if (motif === 'renseignement' && message.length < 10) {
+      showError('message', 'Précisez votre question (quelques mots suffisent).');
+      errors.push('Message');
+    }
+    if (!form.querySelector<HTMLInputElement>('#quote-rgpd')?.checked) {
+      showError('rgpd', 'Le consentement est nécessaire pour préparer le récapitulatif.');
+      errors.push('Consentement');
+    }
+    if (errors.length) {
+      const summary = document.getElementById('quote-summary-error');
+      if (summary) {
+        summary.hidden = false;
+        summary.textContent = `Merci de compléter : ${errors.join(', ')}.`;
+        summary.focus();
+      }
+      return;
+    }
+
+    const input: QuoteInput = {
+      motif: motif as QuoteInput['motif'],
+      type,
+      espaceId,
+      date,
+      adultes,
+      enfants,
+      guide: checked('guide'),
+      livret: checked('livret'),
+      restauration: checked('restauration'),
+      nom,
+      prenom,
+    };
+    const quote = computeQuote(input);
+    const title = document.getElementById('quote-result-title');
+    const lead = document.getElementById('quote-result-lead');
+    const meta = document.getElementById('quote-result-meta');
+    const lines = document.getElementById('quote-result-lines');
+    const totals = document.getElementById('quote-result-totals');
+    const tableWrap = document.getElementById('quote-result-table-wrap');
+    const mention = document.getElementById('quote-result-mention');
+    if (!title || !lead || !meta || !lines || !totals || !tableWrap || !mention) return;
+
+    meta.replaceChildren();
+    lines.replaceChildren();
+    totals.replaceChildren();
+    const espaceNom = espaceSelect.selectedOptions[0]?.textContent?.trim() ?? '';
+    const typeNom = typeSelect.selectedOptions[0]?.textContent?.trim() ?? '';
+    const dateLabel = date
+      ? new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${date}T12:00:00`))
+      : 'Non précisée';
+
+    if (!quote) {
+      title.textContent = 'Demande de renseignement préparée';
+      lead.textContent = `${prenom} ${nom}, votre question est récapitulée ci-dessous. Elle n’a pas été transmise.`;
+      addMeta('Motif', 'Renseignement');
+      addMeta('Contact', `${prenom} ${nom} — ${email} — ${telephone}`);
+      if (message) addMeta('Message', message);
+      tableWrap.hidden = true;
+      mention.textContent = '';
+    } else {
+      title.textContent = `Devis ${quote.numero}`;
+      lead.textContent = `Récapitulatif indicatif pour ${prenom} ${nom}. Validité jusqu’au ${new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${quote.validite}T12:00:00`))}.`;
+      addMeta('Motif', 'Réservation');
+      addMeta('Projet', type === 'privatisation' ? espaceNom : typeNom);
+      addMeta('Date', `${dateLabel}${checked('flexible') ? ' (flexible)' : ''}`);
+      addMeta('Horaires', `${value('heureDebut') || '—'} – ${value('heureFin') || '—'}`);
+      addMeta('Participants', `${adultes} adulte(s), ${enfants} enfant(s)`);
+      addMeta('Contact', `${prenom} ${nom} — ${email}`);
+      if (value('raisonSociale')) addMeta('Organisation', value('raisonSociale'));
+      if (value('facturation')) addMeta('Facturation', value('facturation'));
+      for (const row of quote.lignes) {
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-bleu-clair';
+        for (const [text, className] of [
+          [row.label, 'py-2 pr-3'],
+          [row.detail, 'py-2 pr-3 text-ardoise'],
+          [formatEuros(row.montantHT), 'py-2 text-right'],
+        ] as const) {
+          const td = document.createElement('td');
+          td.className = className;
+          td.textContent = text;
+          tr.append(td);
+        }
+        lines.append(tr);
+      }
+      const totalRows: [string, string][] = [
+        ['Total HT', formatEuros(quote.totalHT)],
+        [`TVA ${Math.round(quote.tauxTva * 100)} %`, formatEuros(quote.tva)],
+        ['Total TTC', formatEuros(quote.totalTTC)],
+      ];
+      for (const [label, amount] of totalRows) {
+        const tr = document.createElement('tr');
+        const tdLabel = document.createElement('td');
+        tdLabel.colSpan = 2;
+        tdLabel.className = 'py-1.5 pr-3';
+        tdLabel.textContent = label;
+        const tdAmount = document.createElement('td');
+        tdAmount.className = 'py-1.5 text-right';
+        tdAmount.textContent = amount;
+        tr.append(tdLabel, tdAmount);
+        totals.append(tr);
+      }
+      tableWrap.hidden = false;
+      mention.textContent = quote.mention;
+      result.dataset.quoteReady = 'true';
+    }
+
+    form.hidden = true;
+    result.hidden = false;
+    title.focus();
+  });
+
+  document.getElementById('quote-edit')?.addEventListener('click', () => {
+    result.hidden = true;
+    delete result.dataset.quoteReady;
+    form.hidden = false;
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

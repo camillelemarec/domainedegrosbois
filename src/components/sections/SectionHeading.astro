@@ -1,0 +1,10 @@
+---
+interface Props { eyebrow?: string; title: string; lead?: string; align?: 'left' | 'center'; id?: string; class?: string; light?: boolean }
+const { eyebrow, title, lead, align = 'left', id, class: className = '', light = false } = Astro.props;
+---
+
+<div class:list={['mb-8 md:mb-10', align === 'center' && 'mx-auto text-center', className]}>
+  {eyebrow && <p class:list={['eyebrow', align === 'center' && 'justify-center', light && '!text-dore']}>{eyebrow}</p>}
+  <h2 id={id} class:list={['section-title mt-2', light && '!text-white']}>{title}</h2>
+  {lead && <p class:list={['section-lead', align === 'center' && 'mx-auto', light && '!text-white/85']}>{lead}</p>}
+</div>

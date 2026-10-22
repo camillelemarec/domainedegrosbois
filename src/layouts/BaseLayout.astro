@@ -1,0 +1,71 @@
+---
+/**
+ * Gabarit de base : <head> SEO/hreflang, lien d'évitement, header, contenu, footer, bandeau cookies.
+ * Dans le thème WordPress : header.php / footer.php (ou templates/parts FSE) + wp_head() / wp_footer().
+ */
+import '@/styles/global.css';
+import SiteHeader from '@/components/nav/SiteHeader.astro';
+import SiteFooter from '@/components/nav/SiteFooter.astro';
+import CookieBanner from '@/components/ui/CookieBanner.astro';
+import PrototypeBanner from '@/components/ui/PrototypeBanner.astro';
+import { alternatePath, langFromUrl, useTranslations, LANGS, type Lang } from '@/lib/i18n';
+import site from '@/data/site.json';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Lang;
+  /** Classe ajoutée à <main> (ex. pour un hero collé au header). */
+  mainClass?: string;
+  noIndex?: boolean;
+}
+
+const lang: Lang = Astro.props.lang ?? langFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { title, description = t('meta.tagline'), mainClass = '', noIndex = false } = Astro.props;
+// Se démarquer des homonymes « Domaine de Grosbois » (p.4) : nommage complet dans le <title>.
+const fullTitle = title === site.name ? `${site.name} — ${t('meta.tagline')}` : `${title} · ${site.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    {LANGS.map((alt) => <link rel="alternate" hreflang={alt} href={new URL(alternatePath(Astro.url, alt), canonical.origin).href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(alternatePath(Astro.url, 'fr'), canonical.origin).href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0E386B" />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_GB'} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': ['TouristAttraction', 'EventVenue'],
+      name: site.name,
+      description,
+      url: canonical.origin,
+      address: { '@type': 'PostalAddress', postalCode: site.address.postalCode, addressLocality: site.address.city, addressCountry: 'FR' },
+      parentOrganization: { '@type': 'Organization', name: site.publisher.name, url: site.publisher.website },
+    })} />
+  </head>
+  <body class="bg-white text-encre antialiased">
+    <a href="#contenu" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-nuit focus:px-4 focus:py-3 focus:text-white">
+      {t('a11y.skipToContent')}
+    </a>
+    <PrototypeBanner lang={lang} />
+    <SiteHeader lang={lang} />
+    <main id="contenu" class={mainClass} tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter lang={lang} />
+    <CookieBanner lang={lang} />
+  </body>
+</html>

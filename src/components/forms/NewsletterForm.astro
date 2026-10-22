@@ -1,0 +1,57 @@
+---
+/**
+ * Inscription newsletter : consentement explicite distinct (case non précochée), mention RGPD.
+ * Prototype : aucune donnée envoyée (le submit affiche un message). Production : Dolist (double opt-in).
+ */
+import { localizePath, useTranslations, type Lang } from '@/lib/i18n';
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props { lang: Lang; tone?: 'cream' | 'blue'; class?: string }
+const { lang, tone = 'cream', class: className = '' } = Astro.props;
+const t = useTranslations(lang);
+const uid = `nl-${Math.random().toString(36).slice(2, 8)}`;
+const dark = tone === 'blue';
+---
+
+<section class:list={[dark ? 'bg-bleu text-white' : 'bg-creme text-encre', className]} aria-labelledby={`${uid}-title`}>
+  <div class="container-site grid gap-8 py-12 lg:grid-cols-2 lg:items-center">
+    <div>
+      <p class="eyebrow">{t('header.newsletter')}</p>
+      <h2 id={`${uid}-title`} class:list={['mt-2', dark && '!text-white']}>{t('newsletter.title')}</h2>
+      <p class:list={['mt-2 text-lg', dark ? 'text-white/85' : 'text-ardoise']}>{t('newsletter.text')}</p>
+    </div>
+    <form class="grid gap-3" novalidate data-newsletter-form>
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <label for={`${uid}-email`} class="sr-only">{t('newsletter.email')}</label>
+        <input id={`${uid}-email`} type="email" name="email" class="input flex-1 !text-encre" placeholder={t('newsletter.email')} autocomplete="email" required />
+        <button type="submit" class:list={['btn', dark ? 'btn-gold' : 'btn-primary']}><Icon name="mail" size={18} />{t('newsletter.submit')}</button>
+      </div>
+      <label class="flex items-start gap-3 text-sm">
+        <input type="checkbox" name="consent" class="checkbox" required />
+        <span>{t('newsletter.consent')}</span>
+      </label>
+      <p class:list={['text-xs', dark ? 'text-white/70' : 'text-ardoise']}>
+        {t('newsletter.privacy')} <a href={localizePath('/donnees-personnelles-cookies/', lang)} class="underline underline-offset-2">{t('footer.privacy')}</a>
+      </p>
+      <p class="hidden rounded-sm bg-white/90 px-3 py-2 text-sm font-medium text-succes" role="status" data-newsletter-status></p>
+      <p class:list={['text-xs italic', dark ? 'text-white/60' : 'text-ardoise-clair']}>{t('newsletter.demo')}</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-newsletter-form]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const status = form.querySelector<HTMLElement>('[data-newsletter-status]');
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      if (status) {
+        status.textContent = document.documentElement.lang === 'en'
+          ? 'Thank you! (demo) A confirmation e-mail would be sent to validate your subscription (double opt-in).'
+          : 'Merci ! (démo) Un e-mail de confirmation serait envoyé pour valider votre inscription (double opt-in).';
+        status.classList.remove('hidden');
+      }
+      form.reset();
+    });
+  });
+</script>

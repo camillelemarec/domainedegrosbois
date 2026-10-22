@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "siteName": "Domaine de Grosbois",
+    "tagline": "Castle, world-class trotting training centre and museum — Boissy-Saint-Léger, near Paris",
+    "prototypeBanner": "Mock-up prototype — texts, images, dates and prices are placeholders."
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content",
+    "mainNav": "Main navigation",
+    "footerNav": "Footer navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "social": "Our social networks",
+    "langSwitch": "Choose language",
+    "breadcrumb": "Breadcrumb",
+    "placeholderImage": "Image coming soon",
+    "externalLink": "(opens in a new window)"
+  },
+  "header": {
+    "phone": "Phone",
+    "newsletter": "Newsletter",
+    "contact": "Contact",
+    "search": "Search",
+    "tickets": "Tickets",
+    "quote": "Request a quote"
+  },
+  "nav": {
+    "privatiser": "Private hire",
+    "visiter": "Visit",
+    "decouvrir": "Discover",
+    "infos": "Practical info",
+    "suivre": "Follow us",
+    "grosbois": "Grosbois & you"
+  },
+  "footer": {
+    "address": "Address",
+    "legal": "Legal notice",
+    "privacy": "Privacy & cookies",
+    "sitemap": "Site map",
+    "team": "Our team",
+    "commitments": "Our commitments",
+    "labels": "Labels and awards",
+    "partners": "Our partners",
+    "setf": "A website of the Société du Trotteur Français",
+    "copyright": "© {year} Société du Trotteur Français — Domaine de Grosbois. All rights reserved.",
+    "cookieSettings": "Cookie settings"
+  },
+  "common": {
+    "readMore": "Read more",
+    "seeAll": "See all",
+    "book": "Book",
+    "tickets": "Tickets",
+    "quote": "Request a quote",
+    "download": "Download",
+    "addToCalendar": "Add to my calendar",
+    "from": "From",
+    "free": "Free",
+    "soldOut": "Sold out",
+    "example": "Sample",
+    "provisional": "Placeholder text",
+    "required": "required",
+    "back": "Back",
+    "underConstruction": "Page under construction",
+    "underConstructionText": "This template will be filled with the estate's content during the production phase."
+  },
+  "home": {
+    "heroTitle": "Domaine de Grosbois",
+    "heroSubtitle": "A 17th-century castle, 400 hectares of nature and the world's largest trotting training centre, 15 km from Paris-Vincennes.",
+    "ctaVisit": "Book a visit",
+    "ctaPrivatize": "Hire a venue",
+    "audienceTitle": "You are…",
+    "entriesTitle": "What would you like to do?",
+    "facetsTitle": "One estate, three facets",
+    "spacesTitle": "Hire the estate",
+    "spacesIntro": "Six exceptional venues for seminars, receptions, film shoots and weddings, from 20 to 1,000 guests.",
+    "agendaTitle": "Upcoming events",
+    "commitmentsTitle": "Our commitments",
+    "newsletterTitle": "Stay informed"
+  },
+  "agenda": {
+    "title": "Events & tickets",
+    "intro": "Guided tours, special days and public events: book your tickets online.",
+    "tabAgenda": "Events",
+    "tabTickets": "Tickets",
+    "filterType": "Type",
+    "filterAudience": "Audience",
+    "filterMonth": "Month",
+    "all": "All",
+    "noResult": "No event matches these criteria.",
+    "groupsTitle": "Groups, schools, companies",
+    "groupsText": "From 10 people, visits are booked on request with a personalised quote.",
+    "groupsCta": "Request a visit quote",
+    "ticketsTitle": "How to book?",
+    "ticketsText": "Online ticketing is provided by the estate's ticketing platform (to be confirmed). Payment is secure; tickets are sent by e-mail.",
+    "ticketsCta": "Go to ticketing",
+    "practical": "The estate is private and accessible by reservation only.",
+    "results": "{count} event(s)"
+  },
+  "space": {
+    "capacities": "Capacity by layout",
+    "scenography": "Scenography",
+    "history": "History & highlights",
+    "technical": "Technical sheet",
+    "services": "Services",
+    "access": "Access",
+    "gallery": "Gallery",
+    "quote": "Quote",
+    "otherSpaces": "Discover the other venues",
+    "onThisPage": "On this page",
+    "surface": "Area",
+    "operator": "Operator",
+    "ctaTitle": "Planning an event?",
+    "ctaText": "Tell us about your project: we will send you a personalised quote within 2 working days.",
+    "testimonials": "They trusted us",
+    "people": "pers.",
+    "config": {
+      "theatre": "Theatre",
+      "u": "U-shape",
+      "classe": "Classroom",
+      "cabaret": "Cabaret",
+      "cocktail": "Cocktail",
+      "banquet": "Banquet"
+    }
+  },
+  "cookies": {
+    "title": "Cookies and privacy",
+    "text": "This site uses cookies strictly necessary for its operation. With your consent, third-party services (maps, videos, ticketing, analytics) may set other cookies. You can change your choice at any time.",
+    "accept": "Accept all",
+    "refuse": "Refuse all",
+    "customize": "Customise",
+    "notice": "Demo banner: the final version will use the tarteaucitron CMP (SETF contract)."
+  },
+  "newsletter": {
+    "title": "Get the estate's news",
+    "text": "Visits, events, behind the scenes of the training centre: one letter a month, no more.",
+    "email": "Your e-mail address",
+    "consent": "I agree to receive the Domaine de Grosbois newsletter. I can unsubscribe at any time via the link in each e-mail.",
+    "submit": "Subscribe",
+    "privacy": "Your data is processed by SETF to send the newsletter (legal basis: consent). Learn more: Privacy & cookies.",
+    "demo": "Prototype: no data is sent or stored."
+  }
+}

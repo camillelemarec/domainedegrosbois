@@ -1,0 +1,26 @@
+{
+  "ordre": 5,
+  "provisoire": true,
+  "nom": { "fr": "La Piste couverte", "en": "The Indoor Track" },
+  "accroche": {
+    "fr": "[Texte provisoire] Un volume hors norme pour les grands formats : conventions, salons, lancements, événements sportifs ou tournages.",
+    "en": "[Placeholder] An extraordinary volume for large formats: conventions, trade shows, launches, sporting events or film shoots."
+  },
+  "description": [
+    { "fr": "[Texte provisoire] Équipement de pointe du centre d'entraînement, la piste couverte peut accueillir plusieurs centaines de personnes et des installations techniques lourdes.", "en": "[Placeholder] A state-of-the-art facility of the training centre, the indoor track can host several hundred people and heavy technical set-ups." }
+  ],
+  "surface": "1 800 m² (manège, site actuel — à confirmer)",
+  "capacites": { "theatre": 1000, "u": null, "classe": null, "cabaret": 500, "cocktail": 1000, "banquet": 600 },
+  "ficheTechnique": [
+    { "label": { "fr": "Accès technique", "en": "Technical access" }, "valeur": { "fr": "[à confirmer] Accès poids lourds, puissance électrique", "en": "[tbc] Heavy vehicle access, electrical power" } }
+  ],
+  "prestations": [
+    { "fr": "Conventions et grands événements", "en": "Conventions and large events" },
+    { "fr": "Démonstrations de trot et baptêmes en sulky", "en": "Trotting demonstrations and sulky rides" }
+  ],
+  "images": {
+    "hero": { "src": "espaces/piste-couverte/piste-couverte-hero-01.jpg", "alt": { "fr": "Piste couverte du centre d'entraînement", "en": "Indoor track of the training centre" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
+    "vignette": { "src": "espaces/piste-couverte/piste-couverte-vignette-01.jpg", "alt": { "fr": "Piste couverte", "en": "Indoor track" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "galerie": []
+  }
+}

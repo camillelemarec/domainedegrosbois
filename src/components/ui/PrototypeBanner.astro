@@ -1,0 +1,11 @@
+---
+/** Filet discret rappelant que les contenus sont provisoires. À supprimer en production. */
+import { useTranslations, type Lang } from '@/lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<p class="no-print bg-[#fff3cd] px-4 py-1.5 text-center text-xs font-medium text-[#6b4f00]" role="note">
+  {t('meta.prototypeBanner')}
+</p>

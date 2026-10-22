@@ -1,0 +1,27 @@
+{
+  "ordre": 3,
+  "provisoire": true,
+  "nom": { "fr": "Le Château", "en": "The Castle" },
+  "accroche": {
+    "fr": "[Texte provisoire] Les salons historiques du château du XVIIe siècle pour vos réceptions de prestige, dîners de gala et tournages.",
+    "en": "[Placeholder] The historic reception rooms of the 17th-century castle for prestige receptions, gala dinners and film shoots."
+  },
+  "description": [
+    { "fr": "[Texte provisoire] Salons en enfilade, décors d'époque et collections : le château est l'atout prestige du Domaine. Ses salons se privatisent en journée ou en soirée, dans le respect du monument.", "en": "[Placeholder] Interconnecting reception rooms, period decor and collections: the castle is the estate's prestige asset. Its rooms can be hired by day or evening, in keeping with the monument." }
+  ],
+  "surface": "800 m² (site actuel — à confirmer)",
+  "capacites": { "theatre": 80, "u": 30, "classe": null, "cabaret": 48, "cocktail": 150, "banquet": 80 },
+  "ficheTechnique": [
+    { "label": { "fr": "Protection", "en": "Protection" }, "valeur": { "fr": "Monument historique : conditions d'usage spécifiques", "en": "Historic monument: specific conditions of use" } }
+  ],
+  "prestations": [
+    { "fr": "Dîners de gala et réceptions", "en": "Gala dinners and receptions" },
+    { "fr": "Tournages et shootings professionnels", "en": "Professional film and photo shoots" },
+    { "fr": "Visites privées des collections", "en": "Private tours of the collections" }
+  ],
+  "images": {
+    "hero": { "src": "espaces/chateau/chateau-hero-01.jpg", "alt": { "fr": "Salon du château de Grosbois", "en": "Reception room of Grosbois castle" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
+    "vignette": { "src": "espaces/chateau/chateau-vignette-01.jpg", "alt": { "fr": "Salons du château", "en": "Castle reception rooms" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "galerie": []
+  }
+}

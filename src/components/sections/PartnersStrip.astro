@@ -1,0 +1,26 @@
+---
+/** Bandeau partenaires « Ils nous accompagnent » (p.9, p.13 : multiplier les liens croisés). */
+import { partnerLogos } from '@/data/images';
+import { resolveImage } from '@/lib/images';
+import { useTranslations, type Lang } from '@/lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const partners = Object.entries(partnerLogos).map(([id, entry]) => ({ id, ...resolveImage(entry, lang) }));
+---
+
+<section class="border-t border-white/10" aria-labelledby="partners-title">
+  <div class="container-site py-6">
+    <h2 id="partners-title" class="font-body text-center text-xs font-semibold uppercase tracking-[0.2em] text-dore">{t('footer.partners')}</h2>
+    <ul class="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+      {partners.map((p) => (
+        <li>
+          <span class="inline-flex h-10 items-center rounded-sm px-2 text-sm text-white/80">
+            {p.exists ? <img src={p.url} alt={p.altText} class="h-8 w-auto brightness-0 invert opacity-80" loading="lazy" /> : <span data-expected={p.src}>{p.altText}</span>}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

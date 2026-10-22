@@ -1,0 +1,38 @@
+---
+/**
+ * Hero : variante `full` (accueil : château plein écran, p.7, p.10) ou `short` (hubs, fiches).
+ * Voile dégradé obligatoire pour garantir le contraste du texte sur photo (p.16, p.18).
+ */
+import Img from '@/components/media/Img.astro';
+import type { ImageRef } from '@/lib/images';
+import type { Lang } from '@/lib/i18n';
+
+interface Props {
+  image: ImageRef;
+  lang: Lang;
+  variant?: 'full' | 'short';
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+  class?: string;
+}
+const { image, lang, variant = 'short', eyebrow, title, subtitle, align = 'left', class: className = '' } = Astro.props;
+---
+
+<section class:list={['hero relative isolate overflow-hidden bg-nuit text-white', variant === 'full' ? 'hero-full' : 'hero-short', className]}>
+  <Img image={image} lang={lang} ratio="auto" loading="eager" fetchpriority="high" tone="dark" class="absolute inset-0 h-full w-full" />
+  <div class="overlay-hero absolute inset-0" aria-hidden="true"></div>
+  <div class:list={['container-site relative flex h-full flex-col justify-end pb-10 pt-16 md:pb-16', align === 'center' && 'items-center text-center']}>
+    {eyebrow && <p class="eyebrow !text-dore">{eyebrow}</p>}
+    <h1 class="mt-2 max-w-3xl !text-white drop-shadow-[0_2px_12px_rgba(2,30,65,0.5)]">{title}</h1>
+    {subtitle && <p class="mt-4 max-w-2xl text-lg text-white/90 md:text-xl drop-shadow-[0_1px_8px_rgba(2,30,65,0.6)]">{subtitle}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .hero-full { min-height: min(88dvh, 52rem); }
+  .hero-short { min-height: clamp(16rem, 40vw, 26rem); }
+  @media (max-width: 40rem) { .hero-full { min-height: 34rem; } }
+</style>

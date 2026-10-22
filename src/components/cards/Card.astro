@@ -1,0 +1,57 @@
+---
+/**
+ * Carte générique photo + titre + méta + CTA (p.15, p.16 : événements et visites « par photos »).
+ * Toute la carte est cliquable (lien étendu), focus visible sur la carte.
+ */
+import Img from '@/components/media/Img.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { ImageRef } from '@/lib/images';
+import type { Lang } from '@/lib/i18n';
+
+interface Props {
+  image: ImageRef;
+  lang: Lang;
+  title: string;
+  href: string;
+  eyebrow?: string;
+  text?: string;
+  meta?: string[];
+  cta?: string;
+  badge?: string;
+  badgeStyle?: 'default' | 'gold' | 'brick' | 'provisional';
+  headingLevel?: 'h2' | 'h3';
+  ratio?: string;
+  class?: string;
+}
+const { image, lang, title, href, eyebrow, text, meta = [], cta, badge, badgeStyle = 'default', headingLevel = 'h3', ratio = '4/3', class: className = '' } = Astro.props;
+const Heading = headingLevel;
+const badgeClass = { default: 'badge', gold: 'badge badge-gold', brick: 'badge badge-brick', provisional: 'badge badge-provisional' }[badgeStyle];
+---
+
+<article class:list={['card relative', className]}>
+  <div class="relative">
+    <Img image={image} lang={lang} ratio={ratio} />
+    {badge && <span class:list={[badgeClass, 'absolute left-3 top-3']}>{badge}</span>}
+  </div>
+  <div class="flex flex-1 flex-col gap-2 p-5">
+    {eyebrow && <p class="text-xs font-semibold uppercase tracking-[0.12em] text-dore-fonce">{eyebrow}</p>}
+    <Heading class="text-xl leading-snug">
+      <a href={href} class="card-link font-display text-bleu no-underline hover:underline underline-offset-4 focus-visible:outline-none">{title}</a>
+    </Heading>
+    {meta.length > 0 && (
+      <ul class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-ardoise">
+        {meta.map((m) => <li>{m}</li>)}
+      </ul>
+    )}
+    {text && <p class="text-sm leading-relaxed text-ardoise">{text}</p>}
+    {cta && (
+      <span class="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-semibold text-bleu" aria-hidden="true">
+        {cta}<Icon name="arrow-right" size={16} />
+      </span>
+    )}
+  </div>
+</article>
+
+<style>
+  .card:focus-within { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+</style>

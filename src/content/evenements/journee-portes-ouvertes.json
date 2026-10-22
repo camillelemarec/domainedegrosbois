@@ -1,0 +1,14 @@
+{
+  "provisoire": true,
+  "titre": { "fr": "Journée portes ouvertes du Domaine", "en": "Estate open day" },
+  "type": "journee-speciale",
+  "public": "tout-public",
+  "dateDebut": "2026-12-06",
+  "heureDebut": "10:00",
+  "heureFin": "18:00",
+  "lieu": { "fr": "Tout le Domaine", "en": "Whole estate" },
+  "prix": null,
+  "image": { "src": "evenements/journee-portes-ouvertes-01.jpg", "alt": { "fr": "Visiteurs devant le château lors d'une journée portes ouvertes", "en": "Visitors in front of the castle during an open day" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+  "urlBilletterie": "#billetterie",
+  "description": { "fr": "[Texte provisoire] Château, musée, écuries et démonstrations de trot : une journée gratuite sur inscription pour découvrir le Domaine en famille.", "en": "[Placeholder] Castle, museum, stables and trotting demonstrations: a free day, registration required, to discover the estate with the family." }
+}

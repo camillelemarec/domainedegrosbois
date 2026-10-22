@@ -1,0 +1,55 @@
+---
+/**
+ * Bandeau cookies de démonstration — NON bloquant (pas de voile, pas de pop-up à l'ouverture),
+ * « Tout refuser » au même niveau que « Tout accepter » (recommandation CNIL).
+ * Production : remplacé par tarteaucitron.js (contrat SETF), qui gère le blocage des scripts tiers
+ * (Google Maps, YouTube, billetterie, mesure d'audience) avant consentement.
+ * Le choix est mémorisé en localStorage uniquement pour la démo (aucune donnée transmise).
+ */
+import { useTranslations, type Lang } from '@/lib/i18n';
+import Icon from '@/components/ui/Icon.astro';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div
+  id="cookie-banner"
+  class="no-print fixed inset-x-3 bottom-3 z-[60] hidden max-w-xl rounded-md border border-bleu-clair bg-white p-4 shadow-lg md:inset-x-auto md:left-6 md:bottom-6"
+  role="region"
+  aria-label={t('cookies.title')}
+  data-cookie-banner
+>
+  <div class="flex items-start gap-3">
+    <span class="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-bleu-clair text-bleu"><Icon name="cookie" size={20} /></span>
+    <div class="flex-1">
+      <h2 class="font-display text-xl font-semibold text-bleu">{t('cookies.title')}</h2>
+      <p class="mt-1 text-sm text-ardoise">{t('cookies.text')}</p>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <button type="button" class="btn btn-primary btn-sm" data-cookie-action="accept">{t('cookies.accept')}</button>
+        <button type="button" class="btn btn-outline btn-sm" data-cookie-action="refuse">{t('cookies.refuse')}</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-cookie-action="customize">{t('cookies.customize')}</button>
+      </div>
+      <p class="mt-2 text-xs text-ardoise-clair">{t('cookies.notice')}</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const KEY = 'grosbois-cookie-demo';
+  const banner = document.querySelector<HTMLElement>('[data-cookie-banner]');
+  const show = () => banner?.classList.remove('hidden');
+  const hide = () => banner?.classList.add('hidden');
+  try {
+    if (!localStorage.getItem(KEY)) show();
+  } catch { show(); }
+  banner?.querySelectorAll<HTMLButtonElement>('[data-cookie-action]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const action = btn.dataset.cookieAction;
+      try { localStorage.setItem(KEY, action === 'accept' ? 'all' : 'none'); } catch {}
+      hide();
+    });
+  });
+  // Lien « Gérer mes cookies » du footer : rouvre le bandeau (tarteaucitron : tarteaucitron.userInterface.openPanel()).
+  document.querySelectorAll('[data-cookie-settings]').forEach((el) => el.addEventListener('click', show));
+</script>

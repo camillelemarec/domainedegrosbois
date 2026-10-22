@@ -1,0 +1,15 @@
+{
+  "provisoire": true,
+  "titre": { "fr": "Week-end « Vivement l'hiver ! »", "en": "“Roll on winter!” weekend" },
+  "type": "evenement",
+  "public": "tout-public",
+  "dateDebut": "2027-02-06",
+  "dateFin": "2027-02-07",
+  "heureDebut": "10:00",
+  "heureFin": "17:00",
+  "lieu": { "fr": "Centre d'entraînement et piste couverte", "en": "Training centre and indoor track" },
+  "prix": 15,
+  "image": { "src": "evenements/week-end-vivement-l-hiver-01.jpg", "alt": { "fr": "Trotteur attelé sur la piste en hiver", "en": "Harnessed trotter on the track in winter" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+  "urlBilletterie": "#billetterie",
+  "description": { "fr": "[Texte provisoire] Au cœur du meeting d'hiver de Vincennes, rencontrez entraîneurs et drivers et assistez aux séances de travail des cracks.", "en": "[Placeholder] In the midst of the Vincennes winter meeting, meet trainers and drivers and watch the champions' training sessions." }
+}

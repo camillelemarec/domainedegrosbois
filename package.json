@@ -1,0 +1,32 @@
+{
+  "name": "domaine-de-grosbois-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prototype de refonte du site du Domaine de Grosbois (SETF / LeTROT) — Astro + Tailwind, transposable en thème WordPress (hébergement Digdeo).",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:images": "node scripts/check-images.mjs",
+    "screenshots": "node scripts/export-screens.mjs"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^5.1.5",
+    "@fontsource/cormorant-garamond": "^5.2.0",
+    "@fontsource/jost": "^5.2.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "astro": "^6.4.8",
+    "preact": "^10.26.0",
+    "tailwindcss": "^4.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "playwright-core": "^1.50.0",
+    "typescript": "^5.8.0"
+  }
+}

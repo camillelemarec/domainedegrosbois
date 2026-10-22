@@ -1,0 +1,168 @@
+---
+/**
+ * Gabarit « Accueil » (livrable L1, maquette p.10) : hero château, « Vous êtes… », 3 entrées
+ * Évènements / Visites / Actualités, 3 facettes du Domaine, mosaïque Privatiser + CTA devis,
+ * prochains rendez-vous, engagements, newsletter. Rendu en FR (/) et EN (/en/).
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/Hero.astro';
+import AudienceSwitcher from '@/components/sections/AudienceSwitcher.astro';
+import SectionHeading from '@/components/sections/SectionHeading.astro';
+import Card from '@/components/cards/Card.astro';
+import EventCard from '@/components/cards/EventCard.astro';
+import CtaBanner from '@/components/sections/CtaBanner.astro';
+import Img from '@/components/media/Img.astro';
+import Icon from '@/components/ui/Icon.astro';
+import site from '@/data/site.json';
+import { formatDate, localizePath, useTranslations, type Lang } from '@/lib/i18n';
+import type { ImageKey } from '@/data/images';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const l = (p: string) => localizePath(p, lang);
+
+const espaces = (await getCollection('espaces')).sort((a, b) => a.data.ordre - b.data.ordre);
+const evenements = (await getCollection('evenements')).sort((a, b) => a.data.dateDebut.localeCompare(b.data.dateDebut)).slice(0, 3);
+const actualites = (await getCollection('actualites')).sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const entries: { image: ImageKey; fr: string; en: string; textFr: string; textEn: string; href: string }[] = [
+  { image: 'accueil.entree-evenements', fr: 'Évènements', en: 'Events', textFr: 'Journées spéciales, Noël au château, rendez-vous du trot : réservez vos billets.', textEn: 'Special days, Christmas at the castle, trotting events: book your tickets.', href: '/agenda/' },
+  { image: 'accueil.entree-visites', fr: 'Visites', en: 'Visits', textFr: 'Château, centre d’entraînement et musée en visite guidée, seul, en famille ou en groupe.', textEn: 'Guided tours of the castle, training centre and museum — solo, family or group.', href: '/visiter/reserver/' },
+  { image: 'accueil.entree-actualites', fr: 'Actualités', en: 'News', textFr: 'La vie du Domaine, les cracks à l’entraînement, nos engagements.', textEn: 'Life on the estate, champions in training, our commitments.', href: '#actualites' },
+];
+
+const facets: { image: ImageKey; fr: string; en: string; textFr: string; textEn: string; href: string }[] = [
+  { image: 'chateau.facade-cour', fr: 'Le château', en: 'The castle', textFr: '[Texte provisoire] Un passé royal, un bijou architectural du XVIIe siècle et des collections inestimables.', textEn: '[Placeholder] A royal past, a 17th-century architectural gem and priceless collections.', href: '/decouvrir/chateau/' },
+  { image: 'centre.piste', fr: 'Le centre d’entraînement', en: 'The training centre', textFr: '[Texte provisoire] De Joinville à Grosbois : des infrastructures de pointe où s’entraînent les cracks du trot.', textEn: '[Placeholder] From Joinville to Grosbois: state-of-the-art facilities where trotting champions train.', href: '/decouvrir/centre-d-entrainement/' },
+  { image: 'musee.salle', fr: 'Le musée du trot', en: 'The trotting museum', textFr: '[Texte provisoire] Du fiacre au sulky, deux siècles d’histoire et un centre de documentation.', textEn: '[Placeholder] From hackney cab to sulky, two centuries of history and a documentation centre.', href: '/decouvrir/musee-du-trot/' },
+];
+
+const engagements = lang === 'fr'
+  ? ['Forêt de 220 ha certifiée PEFC', 'Apiculture, plantations et foins du Domaine', 'Bien-être animal : la charte SETF', 'Recyclage et projet de méthanisation']
+  : ['220 ha PEFC-certified forest', 'Beekeeping, planting and hay from the estate', 'Animal welfare: the SETF charter', 'Recycling and biomethane project'];
+---
+
+<BaseLayout title={site.name} lang={lang}>
+  <Hero
+    image="accueil.hero"
+    lang={lang}
+    variant="full"
+    eyebrow={lang === 'fr' ? 'Boissy-Saint-Léger · à 15 km de Paris-Vincennes' : 'Boissy-Saint-Léger · 15 km from Paris-Vincennes'}
+    title={t('home.heroTitle')}
+    subtitle={t('home.heroSubtitle')}
+  >
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={site.ticketingUrl} class="btn btn-gold btn-lg"><Icon name="ticket" size={20} />{t('home.ctaVisit')}</a>
+      <a href={l('/privatiser/espaces/orangerie/')} class="btn btn-outline-light btn-lg">{t('home.ctaPrivatize')}</a>
+    </div>
+  </Hero>
+
+  <AudienceSwitcher lang={lang} />
+
+  <section class="section" aria-labelledby="entrees">
+    <div class="container-site">
+      <SectionHeading id="entrees" eyebrow={t('meta.siteName')} title={t('home.entriesTitle')} />
+      <div class="grid gap-6 md:grid-cols-3">
+        {entries.map((e) => (
+          <Card image={e.image} lang={lang} title={e[lang]} text={lang === 'fr' ? e.textFr : e.textEn} href={l(e.href)} cta={t('common.readMore')} headingLevel="h3" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-gris-clair" aria-labelledby="facettes">
+    <div class="container-site">
+      <SectionHeading id="facettes" eyebrow={t('nav.decouvrir')} title={t('home.facetsTitle')} lead={lang === 'fr' ? '400 hectares, trois univers : le patrimoine, le sport et la mémoire du trot français.' : '400 hectares, three worlds: heritage, sport and the memory of French trotting.'} />
+      <div class="grid gap-6 md:grid-cols-3">
+        {facets.map((f) => (
+          <article class="relative block overflow-hidden rounded-md shadow-sm">
+            <Img image={f.image} lang={lang} ratio="3/4" />
+            <div class="overlay-card absolute inset-0" aria-hidden="true"></div>
+            <div class="absolute inset-x-0 bottom-0 p-5 text-white">
+              <h3 class="font-display text-2xl !text-white">{f[lang]}</h3>
+              <p class="mt-1 text-sm text-white/85">{lang === 'fr' ? f.textFr : f.textEn}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="privatiser" id="privatiser">
+    <div class="container-site">
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <SectionHeading id="privatiser-title" eyebrow={t('nav.privatiser')} title={t('home.spacesTitle')} lead={t('home.spacesIntro')} class="!mb-0" />
+        <a href={l('/privatiser/demande-de-devis/')} class="btn btn-cta shrink-0">{t('common.quote')}<Icon name="arrow-right" size={18} /></a>
+      </div>
+      <ul class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
+        {espaces.map((e) => (
+          <li>
+            <a href={l(`/privatiser/espaces/${e.id}/`)} class="group relative block overflow-hidden rounded-md">
+              <Img image={e.data.images.vignette} lang={lang} ratio="4/3" class="transition-transform duration-500 group-hover:scale-105" />
+              <div class="overlay-card absolute inset-0" aria-hidden="true"></div>
+              <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-4 text-white">
+                <span class="font-display text-xl font-semibold leading-tight">{e.data.nom[lang] ?? e.data.nom.fr}</span>
+                <span class="hidden items-center gap-1 text-xs font-semibold text-dore sm:inline-flex"><Icon name="users" size={14} />{Math.max(...Object.values(e.data.capacites).filter((v): v is number => v !== null))}</span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section bg-creme" aria-labelledby="agenda-accueil">
+    <div class="container-site">
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <SectionHeading id="agenda-accueil" eyebrow={t('agenda.title')} title={t('home.agendaTitle')} class="!mb-0" />
+        <a href={l('/agenda/')} class="btn btn-outline shrink-0">{t('common.seeAll')}<Icon name="arrow-right" size={18} /></a>
+      </div>
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        {evenements.map((ev) => <EventCard event={ev} lang={lang} compact />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="engagements">
+    <div class="container-site grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div>
+        <SectionHeading id="engagements" eyebrow={t('nav.grosbois')} title={t('home.commitmentsTitle')} lead={lang === 'fr' ? '[Texte provisoire] Mot du chef d’établissement : un domaine vivant, géré durablement, au service du cheval et du territoire.' : '[Placeholder] A living estate, sustainably managed, serving the horse and the local area.'} />
+        <ul class="grid gap-3 sm:grid-cols-2">
+          {engagements.map((item) => (
+            <li class="flex items-start gap-3 rounded-md border border-bleu-clair bg-white p-4 text-sm font-medium text-nuit">
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-creme text-dore-fonce"><Icon name="leaf" size={18} /></span>{item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div id="actualites">
+        <h3 class="font-display text-2xl">{lang === 'fr' ? 'Dernières actualités' : 'Latest news'}</h3>
+        <ul class="mt-4 divide-y divide-bleu-clair border-y border-bleu-clair">
+          {actualites.map((a) => (
+            <li>
+              <div class="flex gap-4 py-4">
+                <Img image={a.data.image} lang={lang} ratio="1/1" class="w-20 shrink-0 rounded-sm" />
+                <div class="min-w-0">
+                  <time datetime={a.data.date} class="text-xs font-semibold uppercase tracking-wider text-dore-fonce">{formatDate(a.data.date, lang, { weekday: undefined })}</time>
+                  <p class="mt-0.5 font-semibold text-nuit">{a.data.titre[lang] ?? a.data.titre.fr}</p>
+                  <p class="mt-0.5 line-clamp-2 text-sm text-ardoise">{a.data.extrait[lang] ?? a.data.extrait.fr}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title={lang === 'fr' ? 'Réservez votre venue au Domaine' : 'Plan your visit to the estate'}
+    text={t('agenda.practical')}
+    actions={[
+      { label: t('header.tickets'), href: site.ticketingUrl, icon: 'ticket', style: 'gold' },
+      { label: t('agenda.groupsCta'), href: l('/visiter/reserver/'), style: 'outline-light' },
+    ]}
+  />
+</BaseLayout>

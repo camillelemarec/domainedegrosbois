@@ -1,0 +1,90 @@
+{
+  "_note": "Prototype du 25/10 : seuls l'accueil, l'agenda, les fiches espaces et le devis sont des pages. Les autres entrées restent visibles, sans lien.",
+  "main": [
+    {
+      "id": "privatiser",
+      "label": "nav.privatiser",
+      "href": "/#privatiser",
+      "highlight": true,
+      "children": [
+        { "fr": "Nos espaces", "en": "Our venues", "href": "/#privatiser" },
+        { "fr": "Espace Affaires", "en": "Business Centre", "href": "/privatiser/espaces/espace-affaires/" },
+        { "fr": "Musée du trot", "en": "Trotting museum", "href": "/privatiser/espaces/musee-du-trot/" },
+        { "fr": "Château", "en": "Castle", "href": "/privatiser/espaces/chateau/" },
+        { "fr": "Orangerie", "en": "Orangery", "href": "/privatiser/espaces/orangerie/" },
+        { "fr": "Piste couverte", "en": "Indoor track", "href": "/privatiser/espaces/piste-couverte/" },
+        { "fr": "Espaces verts", "en": "Grounds", "href": "/privatiser/espaces/espaces-verts/" },
+        { "fr": "Prestations", "en": "Services", "href": "" },
+        { "fr": "Tournages & shootings", "en": "Film & photo shoots", "href": "" },
+        { "fr": "Demander un devis", "en": "Request a quote", "href": "/privatiser/demande-de-devis/", "cta": true }
+      ]
+    },
+    {
+      "id": "visiter",
+      "label": "nav.visiter",
+      "href": "",
+      "children": [
+        { "fr": "Visiteurs individuels", "en": "Individual visitors", "href": "" },
+        { "fr": "Groupes adultes", "en": "Adult groups", "href": "" },
+        { "fr": "Scolaires & enfants", "en": "Schools & children", "href": "" },
+        { "fr": "Entreprises & team-building", "en": "Companies & team-building", "href": "" },
+        { "fr": "Agenda & billetterie", "en": "Events & tickets", "href": "/agenda/" },
+        { "fr": "Réserver une visite", "en": "Book a visit", "href": "/visiter/reserver/", "cta": true }
+      ]
+    },
+    {
+      "id": "decouvrir",
+      "label": "nav.decouvrir",
+      "href": "",
+      "children": [
+        { "fr": "Le château", "en": "The castle", "href": "" },
+        { "fr": "Le centre d'entraînement", "en": "The training centre", "href": "" },
+        { "fr": "Le musée du trot", "en": "The trotting museum", "href": "" },
+        { "fr": "Boutique LeTROT", "en": "LeTROT shop", "href": "https://boutique.letrot.com/", "external": true }
+      ]
+    },
+    {
+      "id": "infos",
+      "label": "nav.infos",
+      "href": "",
+      "children": [
+        { "fr": "Coordonnées & contact", "en": "Contact details", "href": "" },
+        { "fr": "Conditions d'accès", "en": "Access conditions", "href": "" },
+        { "fr": "Plan d'accès & GPS", "en": "Access map & GPS", "href": "" },
+        { "fr": "Circulation & stationnement", "en": "Traffic & parking", "href": "" },
+        { "fr": "Réservation & billetterie", "en": "Booking & tickets", "href": "/agenda/#billetterie" },
+        { "fr": "À proximité", "en": "Nearby", "href": "" }
+      ]
+    },
+    {
+      "id": "suivre",
+      "label": "nav.suivre",
+      "href": "",
+      "children": [
+        { "fr": "Agenda", "en": "Events", "href": "/agenda/" },
+        { "fr": "Actualités", "en": "News", "href": "" },
+        { "fr": "Presse", "en": "Press", "href": "" }
+      ]
+    },
+    {
+      "id": "grosbois",
+      "label": "nav.grosbois",
+      "href": "",
+      "children": [
+        { "fr": "Nos engagements", "en": "Our commitments", "href": "" },
+        { "fr": "Nous soutenir", "en": "Support us", "href": "" },
+        { "fr": "Nous rejoindre", "en": "Join us", "href": "" },
+        { "fr": "Nos équipes", "en": "Our team", "href": "" }
+      ]
+    }
+  ],
+  "footer": [
+    { "label": "agenda.title", "href": "/agenda/" },
+    { "label": "header.quote", "href": "/privatiser/demande-de-devis/" },
+    { "label": "footer.team", "href": "" },
+    { "label": "footer.commitments", "href": "" },
+    { "label": "footer.sitemap", "href": "" },
+    { "label": "footer.legal", "href": "" },
+    { "label": "footer.privacy", "href": "" }
+  ]
+}

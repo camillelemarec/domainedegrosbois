@@ -1,0 +1,27 @@
+{
+  "ordre": 1,
+  "provisoire": true,
+  "nom": { "fr": "Espace Affaires", "en": "Business Centre" },
+  "accroche": {
+    "fr": "[Texte provisoire] Salles de réunion équipées et plénière modulable pour vos séminaires et journées d'études, au cœur du centre d'entraînement.",
+    "en": "[Placeholder] Equipped meeting rooms and a flexible plenary hall for seminars and study days, in the heart of the training centre."
+  },
+  "description": [
+    { "fr": "[Texte provisoire] L'Espace Affaires réunit plusieurs salles de sous-commission et une salle plénière, avec vue sur les pistes. Idéal pour les formats journée d'étude et comité de direction.", "en": "[Placeholder] The Business Centre brings together several breakout rooms and a plenary hall overlooking the tracks. Ideal for study days and board meetings." }
+  ],
+  "surface": "120 m² (site actuel — à confirmer)",
+  "capacites": { "theatre": 120, "u": 40, "classe": 60, "cabaret": 72, "cocktail": 150, "banquet": 100 },
+  "ficheTechnique": [
+    { "label": { "fr": "Équipements", "en": "Equipment" }, "valeur": { "fr": "[à confirmer] Écrans, visioconférence, Wi-Fi, paperboards", "en": "[tbc] Screens, video conferencing, Wi-Fi, flip charts" } },
+    { "label": { "fr": "Accessibilité", "en": "Accessibility" }, "valeur": { "fr": "[à confirmer]", "en": "[tbc]" } }
+  ],
+  "prestations": [
+    { "fr": "Formules journées d'études (pauses, déjeuner)", "en": "Study-day packages (breaks, lunch)" },
+    { "fr": "Activités de cohésion au centre d'entraînement", "en": "Team-building activities at the training centre" }
+  ],
+  "images": {
+    "hero": { "src": "espaces/espace-affaires/espace-affaires-hero-01.jpg", "alt": { "fr": "Salle plénière de l'Espace Affaires", "en": "Plenary room of the Business Centre" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
+    "vignette": { "src": "espaces/espace-affaires/espace-affaires-vignette-01.jpg", "alt": { "fr": "Espace Affaires", "en": "Business Centre" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "galerie": []
+  }
+}

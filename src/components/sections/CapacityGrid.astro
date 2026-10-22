@@ -1,0 +1,37 @@
+---
+/** Capacités par configuration avec pictos (p.17, p.21) : grille de 6 configurations + tableau accessible. */
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { useTranslations, type Lang } from '@/lib/i18n';
+
+type Config = 'theatre' | 'u' | 'classe' | 'cabaret' | 'cocktail' | 'banquet';
+interface Props { capacites: Record<Config, number | null>; lang: Lang; provisoire?: boolean; compact?: boolean }
+const { capacites, lang, provisoire = true, compact = false } = Astro.props;
+const t = useTranslations(lang);
+const configs: Config[] = ['theatre', 'u', 'classe', 'cabaret', 'cocktail', 'banquet'];
+const fmt = (n: number) => new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-GB').format(n);
+---
+
+<div>
+  <ul class:list={['grid gap-3', compact ? 'grid-cols-3 sm:grid-cols-6' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6']}>
+    {configs.map((c) => {
+      const value = capacites[c];
+      return (
+        <li class:list={['flex flex-col items-center gap-1 rounded-md border p-3 text-center', value === null ? 'border-dashed border-ardoise-clair/60 text-ardoise-clair' : 'border-bleu-clair bg-white text-nuit']}>
+          <Icon name={`config-${c}` as IconName} size={compact ? 26 : 34} class={value === null ? 'opacity-50' : 'text-bleu'} />
+          <span class="text-xs font-semibold uppercase tracking-wider">{t(`space.config.${c}`)}</span>
+          <span class:list={['font-display font-semibold leading-none', compact ? 'text-xl' : 'text-3xl']}>
+            {value === null ? <span aria-label={lang === 'fr' ? 'non proposé' : 'not available'}>—</span> : fmt(value)}
+          </span>
+          {value !== null && <span class="text-xs text-ardoise">{t('space.people')}</span>}
+        </li>
+      );
+    })}
+  </ul>
+  {provisoire && !compact && (
+    <p class="mt-3 text-xs text-ardoise">
+      <span class="badge badge-provisional">{lang === 'fr' ? 'Jauges indicatives' : 'Indicative capacities'}</span>
+      <span class="ml-2">{lang === 'fr' ? 'Capacités à confirmer par le Domaine selon la configuration et les normes de sécurité.' : 'Capacities to be confirmed by the estate according to layout and safety regulations.'}</span>
+    </p>
+  )}
+</div>

@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import QuoteForm from '@/components/forms/QuoteForm.astro';
+
+const espaces = (await getCollection('espaces'))
+  .sort((a, b) => a.data.ordre - b.data.ordre)
+  .map((espace) => ({ id: espace.id, nom: espace.data.nom.fr }));
+---
+
+<BaseLayout title="Réserver une visite" description="Demande de réservation ou de renseignement pour une visite au Domaine de Grosbois. Devis indicatif à l'écran, sans envoi.">
+  <QuoteForm
+    contexte="visite"
+    espaces={espaces}
+    intro="Visite individuelle, groupe, scolaire ou entreprise. Choisissez « réservation » pour un devis indicatif, ou « renseignement » pour une simple question."
+  />
+</BaseLayout>

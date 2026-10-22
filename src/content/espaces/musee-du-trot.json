@@ -1,0 +1,26 @@
+{
+  "ordre": 2,
+  "provisoire": true,
+  "nom": { "fr": "Le Musée du trot", "en": "The Trotting Museum" },
+  "accroche": {
+    "fr": "[Texte provisoire] Un écrin patrimonial au milieu des collections : cocktails, soirées privées et lancements de produits dans un lieu qui raconte l'histoire du trot.",
+    "en": "[Placeholder] A heritage setting among the collections: cocktails, private evenings and product launches in a place that tells the story of trotting."
+  },
+  "description": [
+    { "fr": "[Texte provisoire] Les salles du musée se privatisent pour des réceptions en soirée, avec visite commentée des collections (sulkys, trophées, archives).", "en": "[Placeholder] The museum rooms can be hired for evening receptions, with a guided tour of the collections (sulkies, trophies, archives)." }
+  ],
+  "surface": "500 m² (site actuel — à confirmer)",
+  "capacites": { "theatre": 60, "u": null, "classe": null, "cabaret": null, "cocktail": 120, "banquet": 50 },
+  "ficheTechnique": [
+    { "label": { "fr": "Contraintes", "en": "Constraints" }, "valeur": { "fr": "[à confirmer] Lieu muséal : prestations traiteur encadrées", "en": "[tbc] Museum venue: catering under supervision" } }
+  ],
+  "prestations": [
+    { "fr": "Visite commentée des collections", "en": "Guided tour of the collections" },
+    { "fr": "Cocktail dînatoire", "en": "Cocktail dinner" }
+  ],
+  "images": {
+    "hero": { "src": "espaces/musee-du-trot/musee-du-trot-hero-01.jpg", "alt": { "fr": "Salle du musée du trot", "en": "Room of the trotting museum" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
+    "vignette": { "src": "espaces/musee-du-trot/musee-du-trot-vignette-01.jpg", "alt": { "fr": "Musée du trot", "en": "Trotting museum" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "galerie": []
+  }
+}

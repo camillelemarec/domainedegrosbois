@@ -1,0 +1,26 @@
+---
+import { alternatePath, langFromUrl, useTranslations, LANGS } from '@/lib/i18n';
+
+interface Props { class?: string; tone?: 'light' | 'dark' }
+const { class: className = '', tone = 'light' } = Astro.props;
+const current = langFromUrl(Astro.url);
+const t = useTranslations(current);
+---
+
+<nav aria-label={t('a11y.langSwitch')} class:list={['flex items-center gap-1 text-sm font-semibold uppercase', className]}>
+  {LANGS.map((lang, i) => (
+    <>
+      {i > 0 && <span aria-hidden="true" class="opacity-50">/</span>}
+      {lang === current ? (
+        <span aria-current="page" class:list={['px-1.5 py-1 underline underline-offset-4', tone === 'light' ? 'text-white' : 'text-bleu']}>{lang}</span>
+      ) : (
+        <a
+          href={alternatePath(Astro.url, lang)}
+          hreflang={lang}
+          lang={lang}
+          class:list={['px-1.5 py-1 hover:underline underline-offset-4', tone === 'light' ? 'text-bleu-clair hover:text-white' : 'text-ardoise hover:text-bleu']}
+        >{lang}</a>
+      )}
+    </>
+  ))}
+</nav>

@@ -1,0 +1,74 @@
+/*
+ * Design tokens — source unique de la charte (à transposer dans `theme.json` du thème WordPress).
+ * Valeurs SETF 2023 lues sur le nuancier du cahier des charges (p.6) : à confirmer avec la charte officielle.
+ * Palette « château » (p.7) : propositions à valider (brique, ardoise, sable, doré, rouge sombre).
+ */
+:root {
+  /* --- Couleurs SETF 2023 ------------------------------------------------ */
+  --color-setf-blue: #0e386b;        /* Pantone 2955 C — navigation, titres, fonds forts */
+  --color-setf-navy: #021e41;        /* Pantone 2767 C — footer, hero overlay */
+  --color-setf-blue-light: #d0dee8;  /* Pantone 9402 C — fonds doux, bordures */
+  --color-setf-grey-light: #f5f5f5;  /* fonds de section */
+  --color-setf-red: #d3052d;         /* Pantone 186 C — logo et micro-accents uniquement */
+  --color-setf-red-light: #e54242;   /* Pantone P 52-7 C — états d'erreur */
+
+  /* --- Palette Grosbois (château) ---------------------------------------- */
+  --color-brick: #b8694f;            /* briques et sable des pistes */
+  --color-brick-dark: #96503a;       /* survol / texte brique sur clair (contraste AA) */
+  --color-slate: #4a5568;            /* ardoise des toitures — textes secondaires */
+  --color-slate-light: #8a9bb0;      /* bordures, pictos discrets */
+  --color-sand: #d9cdb0;             /* beige sable */
+  --color-sand-light: #f3eee2;       /* fond crème des sections chaleureuses */
+  --color-gold: #c9a961;             /* doré (référence Cornulier) — CTA secondaires, filets */
+  --color-gold-dark: #a8873f;        /* doré sur fond clair (contraste texte) */
+  --color-wine: #6b2e2e;             /* rouge sombre des portes — accents rares */
+  --color-ink: #0f1b2d;              /* texte principal */
+  --color-white: #ffffff;
+
+  /* --- Sémantique --------------------------------------------------------- */
+  --color-bg: var(--color-white);
+  --color-bg-muted: var(--color-setf-grey-light);
+  --color-bg-warm: var(--color-sand-light);
+  --color-text: var(--color-ink);
+  --color-text-muted: var(--color-slate);
+  --color-primary: var(--color-setf-blue);
+  --color-primary-hover: var(--color-setf-navy);
+  --color-accent: var(--color-gold);
+  --color-accent-hover: var(--color-gold-dark);
+  --color-cta: var(--color-brick);          /* CTA devis bien contrasté (p.17) */
+  --color-cta-hover: var(--color-brick-dark);
+  --color-focus: var(--color-gold-dark);
+  --color-error: #b3001b;                   /* dérivé du rouge SETF, contraste AA sur blanc */
+  --color-success: #1f6f43;
+
+  /* --- Typographie -------------------------------------------------------- */
+  /* Charte 2015 : Minion Pro (GROSBOIS) + ITC Avant Garde Gothic (DOMAINE) — polices commerciales.
+     Prototype : alternatives libres auto-hébergées ; à remplacer par les fontes licenciées si fournies. */
+  --font-display: 'Cormorant Garamond', 'Minion Pro', Georgia, 'Times New Roman', serif;
+  --font-body: 'Jost', 'ITC Avant Garde Gothic Std', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --text-xs: 0.8125rem;   /* 13px — mentions, légendes uniquement */
+  --text-sm: 0.9375rem;   /* 15px */
+  --text-base: 1.0625rem; /* 17px — corps de texte (≥ 16px, lisibilité p.16) */
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+  --text-5xl: 3.75rem;
+  --leading-tight: 1.15;
+  --leading-normal: 1.6;
+
+  /* --- Espacements & formes ---------------------------------------------- */
+  --space-section: clamp(3rem, 8vw, 6rem);
+  --container-max: 80rem;      /* 1280px */
+  --container-pad: clamp(1rem, 4vw, 2rem);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --shadow-sm: 0 1px 2px rgb(2 30 65 / 0.08);
+  --shadow-md: 0 8px 24px rgb(2 30 65 / 0.12);
+  --shadow-lg: 0 20px 48px rgb(2 30 65 / 0.18);
+  --tap-target: 2.75rem;       /* 44px — cibles tactiles */
+  --header-height: 4.5rem;
+}

@@ -1,0 +1,49 @@
+---
+/** Menu latéral d'ancres (p.17) : sticky sur desktop, barre défilante sur mobile, scrollspy léger. */
+import { useTranslations, type Lang } from '@/lib/i18n';
+
+interface Item { id: string; label: string }
+interface Props { items: Item[]; lang: Lang; cta?: { label: string; href: string } }
+const { items, lang, cta } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<nav class="anchor-nav" aria-label={t('space.onThisPage')} data-anchor-nav>
+  <p class="mb-2 hidden text-xs font-semibold uppercase tracking-[0.15em] text-ardoise lg:block">{t('space.onThisPage')}</p>
+  <ul class="scrollbar-hide -mx-4 flex gap-1 overflow-x-auto px-4 lg:mx-0 lg:flex-col lg:gap-0 lg:overflow-visible lg:px-0 lg:border-l lg:border-bleu-clair">
+    {items.map((item) => (
+      <li class="shrink-0">
+        <a
+          href={`#${item.id}`}
+          class="anchor-link block whitespace-nowrap rounded-full border border-bleu-clair px-3 py-2 text-sm text-nuit hover:bg-bleu-clair/60 lg:-ml-px lg:rounded-none lg:border-0 lg:border-l-2 lg:border-transparent lg:px-4 lg:py-1.5 lg:hover:border-ardoise-clair lg:hover:bg-transparent"
+          data-anchor-link={item.id}
+        >{item.label}</a>
+      </li>
+    ))}
+  </ul>
+  {cta && <a href={cta.href} class="btn btn-cta mt-4 hidden w-full lg:inline-flex">{cta.label}</a>}
+</nav>
+
+<style>
+  @media (min-width: 64rem) {
+    .anchor-nav { position: sticky; top: calc(var(--header-height) + 1.5rem); }
+    .anchor-link.is-active { border-left-color: var(--color-gold-dark); color: var(--color-setf-blue); font-weight: 600; }
+  }
+  @media (max-width: 63.99rem) {
+    .anchor-nav { position: sticky; top: var(--header-height); z-index: 20; background: #fff; padding-block: .5rem; }
+    .anchor-link.is-active { background: var(--color-setf-blue); color: #fff; border-color: var(--color-setf-blue); }
+  }
+</style>
+
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-anchor-link]'));
+  const sections = links.map((l) => document.getElementById(l.dataset.anchorLink!)).filter(Boolean) as HTMLElement[];
+  if (sections.length && 'IntersectionObserver' in window) {
+    const setActive = (id: string) => links.forEach((l) => l.classList.toggle('is-active', l.dataset.anchorLink === id));
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible[0]) setActive((visible[0].target as HTMLElement).id);
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach((s) => io.observe(s));
+  }
+</script>

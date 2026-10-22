@@ -1,0 +1,17 @@
+---
+/**
+ * Encart billetterie du prototype.
+ * Texte imposé : « compte Weezevent SETF — accès à venir ».
+ * Pas d'iframe, pas d'appel réseau.
+ */
+interface Props { id?: string; class?: string }
+const { id = 'billetterie', class: className = '' } = Astro.props;
+---
+
+<section id={id} class:list={['scroll-mt-28 rounded-md border-2 border-dashed border-dore bg-creme p-6 md:p-8', className]} data-billetterie aria-labelledby={`${id}-titre`}>
+  <p class="eyebrow">Billetterie</p>
+  <h2 id={`${id}-titre`} class="mt-2 text-3xl">compte Weezevent SETF — accès à venir</h2>
+  <p class="mt-3 max-w-2xl text-ardoise">
+    Le compte billetterie de la SETF n’est pas branché dans ce prototype. Aucun module Weezevent, aucune iframe, aucun appel. Les boutons « Billets » ramènent à cet encart.
+  </p>
+</section>

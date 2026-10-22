@@ -1,0 +1,16 @@
+{
+  "provisoire": true,
+  "titre": { "fr": "Noël au château", "en": "Christmas at the castle" },
+  "type": "evenement",
+  "public": "famille",
+  "dateDebut": "2026-12-19",
+  "dateFin": "2026-12-20",
+  "heureDebut": "14:00",
+  "heureFin": "19:00",
+  "lieu": { "fr": "Château et Orangerie", "en": "Castle and Orangery" },
+  "prix": 8,
+  "prixDetail": { "fr": "[Tarif provisoire] Gratuit pour les moins de 6 ans", "en": "[Placeholder price] Free under 6" },
+  "image": { "src": "evenements/noel-au-chateau-01.jpg", "alt": { "fr": "Décorations de Noël dans les salons du château", "en": "Christmas decorations in the castle rooms" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+  "urlBilletterie": "#billetterie",
+  "description": { "fr": "[Texte provisoire] Salons décorés, contes au coin du feu et balade en calèche : le Domaine se met aux couleurs de Noël.", "en": "[Placeholder] Decorated rooms, fireside tales and a carriage ride: the estate dresses up for Christmas." }
+}

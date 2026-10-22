@@ -1,0 +1,26 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { localizePath, useTranslations, type Lang } from '@/lib/i18n';
+
+interface Crumb { label: string; href?: string }
+interface Props { items: Crumb[]; lang: Lang; class?: string; light?: boolean }
+const { items, lang, class: className = '', light = false } = Astro.props;
+const t = useTranslations(lang);
+const home = lang === 'fr' ? 'Accueil' : 'Home';
+---
+
+<nav aria-label={t('a11y.breadcrumb')} class:list={['text-sm', light ? 'text-white/85' : 'text-ardoise', className]}>
+  <ol class="flex flex-wrap items-center gap-1.5">
+    <li><a href={localizePath('/', lang)} class="hover:underline underline-offset-4">{home}</a></li>
+    {items.map((item, i) => (
+      <li class="flex items-center gap-1.5">
+        <Icon name="chevron-right" size={14} class="opacity-60" />
+        {item.href && i < items.length - 1 ? (
+          <a href={localizePath(item.href, lang)} class="hover:underline underline-offset-4">{item.label}</a>
+        ) : (
+          <span aria-current="page" class:list={['font-medium', light ? 'text-white' : 'text-nuit']}>{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

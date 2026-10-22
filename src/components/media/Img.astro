@@ -1,0 +1,81 @@
+---
+/**
+ * Image du site : accepte une clé de `src/data/images.ts` ou une entrée libre (collection).
+ * Si le fichier n'existe pas encore dans `public/images/`, affiche un placeholder neutre
+ * portant le nom du fichier attendu (jamais d'image inventée).
+ */
+import { resolveImage, type ImageRef } from '@/lib/images';
+import type { Lang } from '@/lib/i18n';
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  image: ImageRef;
+  lang?: Lang;
+  class?: string;
+  /** Ratio CSS (ex. "16/9") ; par défaut celui du mapping. */
+  ratio?: string;
+  /** `cover` (défaut) ou `contain` (logos). */
+  fit?: 'cover' | 'contain';
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  sizes?: string;
+  /** Affiche le crédit en légende (figcaption). */
+  showCredit?: boolean;
+  /** Placeholder : ton clair (défaut) ou sombre (hero). */
+  tone?: 'light' | 'dark';
+}
+
+const {
+  image,
+  lang = 'fr',
+  class: className = '',
+  ratio,
+  fit = 'cover',
+  loading = 'lazy',
+  fetchpriority = 'auto',
+  sizes,
+  showCredit = false,
+  tone = 'light',
+} = Astro.props;
+
+const resolved = resolveImage(image, lang);
+const aspect = ratio ?? (resolved.ratio && resolved.ratio !== 'auto' ? resolved.ratio : undefined);
+const style = aspect ? `aspect-ratio: ${aspect};` : undefined;
+const creditText = resolved.credit && !resolved.credit.startsWith('[') ? resolved.credit : undefined;
+const Wrapper = showCredit && creditText ? 'figure' : 'div';
+---
+
+<Wrapper class:list={['img relative overflow-hidden', className]} style={style}>
+  {resolved.exists ? (
+    <img
+      src={resolved.url}
+      alt={resolved.altText}
+      loading={loading}
+      fetchpriority={fetchpriority}
+      decoding="async"
+      sizes={sizes}
+      class:list={['h-full w-full', fit === 'cover' ? 'object-cover' : 'object-contain']}
+    />
+  ) : (
+    <div
+      class:list={[
+        'img-placeholder flex h-full w-full flex-col items-center justify-center gap-2 p-4 text-center',
+        tone === 'dark' ? 'bg-nuit text-bleu-clair' : 'bg-bleu-clair/60 text-ardoise',
+      ]}
+      role="img"
+      aria-label={resolved.altText}
+      data-expected={resolved.src}
+    >
+      <Icon name="image" size={28} class="opacity-60" />
+      <span class="text-xs font-medium opacity-80 break-all leading-snug">{resolved.src}</span>
+    </div>
+  )}
+  {Wrapper === 'figure' && <figcaption class="absolute bottom-2 right-2 rounded bg-nuit/70 px-2 py-0.5 text-xs text-white">{creditText}</figcaption>}
+</Wrapper>
+
+<style>
+  .img-placeholder {
+    background-image: repeating-linear-gradient(135deg, transparent 0 14px, rgb(2 30 65 / 0.05) 14px 15px);
+    min-height: 4rem;
+  }
+</style>

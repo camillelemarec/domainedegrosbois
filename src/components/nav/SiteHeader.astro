@@ -1,0 +1,250 @@
+---
+/**
+ * Header global (p.9, p.10 ; benchmark enseignements 1 et 2) :
+ * barre utilitaire (téléphone, newsletter, contact, réseaux, FR/EN) + barre principale sticky
+ * avec logo (lien accueil), 6 onglets à sous-menus, recherche et DOUBLE CTA permanent
+ * « Billetterie » / « Privatiser ». Sur mobile : logo, Billetterie, burger ; le panneau
+ * reprend les deux CTA en tête.
+ */
+import navigation from '@/data/navigation.json';
+import site from '@/data/site.json';
+import { localizePath, useTranslations, type Lang } from '@/lib/i18n';
+import Icon from '@/components/ui/Icon.astro';
+import Logo from '@/components/ui/Logo.astro';
+import SocialIcons from '@/components/nav/SocialIcons.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const l = (p: string) => localizePath(p, lang);
+const currentPath = Astro.url.pathname;
+
+const pathOnly = (href: string) => {
+  if (!href || href.startsWith('http') || href.includes('#')) return '';
+  const path = l(href).split('#')[0];
+  if (!path || path === '/') return '';
+  return path.endsWith('/') ? path : `${path}/`;
+};
+const isActive = (item: (typeof navigation.main)[number]) => {
+  const current = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+  return [item.href, ...item.children.map((child) => child.href)].some((href) => {
+    const path = pathOnly(href);
+    return path !== '' && current.startsWith(path);
+  });
+};
+---
+
+<header class="site-header relative z-40 bg-white shadow-sm" data-header>
+  {/* Barre utilitaire (desktop) */}
+  <div class="hidden bg-nuit text-white lg:block">
+    <div class="container-site flex h-10 items-center justify-between text-sm">
+      <div class="flex items-center gap-5">
+        <a href={site.phone.href} class="inline-flex items-center gap-2 hover:underline underline-offset-4">
+          <Icon name="phone" size={16} />
+          <span>{site.phone.display}</span>
+          {site.phone.provisional && <span class="sr-only">(numéro provisoire)</span>}
+        </a>
+      </div>
+      <SocialIcons lang={lang} size={16} class="-my-2" />
+    </div>
+  </div>
+
+  {/* Barre principale */}
+  <div class="container-site flex items-center justify-between gap-4" style="min-height: var(--header-height)">
+    <a href={l('/')} class="flex h-14 shrink-0 items-center" aria-label={t('meta.siteName')}>
+      <Logo lang={lang} />
+    </a>
+
+    <nav class="hidden flex-1 justify-center lg:flex" aria-label={t('a11y.mainNav')} data-main-nav>
+      <ul class="flex items-stretch gap-0.5">
+        {navigation.main.map((item) => (
+          <li class="relative" data-nav-item>
+            <button
+              type="button"
+              class:list={[
+                'nav-link inline-flex h-12 items-center gap-1 rounded-sm px-3 text-[0.95rem] font-medium text-nuit hover:bg-bleu-clair/60',
+                item.highlight && 'font-semibold',
+                isActive(item) && 'nav-link-active',
+              ]}
+              aria-expanded="false"
+              aria-controls={`submenu-${item.id}`}
+              data-nav-toggle
+            >
+              {t(item.label)}
+              <Icon name="chevron-down" size={16} class="transition-transform" />
+            </button>
+            <div id={`submenu-${item.id}`} class="submenu absolute left-1/2 top-full z-50 hidden w-72 -translate-x-1/2 pt-2" data-nav-panel>
+              <div class="rounded-md border border-bleu-clair bg-white p-2 shadow-lg">
+                {item.href ? (
+                  <a href={l(item.href)} class="block rounded-sm px-3 py-2 font-display text-lg font-semibold text-bleu hover:bg-bleu-clair/50">{t(item.label)}</a>
+                ) : (
+                  <p class="px-3 py-2 font-display text-lg font-semibold text-bleu">{t(item.label)}</p>
+                )}
+                <ul class="mt-1 border-t border-bleu-clair pt-1">
+                  {item.children.map((child) => (
+                    <li>
+                      {child.href ? (
+                        <a
+                          href={child.external ? child.href : l(child.href)}
+                          target={child.external ? '_blank' : undefined}
+                          rel={child.external ? 'noopener' : undefined}
+                          class:list={[
+                            'flex items-center justify-between rounded-sm px-3 py-2 text-sm text-encre hover:bg-bleu-clair/50 hover:text-bleu',
+                            child.cta && 'mt-1 font-semibold text-brique-fonce',
+                          ]}
+                        >
+                          <span>{child[lang] ?? child.fr}</span>
+                          {child.external && <Icon name="external" size={14} label={t('a11y.externalLink')} />}
+                          {child.cta && <Icon name="arrow-right" size={14} />}
+                        </a>
+                      ) : (
+                        <span class="flex items-center justify-between gap-3 rounded-sm px-3 py-2 text-sm text-ardoise">
+                          <span>{child[lang] ?? child.fr}</span>
+                          <span class="shrink-0 text-xs">hors prototype</span>
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href={site.ticketingUrl} class="btn btn-primary btn-sm lg:btn-md" data-cta="billetterie">
+        <Icon name="ticket" size={18} />
+        <span>{t('header.tickets')}</span>
+      </a>
+      <a href={l('/privatiser/demande-de-devis/')} class="btn btn-cta hidden lg:inline-flex" data-cta="devis">
+        {t('nav.privatiser')}
+      </a>
+      <button
+        type="button"
+        class="grid h-11 w-11 place-items-center rounded-sm text-nuit hover:bg-bleu-clair/60 lg:hidden"
+        aria-label={t('a11y.openMenu')}
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-mobile-toggle
+      >
+        <Icon name="menu" size={26} />
+      </button>
+    </div>
+  </div>
+
+  {/* Menu mobile */}
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 hidden flex-col bg-white lg:hidden" data-mobile-menu role="dialog" aria-modal="true" aria-label={t('a11y.mainNav')}>
+    <div class="flex items-center justify-between border-b border-bleu-clair px-4" style="min-height: var(--header-height)">
+      <a href={l('/')} class="flex h-12 items-center"><Logo lang={lang} /></a>
+      <button type="button" class="grid h-11 w-11 place-items-center rounded-sm text-nuit hover:bg-bleu-clair/60" aria-label={t('a11y.closeMenu')} data-mobile-close>
+        <Icon name="x" size={26} />
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto px-4 pb-8">
+      <div class="grid grid-cols-2 gap-2 py-4">
+        <a href={site.ticketingUrl} class="btn btn-primary"><Icon name="ticket" size={18} />{t('header.tickets')}</a>
+        <a href={l('/privatiser/demande-de-devis/')} class="btn btn-cta">{t('header.quote')}</a>
+      </div>
+      <ul class="divide-y divide-bleu-clair border-y border-bleu-clair">
+        {navigation.main.map((item) => (
+          <li>
+            <details class="group">
+              <summary class="flex min-h-[3.25rem] cursor-pointer list-none items-center justify-between py-2 font-display text-xl font-semibold text-bleu [&::-webkit-details-marker]:hidden">
+                {t(item.label)}
+                <Icon name="chevron-down" size={20} class="transition-transform group-open:rotate-180" />
+              </summary>
+              <ul class="mb-3 space-y-0.5 pl-2">
+                {item.href && <li><a href={l(item.href)} class="block min-h-11 py-2.5 text-encre font-medium">{t(item.label)}</a></li>}
+                {item.children.map((child) => (
+                  <li>
+                    {child.href ? (
+                      <a
+                        href={child.external ? child.href : l(child.href)}
+                        target={child.external ? '_blank' : undefined}
+                        rel={child.external ? 'noopener' : undefined}
+                        class:list={['flex min-h-11 items-center justify-between py-2.5 text-encre', child.cta && 'font-semibold text-brique-fonce']}
+                      >
+                        {child[lang] ?? child.fr}
+                        {child.external && <Icon name="external" size={14} label={t('a11y.externalLink')} />}
+                      </a>
+                    ) : (
+                      <span class="flex min-h-11 items-center justify-between gap-3 py-2.5 text-ardoise">
+                        {child[lang] ?? child.fr}
+                        <span class="text-xs">hors prototype</span>
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-5 space-y-3 text-sm">
+        <a href={site.phone.href} class="flex min-h-11 items-center gap-3 text-nuit"><Icon name="phone" size={18} />{site.phone.display}</a>
+      </div>
+      <div class="mt-4 rounded-md bg-nuit px-3 py-2 text-white">
+        <SocialIcons lang={lang} />
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header { position: sticky; top: 0; }
+  .nav-link-active { box-shadow: inset 0 -3px 0 var(--color-gold); }
+  [data-nav-item].is-open .submenu { display: block; }
+  [data-nav-item].is-open [data-nav-toggle] svg { transform: rotate(180deg); }
+  [data-nav-item].is-open [data-nav-toggle] { background: var(--color-setf-blue-light); }
+  .mobile-menu.is-open { display: flex; }
+  @media (min-width: 64rem) { .lg\:btn-md { min-height: var(--tap-target); padding: 0.65rem 1.4rem; font-size: var(--text-sm); } }
+</style>
+
+<script>
+  // Sous-menus desktop : clic / clavier, fermeture Échap et clic extérieur.
+  const items = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-item]'));
+  const closeAll = (except?: HTMLElement) => {
+    items.forEach((it) => {
+      if (it === except) return;
+      it.classList.remove('is-open');
+      it.querySelector('[data-nav-toggle]')?.setAttribute('aria-expanded', 'false');
+    });
+  };
+  items.forEach((item) => {
+    const toggle = item.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+    toggle?.addEventListener('click', () => {
+      const open = item.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(open));
+      closeAll(item);
+    });
+    item.addEventListener('mouseenter', () => { item.classList.add('is-open'); toggle?.setAttribute('aria-expanded', 'true'); closeAll(item); });
+    item.addEventListener('mouseleave', () => { item.classList.remove('is-open'); toggle?.setAttribute('aria-expanded', 'false'); });
+    item.addEventListener('focusout', (e) => {
+      if (!item.contains(e.relatedTarget as Node)) { item.classList.remove('is-open'); toggle?.setAttribute('aria-expanded', 'false'); }
+    });
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeAll(); closeMobile(); } });
+  document.addEventListener('click', (e) => { if (!(e.target as HTMLElement).closest('[data-main-nav]')) closeAll(); });
+
+  // Menu mobile
+  const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-mobile-close]');
+  function openMobile() {
+    menu?.classList.add('is-open');
+    openBtn?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    closeBtn?.focus();
+  }
+  function closeMobile() {
+    if (!menu?.classList.contains('is-open')) return;
+    menu.classList.remove('is-open');
+    openBtn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    openBtn?.focus();
+  }
+  openBtn?.addEventListener('click', openMobile);
+  closeBtn?.addEventListener('click', closeMobile);
+</script>

@@ -1,0 +1,7 @@
+{
+  "provisoire": true,
+  "titre": { "fr": "Le Domaine de Grosbois fait peau neuve en ligne", "en": "Domaine de Grosbois gets a new website" },
+  "date": "2026-10-15",
+  "extrait": { "fr": "[Texte provisoire] Billetterie, réservation et actualités : tout le Domaine désormais à portée de clic.", "en": "[Placeholder] Tickets, bookings and news: the whole estate is now a click away." },
+  "image": { "src": "actualites/nouveau-site-01.jpg", "alt": { "fr": "Grilles du château de Grosbois", "en": "Gates of Grosbois castle" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" }
+}

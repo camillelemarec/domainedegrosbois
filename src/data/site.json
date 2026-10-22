@@ -1,0 +1,76 @@
+{
+  "_note": "Coordonnées du Domaine : les champs marqués [à confirmer] / provisional sont des placeholders. Les données de l'éditeur (SETF) proviennent des mentions légales de letrot.com (benchmark §4.11, consultées le 22/10/2026).",
+  "name": "Domaine de Grosbois",
+  "shortDescription": {
+    "fr": "Château, centre d'entraînement du trot et musée — Boissy-Saint-Léger (94)",
+    "en": "Castle, trotting training centre and museum — Boissy-Saint-Léger, near Paris"
+  },
+  "address": {
+    "street": "[Adresse postale du Domaine à confirmer]",
+    "postalCode": "94470",
+    "city": "Boissy-Saint-Léger",
+    "country": "France"
+  },
+  "entrances": {
+    "vehicles": {
+      "label": { "fr": "Entrée véhicules", "en": "Vehicle entrance" },
+      "address": "46 avenue de Grosbois, 94440 Marolles-en-Brie",
+      "addressNote": "Adresse indiquée sur le site actuel — à confirmer",
+      "gps": "[GPS à confirmer]",
+      "mapsUrl": "#"
+    },
+    "pedestrians": {
+      "label": { "fr": "Entrée piétons", "en": "Pedestrian entrance" },
+      "address": "[Adresse de l'entrée piétons à confirmer]",
+      "gps": "[GPS à confirmer]",
+      "mapsUrl": "#"
+    }
+  },
+  "hours": {
+    "fr": "[Horaires à confirmer] Domaine privé sous vidéo-surveillance : accès uniquement sur réservation (visites, événements, privatisations).",
+    "en": "[Hours to be confirmed] Private estate under video surveillance: access by reservation only (visits, events, private hire)."
+  },
+  "phone": {
+    "display": "01 XX XX XX XX",
+    "href": "tel:+33100000000",
+    "provisional": true
+  },
+  "email": {
+    "display": "contact@[domaine-a-confirmer].fr",
+    "href": "mailto:contact@example.invalid",
+    "provisional": true
+  },
+  "responseDelay": {
+    "fr": "Réponse sous 2 jours ouvrés",
+    "en": "Reply within 2 working days"
+  },
+  "ticketingUrl": "/agenda/#billetterie",
+  "ticketingNote": "compte Weezevent SETF — accès à venir",
+  "shopUrl": "https://boutique.letrot.com/",
+  "social": [
+    { "id": "facebook", "label": "Facebook", "url": "#" },
+    { "id": "instagram", "label": "Instagram", "url": "#" },
+    { "id": "linkedin", "label": "LinkedIn", "url": "#" },
+    { "id": "youtube", "label": "YouTube", "url": "#" }
+  ],
+  "publisher": {
+    "name": "Société d'Encouragement à l'Élevage du Trotteur Français (SETF) — « Société du Trotteur Français »",
+    "legalForm": "Association déclarée loi 1901",
+    "siren": "318 455 698",
+    "address": "15 boulevard de Douaumont, 75017 Paris",
+    "phone": "+33 1 49 77 17 17",
+    "website": "https://www.letrot.com/",
+    "host": "DIGDEO — Espace Lumière, 51-57 boulevard de la République, 78400 Chatou",
+    "publicationDirector": "[À confirmer]",
+    "dpo": "[DPO SETF à confirmer]"
+  },
+  "legalLinks": {
+    "letrotPrivacy": "https://www.letrot.com/protection-des-donnees",
+    "letrotCookies": "https://www.letrot.com/cookie"
+  },
+  "crossLinks": [
+    { "label": "LeTROT", "url": "https://www.letrot.com/" },
+    { "label": "Boutique LeTROT", "url": "https://boutique.letrot.com/" },
+    { "label": "Hippodrome de Vincennes", "url": "https://www.vincennes-hippodrome.com/" }
+  ]
+}

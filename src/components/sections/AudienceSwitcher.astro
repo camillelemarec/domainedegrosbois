@@ -1,0 +1,32 @@
+---
+/** Entrée par profil « Vous êtes… » (p.13 Versailles) : segmentation BtoC / BtoB dès l'accueil. */
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+import { localizePath, useTranslations, type Lang } from '@/lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const audiences: { icon: IconName; fr: string; en: string; href: string }[] = [
+  { icon: 'users', fr: 'Visiteur, famille', en: 'Visitor, family', href: '/agenda/' },
+  { icon: 'museum', fr: 'Groupe, scolaire', en: 'Group, school', href: '/visiter/reserver/' },
+  { icon: 'building', fr: 'Entreprise, séminaire', en: 'Company, seminar', href: '/privatiser/espaces/orangerie/' },
+  { icon: 'camera', fr: 'Presse, tournage', en: 'Press, film shoot', href: '/privatiser/demande-de-devis/' },
+];
+---
+
+<section class="relative z-10 -mt-8 md:-mt-12" aria-label={t('home.audienceTitle')}>
+  <div class="container-site">
+    <div class="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-bleu-clair bg-bleu-clair shadow-md lg:grid-cols-[auto_repeat(4,1fr)]">
+      <p class="col-span-2 flex items-center bg-nuit px-5 py-3 font-display text-xl font-semibold text-white lg:col-span-1 lg:px-6">{t('home.audienceTitle')}</p>
+      {audiences.map((a) => (
+        <a href={localizePath(a.href, lang)} class="flex min-h-[4.5rem] items-center gap-3 bg-white px-4 py-3 text-sm font-semibold text-nuit transition hover:bg-creme lg:px-5">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-bleu-clair text-bleu"><Icon name={a.icon} size={20} /></span>
+          <span>{a[lang] ?? a.fr}</span>
+          <Icon name="arrow-right" size={16} class="ml-auto hidden text-dore-fonce sm:block" />
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

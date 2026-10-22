@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "siteName": "Domaine de Grosbois",
+    "tagline": "Château, centre d'entraînement mondial du trot et musée — Boissy-Saint-Léger (94)",
+    "prototypeBanner": "Prototype de maquette — textes, visuels, dates et tarifs provisoires (à remplacer par les contenus du Domaine)."
+  },
+  "a11y": {
+    "skipToContent": "Aller au contenu principal",
+    "mainNav": "Navigation principale",
+    "footerNav": "Navigation de pied de page",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "social": "Nos réseaux sociaux",
+    "langSwitch": "Choisir la langue",
+    "breadcrumb": "Fil d'Ariane",
+    "placeholderImage": "Image à venir",
+    "externalLink": "(nouvelle fenêtre)"
+  },
+  "header": {
+    "phone": "Téléphone",
+    "newsletter": "Rester informé",
+    "contact": "Contact",
+    "search": "Rechercher",
+    "tickets": "Billetterie",
+    "quote": "Demander un devis"
+  },
+  "nav": {
+    "privatiser": "Privatiser",
+    "visiter": "Visiter",
+    "decouvrir": "Découvrir",
+    "infos": "Infos pratiques",
+    "suivre": "Nous suivre",
+    "grosbois": "Grosbois & vous"
+  },
+  "footer": {
+    "address": "Adresse",
+    "legal": "Mentions légales",
+    "privacy": "Données personnelles & cookies",
+    "sitemap": "Plan du site",
+    "team": "Nos équipes",
+    "commitments": "Nos engagements",
+    "labels": "Nos labels et distinctions",
+    "partners": "Ils nous accompagnent",
+    "setf": "Un site de la Société du Trotteur Français",
+    "copyright": "© {year} Société du Trotteur Français — Domaine de Grosbois. Tous droits réservés.",
+    "cookieSettings": "Gérer mes cookies"
+  },
+  "common": {
+    "readMore": "En savoir plus",
+    "seeAll": "Voir tout",
+    "book": "Réserver",
+    "tickets": "Billets",
+    "quote": "Demander un devis",
+    "download": "Télécharger",
+    "addToCalendar": "Ajouter à mon agenda",
+    "from": "À partir de",
+    "free": "Gratuit",
+    "soldOut": "Complet",
+    "example": "Exemple",
+    "provisional": "Texte provisoire",
+    "required": "obligatoire",
+    "back": "Retour",
+    "underConstruction": "Page en cours de construction",
+    "underConstructionText": "Ce gabarit sera rempli avec les contenus du Domaine (textes repris du site actuel et nouveaux contenus) lors de la phase de production."
+  },
+  "home": {
+    "heroTitle": "Le Domaine de Grosbois",
+    "heroSubtitle": "Un château du XVIIe siècle, 400 hectares de nature et le plus grand centre d'entraînement de trotteurs au monde, à 15 km de Paris-Vincennes.",
+    "ctaVisit": "Réserver une visite",
+    "ctaPrivatize": "Privatiser un espace",
+    "audienceTitle": "Vous êtes…",
+    "entriesTitle": "Que souhaitez-vous faire ?",
+    "facetsTitle": "Un domaine, trois facettes",
+    "spacesTitle": "Privatiser le Domaine",
+    "spacesIntro": "Six espaces d'exception pour vos séminaires, réceptions, tournages et mariages, de 20 à 1 000 personnes.",
+    "agendaTitle": "Prochains rendez-vous",
+    "commitmentsTitle": "Nos engagements",
+    "newsletterTitle": "Restez informé"
+  },
+  "agenda": {
+    "title": "Agenda & billetterie",
+    "intro": "Visites guidées, journées spéciales et événements grand public : réservez vos billets en ligne.",
+    "tabAgenda": "Agenda",
+    "tabTickets": "Billetterie",
+    "filterType": "Type",
+    "filterAudience": "Public",
+    "filterMonth": "Mois",
+    "all": "Tous",
+    "noResult": "Aucun événement ne correspond à ces critères.",
+    "groupsTitle": "Visites de groupe, scolaires, entreprises",
+    "groupsText": "À partir de 10 personnes, les visites se font sur réservation avec devis personnalisé.",
+    "groupsCta": "Demander un devis de visite",
+    "ticketsTitle": "Comment réserver ?",
+    "ticketsText": "compte Weezevent SETF — accès à venir. Ce prototype n'affiche pas le module : pas d'iframe, pas d'appel.",
+    "ticketsCta": "Accéder à la billetterie",
+    "practical": "Le Domaine est un site privé, accessible uniquement sur réservation.",
+    "results": "{count} événement(s)"
+  },
+  "space": {
+    "capacities": "Capacités par configuration",
+    "scenography": "Scénographie",
+    "history": "Histoire & atouts",
+    "technical": "Fiche technique",
+    "services": "Prestations",
+    "access": "Accès",
+    "gallery": "Galerie",
+    "quote": "Devis",
+    "otherSpaces": "Découvrir les autres espaces",
+    "onThisPage": "Sur cette page",
+    "surface": "Surface",
+    "operator": "Exploitant",
+    "ctaTitle": "Un projet d'événement ?",
+    "ctaText": "Décrivez-nous votre projet : nous vous adressons un devis personnalisé sous 48 h ouvrées.",
+    "testimonials": "Ils nous ont fait confiance",
+    "people": "pers.",
+    "config": {
+      "theatre": "Théâtre",
+      "u": "En U",
+      "classe": "Classe",
+      "cabaret": "Cabaret",
+      "cocktail": "Cocktail",
+      "banquet": "Banquet"
+    }
+  },
+  "cookies": {
+    "title": "Cookies et vie privée",
+    "text": "Ce site utilise des cookies strictement nécessaires à son fonctionnement. Avec votre accord, des services tiers (cartes, vidéos, billetterie, mesure d'audience) peuvent déposer d'autres cookies. Vous pouvez modifier votre choix à tout moment.",
+    "accept": "Tout accepter",
+    "refuse": "Tout refuser",
+    "customize": "Personnaliser",
+    "notice": "Bandeau de démonstration : la version finale utilisera la CMP tarteaucitron (contrat SETF)."
+  },
+  "newsletter": {
+    "title": "Recevez l'actualité du Domaine",
+    "text": "Visites, événements, coulisses du centre d'entraînement : une lettre par mois, pas plus.",
+    "email": "Votre adresse e-mail",
+    "consent": "J'accepte de recevoir la lettre d'information du Domaine de Grosbois. Je peux me désinscrire à tout moment via le lien présent dans chaque e-mail.",
+    "submit": "Je m'inscris",
+    "privacy": "Vos données sont traitées par la SETF pour l'envoi de la lettre d'information (base légale : consentement). En savoir plus : Données personnelles & cookies.",
+    "demo": "Prototype : aucune donnée n'est envoyée ni enregistrée."
+  }
+}

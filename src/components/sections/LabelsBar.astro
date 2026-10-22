@@ -1,0 +1,30 @@
+---
+/** Bandeau des 6 labels (p.9) : logos SVG attendus dans `public/images/labels/`, sinon nom en toutes lettres. */
+import { labelLogos } from '@/data/images';
+import { resolveImage } from '@/lib/images';
+import { useTranslations, type Lang } from '@/lib/i18n';
+
+interface Props { lang: Lang; tone?: 'dark' | 'light' }
+const { lang, tone = 'dark' } = Astro.props;
+const t = useTranslations(lang);
+const labels = Object.entries(labelLogos).map(([id, entry]) => ({ id, ...resolveImage(entry, lang) }));
+---
+
+<section class:list={['border-b', tone === 'dark' ? 'border-white/10 bg-nuit' : 'border-bleu-clair bg-gris-clair']} aria-labelledby="labels-title">
+  <div class="container-site py-6">
+    <h2 id="labels-title" class:list={['font-body text-center text-xs font-semibold uppercase tracking-[0.2em]', tone === 'dark' ? 'text-dore' : 'text-ardoise']}>{t('footer.labels')}</h2>
+    <ul class="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+      {labels.map((label) => (
+        <li class="flex items-center justify-center">
+          {label.exists ? (
+            <img src={label.url} alt={label.altText} class:list={['h-12 w-auto', tone === 'dark' && 'brightness-0 invert opacity-90']} loading="lazy" />
+          ) : (
+            <span class:list={['inline-flex h-12 items-center rounded-sm border px-3 text-center font-display text-sm font-semibold leading-tight', tone === 'dark' ? 'border-white/25 text-white/90' : 'border-ardoise-clair text-ardoise']} data-expected={label.src}>
+              {label.altText}
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

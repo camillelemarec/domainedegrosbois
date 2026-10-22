@@ -1,0 +1,15 @@
+{
+  "provisoire": true,
+  "titre": { "fr": "Visite guidée du château", "en": "Guided tour of the castle" },
+  "type": "visite-guidee",
+  "public": "tout-public",
+  "dateDebut": "2026-11-15",
+  "heureDebut": "14:30",
+  "heureFin": "16:00",
+  "lieu": { "fr": "Château — accueil cour d'honneur", "en": "Castle — main courtyard reception" },
+  "prix": 12,
+  "prixDetail": { "fr": "[Tarif provisoire] Plein tarif ; tarif réduit et gratuité à définir", "en": "[Placeholder price] Full price; concessions to be defined" },
+  "image": { "src": "evenements/visite-guidee-chateau-01.jpg", "alt": { "fr": "Visite guidée dans les salons du château", "en": "Guided tour in the castle reception rooms" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+  "urlBilletterie": "#billetterie",
+  "description": { "fr": "[Texte provisoire] Des salons du XVIIe siècle aux collections du maréchal Berthier : 1 h 30 de visite commentée par un guide-conférencier.", "en": "[Placeholder] From the 17th-century rooms to Marshal Berthier's collections: a 90-minute tour with a qualified guide." }
+}

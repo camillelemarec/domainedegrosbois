@@ -1,0 +1,32 @@
+---
+/** Bandeau d'appel à l'action (devis / billetterie), fond bleu SETF, boutons contrastés (p.14, p.17). */
+import Icon from '@/components/ui/Icon.astro';
+import type { IconName } from '@/components/ui/icons';
+
+interface Action { label: string; href: string; icon?: IconName; style?: 'gold' | 'cta' | 'outline-light' }
+interface Props {
+  title: string;
+  text?: string;
+  actions: Action[];
+  tone?: 'blue' | 'cream';
+  id?: string;
+  class?: string;
+}
+const { title, text, actions, tone = 'blue', id, class: className = '' } = Astro.props;
+---
+
+<section id={id} class:list={[tone === 'blue' ? 'bg-bleu text-white' : 'bg-creme text-encre', className]}>
+  <div class="container-site flex flex-col items-start gap-6 py-12 md:flex-row md:items-center md:justify-between">
+    <div class="max-w-2xl">
+      <h2 class:list={['!text-current', tone === 'blue' && '!text-white']}>{title}</h2>
+      {text && <p class:list={['mt-2 text-lg', tone === 'blue' ? 'text-white/85' : 'text-ardoise']}>{text}</p>}
+    </div>
+    <div class="flex flex-wrap gap-3">
+      {actions.map((a) => (
+        <a href={a.href} class:list={['btn btn-lg', `btn-${a.style ?? 'gold'}`]}>
+          {a.icon && <Icon name={a.icon} size={20} />}{a.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

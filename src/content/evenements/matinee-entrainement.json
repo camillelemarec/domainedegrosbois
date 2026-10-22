@@ -1,0 +1,15 @@
+{
+  "provisoire": true,
+  "titre": { "fr": "Matinée au centre d'entraînement", "en": "Morning at the training centre" },
+  "type": "visite-guidee",
+  "public": "famille",
+  "dateDebut": "2026-11-22",
+  "heureDebut": "09:00",
+  "heureFin": "11:30",
+  "lieu": { "fr": "Centre d'entraînement — pistes", "en": "Training centre — tracks" },
+  "prix": 10,
+  "prixDetail": { "fr": "[Tarif provisoire] Adulte ; enfant à définir", "en": "[Placeholder price] Adult; child to be defined" },
+  "image": { "src": "evenements/matinee-entrainement-01.jpg", "alt": { "fr": "Trotteurs à l'entraînement au petit matin", "en": "Trotters training early in the morning" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+  "urlBilletterie": "#billetterie",
+  "description": { "fr": "[Texte provisoire] Assistez au travail matinal des trotteurs et découvrez les coulisses du plus grand centre d'entraînement du monde.", "en": "[Placeholder] Watch the trotters' morning work and discover the backstage of the world's largest training centre." }
+}

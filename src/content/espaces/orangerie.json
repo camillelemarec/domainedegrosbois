@@ -1,0 +1,60 @@
+{
+  "ordre": 4,
+  "provisoire": true,
+  "nom": { "fr": "L'Orangerie", "en": "The Orangery" },
+  "accroche": {
+    "fr": "[Texte provisoire] Une salle de réception lumineuse ouverte sur le parc, au pied du château, pour vos mariages, dîners de gala et soirées d'entreprise.",
+    "en": "[Placeholder] A light-filled reception hall opening onto the park, at the foot of the castle, for weddings, gala dinners and corporate evenings."
+  },
+  "description": [
+    {
+      "fr": "[Texte provisoire] L'Orangerie offre un volume unique sous charpente, baigné de lumière naturelle grâce à ses grandes baies en plein cintre. Sa terrasse donne directement sur les jardins et la perspective du château.",
+      "en": "[Placeholder] The Orangery offers a unique timber-framed volume, bathed in natural light through its tall arched windows. Its terrace opens directly onto the gardens and the view of the castle."
+    },
+    {
+      "fr": "[Texte provisoire] Modulable, elle accueille aussi bien un cocktail debout qu'un dîner assis ou une plénière. Les mariages et réceptions privées y sont organisés avec notre partenaire IdéeParis.",
+      "en": "[Placeholder] Flexible, it hosts standing cocktails as well as seated dinners or plenary sessions. Weddings and private receptions are organised with our partner IdéeParis."
+    }
+  ],
+  "surface": "600 m² (site actuel — à confirmer)",
+  "capacites": { "theatre": 200, "u": 60, "classe": 100, "cabaret": 120, "cocktail": 300, "banquet": 180 },
+  "histoire": [
+    {
+      "fr": "[Texte provisoire] Bâtie pour abriter les agrumes du domaine pendant l'hiver, l'Orangerie témoigne de l'art de vivre des propriétaires successifs de Grosbois, du maréchal Berthier aux familles qui lui ont succédé.",
+      "en": "[Placeholder] Built to shelter the estate's citrus trees in winter, the Orangery bears witness to the lifestyle of Grosbois's successive owners, from Marshal Berthier onwards."
+    }
+  ],
+  "ficheTechnique": [
+    { "label": { "fr": "Surface", "en": "Area" }, "valeur": { "fr": "600 m² (site actuel) — à confirmer", "en": "600 m² (current site) — tbc" } },
+    { "label": { "fr": "Hauteur sous plafond", "en": "Ceiling height" }, "valeur": { "fr": "[à confirmer]", "en": "[tbc]" } },
+    { "label": { "fr": "Équipements", "en": "Equipment" }, "valeur": { "fr": "[à confirmer] Sonorisation, vidéoprojection, Wi-Fi, office traiteur", "en": "[tbc] Sound system, video projection, Wi-Fi, catering pantry" } },
+    { "label": { "fr": "Accessibilité", "en": "Accessibility" }, "valeur": { "fr": "[à confirmer] Accès PMR de plain-pied", "en": "[tbc] Step-free access" } },
+    { "label": { "fr": "Stationnement", "en": "Parking" }, "valeur": { "fr": "[à confirmer] Parking privé à proximité immédiate", "en": "[tbc] Private car park nearby" } },
+    { "label": { "fr": "Horaires", "en": "Opening hours" }, "valeur": { "fr": "[à confirmer] Jour et soirée, sur réservation", "en": "[tbc] Day and evening, by reservation" } }
+  ],
+  "prestations": [
+    { "fr": "Formules journées d'études", "en": "Study-day packages" },
+    { "fr": "Service traiteur partenaire", "en": "Partner catering service" },
+    { "fr": "Activités : visite du château, découverte du centre d'entraînement, baptême en sulky", "en": "Activities: castle tour, training-centre discovery, sulky ride" },
+    { "fr": "Mariages et réceptions privées avec IdéeParis", "en": "Weddings and private receptions with IdéeParis" }
+  ],
+  "acces": {
+    "fr": "[Texte provisoire] Domaine privé, accès sur réservation uniquement. Entrée véhicules et entrée piétons distinctes (coordonnées GPS à confirmer). À 15 km de Paris-Vincennes ; RER A Boissy-Saint-Léger puis bus Transdev.",
+    "en": "[Placeholder] Private estate, access by reservation only. Separate vehicle and pedestrian entrances (GPS to be confirmed). 15 km from Paris-Vincennes; RER A Boissy-Saint-Léger then Transdev bus."
+  },
+  "exploitant": { "nom": "IdéeParis (mariages et réceptions privées)", "url": "#", "logo": "logo.ideeparis" },
+  "temoignages": [
+    { "citation": { "fr": "[Témoignage provisoire] Un cadre exceptionnel et une équipe aux petits soins pour notre séminaire annuel.", "en": "[Placeholder testimonial] An exceptional setting and an attentive team for our annual seminar." }, "auteur": "[Entreprise cliente — à confirmer]" },
+    { "citation": { "fr": "[Témoignage provisoire] Nos invités parlent encore du dîner dans l'Orangerie face au château.", "en": "[Placeholder testimonial] Our guests still talk about the dinner in the Orangery facing the castle." }, "auteur": "[Mariés — à confirmer]" }
+  ],
+  "images": {
+    "hero": { "src": "espaces/orangerie/orangerie-hero-01.jpg", "alt": { "fr": "L'Orangerie du Domaine de Grosbois", "en": "The Orangery of Domaine de Grosbois" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
+    "vignette": { "src": "espaces/orangerie/orangerie-vignette-01.jpg", "alt": { "fr": "L'Orangerie", "en": "The Orangery" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "galerie": [
+      { "src": "espaces/orangerie/orangerie-config-theatre-01.jpg", "alt": { "fr": "Orangerie en configuration théâtre", "en": "Orangery in theatre layout" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+      { "src": "espaces/orangerie/orangerie-config-cocktail-01.jpg", "alt": { "fr": "Orangerie en configuration cocktail", "en": "Orangery in cocktail layout" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+      { "src": "espaces/orangerie/orangerie-config-banquet-01.jpg", "alt": { "fr": "Orangerie dressée pour un banquet", "en": "Orangery set for a banquet" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+      { "src": "espaces/orangerie/orangerie-jardin-01.jpg", "alt": { "fr": "Jardin devant l'Orangerie", "en": "Garden in front of the Orangery" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" }
+    ]
+  }
+}

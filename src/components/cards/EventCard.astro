@@ -1,0 +1,64 @@
+---
+/** Carte événement : date mise en avant, lieu, prix, bouton billetterie (p.11, p.15). */
+import type { CollectionEntry } from 'astro:content';
+import Img from '@/components/media/Img.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { formatPrice, useTranslations, type Lang } from '@/lib/i18n';
+import { eventTypeLabel, eventAudienceLabel, monthKey } from '@/lib/events';
+
+interface Props { event: CollectionEntry<'evenements'>; lang: Lang; headingLevel?: 'h2' | 'h3'; compact?: boolean }
+const { event, lang, headingLevel = 'h3', compact = false } = Astro.props;
+const t = useTranslations(lang);
+const d = event.data;
+const Heading = headingLevel;
+const start = new Date(d.dateDebut);
+const end = d.dateFin ? new Date(d.dateFin) : undefined;
+const locale = lang === 'fr' ? 'fr-FR' : 'en-GB';
+const day = new Intl.DateTimeFormat(locale, { day: '2-digit' }).format(start);
+const month = new Intl.DateTimeFormat(locale, { month: 'short' }).format(start).replace('.', '');
+const longDate = new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(start)
+  + (end ? ` → ${new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(end)}` : '');
+const time = d.heureDebut ? `${d.heureDebut}${d.heureFin ? ` – ${d.heureFin}` : ''}` : undefined;
+const price = d.prix === null ? t('common.free') : `${t('common.from')} ${formatPrice(d.prix, lang)}`;
+---
+
+<article
+  id={`evenement-${event.id}`}
+  class="card relative"
+  data-event
+  data-type={d.type}
+  data-audience={d.public}
+  data-month={monthKey(d.dateDebut)}
+>
+  <div class="relative">
+    <Img image={d.image} lang={lang} ratio="4/3" />
+    <time datetime={d.dateDebut} class="absolute left-3 top-3 grid min-w-14 place-items-center rounded-sm bg-white px-2 py-1.5 text-center shadow-sm">
+      <span class="font-display text-2xl font-semibold leading-none text-bleu">{day}</span>
+      <span class="text-xs font-semibold uppercase tracking-wider text-brique-fonce">{month}</span>
+    </time>
+    <div class="absolute right-3 top-3 flex flex-col items-end gap-1">
+      {d.complet && <span class="badge badge-brick">{t('common.soldOut')}</span>}
+      {d.provisoire && <span class="badge badge-provisional">{t('common.example')}</span>}
+    </div>
+  </div>
+  <div class="flex flex-1 flex-col gap-2 p-5">
+    <p class="text-xs font-semibold uppercase tracking-[0.12em] text-dore-fonce">{eventTypeLabel(d.type, lang)} · {eventAudienceLabel(d.public, lang)}</p>
+    <Heading class="text-xl leading-snug">
+      <a href={`#evenement-${event.id}`} class="font-display text-bleu no-underline hover:underline underline-offset-4">{d.titre[lang] ?? d.titre.fr}</a>
+    </Heading>
+    <ul class="space-y-1 text-sm text-ardoise">
+      <li class="flex items-center gap-2"><Icon name="calendar" size={16} class="shrink-0 text-ardoise-clair" /><span class="capitalize">{longDate}</span></li>
+      {time && <li class="flex items-center gap-2"><Icon name="clock" size={16} class="shrink-0 text-ardoise-clair" />{time}</li>}
+      <li class="flex items-center gap-2"><Icon name="map-pin" size={16} class="shrink-0 text-ardoise-clair" />{d.lieu[lang] ?? d.lieu.fr}</li>
+    </ul>
+    {!compact && <p class="text-sm leading-relaxed text-ardoise">{d.description[lang] ?? d.description.fr}</p>}
+    <div class="mt-auto flex items-center justify-between gap-3 pt-3">
+      <span class="font-semibold text-nuit">{price}</span>
+      {d.complet ? (
+        <span class="btn btn-sm btn-outline" aria-disabled="true">{t('common.soldOut')}</span>
+      ) : (
+        <a href="/agenda/#billetterie" class="btn btn-primary btn-sm"><Icon name="ticket" size={16} />{t('common.tickets')}</a>
+      )}
+    </div>
+  </div>
+</article>
