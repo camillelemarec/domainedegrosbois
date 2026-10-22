@@ -22,7 +22,9 @@ const year = new Date().getFullYear();
 const setf = resolveImage('logo.setf', lang);
 ---
 
-<footer class="mt-auto bg-nuit text-bleu-clair">
+<div class="footer-slot">
+<footer class="relative bg-nuit text-bleu-clair">
+  <div class="footer-crest" aria-hidden="true"></div>
   <LabelsBar lang={lang} />
 
   <div class="container-site grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-12">
@@ -53,7 +55,7 @@ const setf = resolveImage('logo.setf', lang);
             {item.href ? (
               <a href={l(item.href)} class="inline-block min-h-9 py-1.5 text-white hover:underline underline-offset-4">{t(item.label)}</a>
             ) : (
-              <span class="inline-block min-h-9 py-1.5 text-white/65">{t(item.label)} — hors de ce prototype</span>
+              <span class="inline-block min-h-9 py-1.5 text-white/65">{t(item.label)}, hors de ce prototype</span>
             )}
           </li>
         ))}
@@ -95,3 +97,27 @@ const setf = resolveImage('logo.setf', lang);
     </div>
   </div>
 </footer>
+</div>
+
+<style>
+  .footer-slot {
+    --crest-w: min(20.5rem, 72vw);
+    margin-top: auto;
+    /* Réserve le blanc au-dessus du footer pour que la silhouette ne recouvre pas le contenu. */
+    padding-top: calc(var(--crest-w) * 128 / 329 * 0.72);
+  }
+  /* Silhouette du château, même bleu nuit que le footer, base noyée dans le bandeau. */
+  .footer-crest {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    z-index: 2;
+    width: var(--crest-w);
+    aspect-ratio: 329 / 128;
+    pointer-events: none;
+    background: var(--color-nuit);
+    transform: translate(-50%, calc(38 / 128 * 100% + 1px));
+    -webkit-mask: url('/path1.png') center / 100% 100% no-repeat;
+    mask: url('/path1.png') center / 100% 100% no-repeat;
+  }
+</style>

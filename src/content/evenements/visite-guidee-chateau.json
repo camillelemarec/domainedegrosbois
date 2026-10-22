@@ -6,7 +6,7 @@
   "dateDebut": "2026-11-15",
   "heureDebut": "14:30",
   "heureFin": "16:00",
-  "lieu": { "fr": "Château — accueil cour d'honneur", "en": "Castle — main courtyard reception" },
+  "lieu": { "fr": "Château, accueil cour d'honneur", "en": "Castle, main courtyard reception" },
   "prix": 12,
   "prixDetail": { "fr": "[Tarif provisoire] Plein tarif ; tarif réduit et gratuité à définir", "en": "[Placeholder price] Full price; concessions to be defined" },
   "image": { "src": "evenements/visite-guidee-chateau-01.jpg", "alt": { "fr": "Visite guidée dans les salons du château", "en": "Guided tour in the castle reception rooms" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },

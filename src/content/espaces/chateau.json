@@ -9,8 +9,34 @@
   "description": [
     { "fr": "[Texte provisoire] Salons en enfilade, décors d'époque et collections : le château est l'atout prestige du Domaine. Ses salons se privatisent en journée ou en soirée, dans le respect du monument.", "en": "[Placeholder] Interconnecting reception rooms, period decor and collections: the castle is the estate's prestige asset. Its rooms can be hired by day or evening, in keeping with the monument." }
   ],
-  "surface": "800 m² (site actuel — à confirmer)",
-  "capacites": { "theatre": 80, "u": 30, "classe": null, "cabaret": 48, "cocktail": 150, "banquet": 80 },
+  "surface": "60–124 m²",
+  "salles": [
+    {
+      "nom": { "fr": "Grand hall", "en": "Great hall" },
+      "surface": "68 m²",
+      "capacites": { "u": 22, "theatre": 50, "reunion": 28, "cabaret": 50, "cocktail": 60 }
+    },
+    {
+      "nom": { "fr": "Salon de passage", "en": "Connecting salon" },
+      "surface": "60 m²",
+      "capacites": { "u": 16, "theatre": 30, "reunion": 20, "cabaret": 32, "cocktail": 50 }
+    },
+    {
+      "nom": { "fr": "Salle à manger", "en": "Dining room" },
+      "surface": "70 m²",
+      "capacites": { "u": 20, "theatre": 35, "reunion": 20, "cabaret": 40, "cocktail": 50 }
+    },
+    {
+      "nom": { "fr": "Salon de danse", "en": "Ballroom" },
+      "surface": "120 m²",
+      "capacites": { "u": 45, "theatre": 100, "reunion": 46, "cabaret": 80, "cocktail": 100 }
+    },
+    {
+      "nom": { "fr": "Galerie des batailles", "en": "Gallery of Battles" },
+      "surface": "124 m²",
+      "capacites": { "u": 45, "theatre": 90, "reunion": 46, "cabaret": null, "cocktail": 100 }
+    }
+  ],
   "ficheTechnique": [
     { "label": { "fr": "Protection", "en": "Protection" }, "valeur": { "fr": "Monument historique : conditions d'usage spécifiques", "en": "Historic monument: specific conditions of use" } }
   ],
@@ -20,8 +46,9 @@
     { "fr": "Visites privées des collections", "en": "Private tours of the collections" }
   ],
   "images": {
-    "hero": { "src": "espaces/chateau/chateau-hero-01.jpg", "alt": { "fr": "Salon du château de Grosbois", "en": "Reception room of Grosbois castle" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
-    "vignette": { "src": "espaces/chateau/chateau-vignette-01.jpg", "alt": { "fr": "Salons du château", "en": "Castle reception rooms" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "hero": { "src": "espaces/chateau/cour-d-honneur-du-chteau-JLL-LeTROT.jpg", "alt": { "fr": "Cour d’honneur du château de Grosbois", "en": "Main courtyard of Grosbois castle" }, "credit": "JLL / LeTROT", "ratio": "21/9" },
+    "vignette": { "src": "espaces/chateau/cour-d-honneur-du-chteau-JLL-LeTROT.jpg", "alt": { "fr": "Cour d’honneur du château de Grosbois", "en": "Main courtyard of Grosbois castle" }, "credit": "JLL / LeTROT", "ratio": "4/3" },
+    "scenographie": { "src": "espaces/chateau/galerie-des-batailles-JLL-LeTROT.jpg", "alt": { "fr": "Galerie des batailles du château de Grosbois", "en": "Gallery of Battles at Grosbois castle" }, "credit": "JLL / LeTROT", "ratio": "16/9" },
     "galerie": []
   }
 }

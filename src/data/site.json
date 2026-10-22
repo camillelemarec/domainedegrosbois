@@ -2,8 +2,8 @@
   "_note": "Coordonnées du Domaine : les champs marqués [à confirmer] / provisional sont des placeholders. Les données de l'éditeur (SETF) proviennent des mentions légales de letrot.com (benchmark §4.11, consultées le 22/10/2026).",
   "name": "Domaine de Grosbois",
   "shortDescription": {
-    "fr": "Château, centre d'entraînement du trot et musée — Boissy-Saint-Léger (94)",
-    "en": "Castle, trotting training centre and museum — Boissy-Saint-Léger, near Paris"
+    "fr": "Château, centre d'entraînement du trot et musée, Boissy-Saint-Léger (94)",
+    "en": "Castle, trotting training centre and museum, Boissy-Saint-Léger, near Paris"
   },
   "address": {
     "street": "[Adresse postale du Domaine à confirmer]",
@@ -15,7 +15,7 @@
     "vehicles": {
       "label": { "fr": "Entrée véhicules", "en": "Vehicle entrance" },
       "address": "46 avenue de Grosbois, 94440 Marolles-en-Brie",
-      "addressNote": "Adresse indiquée sur le site actuel — à confirmer",
+      "addressNote": "Adresse indiquée sur le site actuel, à confirmer",
       "gps": "[GPS à confirmer]",
       "mapsUrl": "#"
     },
@@ -45,7 +45,7 @@
     "en": "Reply within 2 working days"
   },
   "ticketingUrl": "/agenda/#billetterie",
-  "ticketingNote": "compte Weezevent SETF — accès à venir",
+  "ticketingNote": "compte Weezevent SETF, accès à venir",
   "shopUrl": "https://boutique.letrot.com/",
   "social": [
     { "id": "facebook", "label": "Facebook", "url": "#" },
@@ -54,13 +54,13 @@
     { "id": "youtube", "label": "YouTube", "url": "#" }
   ],
   "publisher": {
-    "name": "Société d'Encouragement à l'Élevage du Trotteur Français (SETF) — « Société du Trotteur Français »",
+    "name": "Société d'Encouragement à l'Élevage du Trotteur Français (SETF), « Société du Trotteur Français »",
     "legalForm": "Association déclarée loi 1901",
     "siren": "318 455 698",
     "address": "15 boulevard de Douaumont, 75017 Paris",
     "phone": "+33 1 49 77 17 17",
     "website": "https://www.letrot.com/",
-    "host": "DIGDEO — Espace Lumière, 51-57 boulevard de la République, 78400 Chatou",
+    "host": "DIGDEO, Espace Lumière, 51-57 boulevard de la République, 78400 Chatou",
     "publicationDirector": "[À confirmer]",
     "dpo": "[DPO SETF à confirmer]"
   },

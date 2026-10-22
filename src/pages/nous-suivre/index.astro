@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/Hero.astro';
+import Breadcrumb from '@/components/nav/Breadcrumb.astro';
+import Img from '@/components/media/Img.astro';
+import { formatDate } from '@/lib/i18n';
+
+const lang = 'fr' as const;
+const actualites = (await getCollection('actualites')).sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<BaseLayout title="Nous suivre" description="La vie du Domaine de Grosbois, les cracks à l’entraînement et nos engagements.">
+  <Hero
+    image="accueil.hero"
+    lang={lang}
+    variant="short"
+    eyebrow="Nous suivre"
+    title="Nous suivre"
+    subtitle="La vie du Domaine, les cracks à l’entraînement, nos engagements."
+  />
+
+  <div class="container-site py-6">
+    <Breadcrumb lang={lang} items={[{ label: 'Nous suivre' }]} />
+  </div>
+
+  <section class="section !pt-0" aria-labelledby="actualites-page">
+    <div class="container-site">
+      <h2 id="actualites-page" class="font-display text-3xl">Actualités</h2>
+      <ul class="mt-8 grid gap-8 md:grid-cols-3">
+        {actualites.map((article) => (
+          <li class="overflow-hidden rounded-md border border-bleu-clair bg-white">
+            <Img image={article.data.image} lang={lang} ratio="4/3" />
+            <div class="p-5">
+              <time datetime={article.data.date} class="text-xs font-semibold uppercase tracking-wider text-dore-fonce">{formatDate(article.data.date, lang, { weekday: undefined })}</time>
+              <h3 class="mt-2 font-display text-2xl">{article.data.titre.fr}</h3>
+              <p class="mt-2 text-ardoise">{article.data.extrait.fr}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

@@ -15,24 +15,75 @@ interface Props {
   title: string;
   subtitle?: string;
   align?: 'left' | 'center';
+  /** Titre à gauche, sous-titre et actions à droite. */
+  split?: boolean;
+  /** Lien d’invitation au scroll, ancre de la section suivante. */
+  scrollTo?: string;
+  scrollLabel?: string;
   class?: string;
+  objectPosition?: string;
 }
-const { image, lang, variant = 'short', eyebrow, title, subtitle, align = 'left', class: className = '' } = Astro.props;
+const { image, lang, variant = 'short', eyebrow, title, subtitle, align = 'left', split = false, scrollTo, scrollLabel, class: className = '', objectPosition } = Astro.props;
 ---
 
-<section class:list={['hero relative isolate overflow-hidden bg-nuit text-white', variant === 'full' ? 'hero-full' : 'hero-short', className]}>
-  <Img image={image} lang={lang} ratio="auto" loading="eager" fetchpriority="high" tone="dark" class="absolute inset-0 h-full w-full" />
+<section class:list={['hero relative isolate flex flex-col overflow-hidden bg-nuit text-white', variant === 'full' ? 'hero-full' : 'hero-short', className]}>
+  <Img image={image} lang={lang} ratio="auto" loading="eager" fetchpriority="high" tone="dark" objectPosition={objectPosition} class="absolute inset-0 h-full w-full" />
   <div class="overlay-hero absolute inset-0" aria-hidden="true"></div>
-  <div class:list={['container-site relative flex h-full flex-col justify-end pb-10 pt-16 md:pb-16', align === 'center' && 'items-center text-center']}>
+  <div class:list={['container-site relative mt-auto pb-10 pt-28 md:pb-16', align === 'center' && 'text-center']}>
     {eyebrow && <p class="eyebrow !text-dore">{eyebrow}</p>}
-    <h1 class="mt-2 max-w-3xl !text-white drop-shadow-[0_2px_12px_rgba(2,30,65,0.5)]">{title}</h1>
-    {subtitle && <p class="mt-4 max-w-2xl text-lg text-white/90 md:text-xl drop-shadow-[0_1px_8px_rgba(2,30,65,0.6)]">{subtitle}</p>}
-    <slot />
+    {split ? (
+      <div class="mt-2 grid items-end gap-8 lg:grid-cols-2 lg:gap-16">
+        <h1 class="hero-title max-w-3xl !text-white drop-shadow-[0_2px_12px_rgba(2,30,65,0.5)]">{title}</h1>
+        <div class="lg:justify-self-end lg:text-right">
+          {subtitle && <p class="lede max-w-xl text-white/90 drop-shadow-[0_1px_8px_rgba(2,30,65,0.6)] lg:ml-auto">{subtitle}</p>}
+          <div class="lg:flex lg:justify-end">
+            <slot />
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div class:list={['flex flex-col', align === 'center' && 'items-center']}>
+        <h1 class="mt-2 max-w-3xl !text-white drop-shadow-[0_2px_12px_rgba(2,30,65,0.5)]">{title}</h1>
+        {subtitle && <p class="lede mt-4 max-w-2xl text-white/90 drop-shadow-[0_1px_8px_rgba(2,30,65,0.6)]">{subtitle}</p>}
+        <slot />
+      </div>
+    )}
   </div>
+  {scrollTo && (
+    <a href={scrollTo} class="scroll-cue" aria-label={scrollLabel}>
+      <span></span>
+    </a>
+  )}
 </section>
 
 <style>
   .hero-full { min-height: min(88dvh, 52rem); }
   .hero-short { min-height: clamp(16rem, 40vw, 26rem); }
   @media (max-width: 40rem) { .hero-full { min-height: 34rem; } }
+  @media (min-width: 64rem) {
+    .hero-title { transform: translateY(-180px); }
+  }
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 1.5rem;
+    z-index: 2;
+    display: grid;
+    width: 2.5rem;
+    height: 2.75rem;
+    place-items: center;
+    color: #fff;
+    transform: translateX(-50%);
+  }
+  .scroll-cue span {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    animation: scroll-nudge 1.8s ease-in-out infinite;
+  }
+  @keyframes scroll-nudge {
+    0%, 100% { transform: rotate(45deg) translate(-2px, -2px); opacity: 0.4; }
+    50% { transform: rotate(45deg) translate(3px, 3px); opacity: 1; }
+  }
 </style>

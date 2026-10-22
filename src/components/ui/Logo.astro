@@ -9,9 +9,10 @@ import type { Lang } from '@/lib/i18n';
 interface Props {
   lang?: Lang;
   variant?: 'color' | 'light';
+  size?: 'md' | 'lg';
   class?: string;
 }
-const { lang = 'fr', variant = 'color', class: className = '' } = Astro.props;
+const { lang = 'fr', variant = 'color', size = 'md', class: className = '' } = Astro.props;
 const logo = resolveImage('logo.grosbois', lang);
 const light = variant === 'light';
 ---
@@ -19,19 +20,17 @@ const light = variant === 'light';
 {logo.exists ? (
   <img src={logo.url} alt={logo.altText} class:list={['h-full w-auto', className]} width="180" height="56" />
 ) : (
-  <span class:list={['logo-wordmark inline-flex items-center gap-2.5', className]} role="img" aria-label={logo.altText}>
-    <span class:list={['logo-mark grid place-items-center rounded-sm', light ? 'bg-dore text-nuit' : 'bg-bleu text-white']} aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 21h18M5 21V9l2-2v-3h2v2h2V4h2v2h2V4h2v3l2 2v12"/><path d="M10 21v-5a2 2 0 0 1 4 0v5"/>
-      </svg>
-    </span>
+  <span class:list={['logo-wordmark inline-flex items-center gap-2.5', size === 'lg' && 'logo-lg', className]} role="img" aria-label={logo.altText}>
+    <img src="/images/logo/logogb.png" alt="" class="logo-mark" width={size === 'lg' ? 72 : 40} height={size === 'lg' ? 72 : 40} />
     <span class="flex flex-col leading-none">
-      <span class:list={['font-body text-[0.68rem] font-semibold tracking-[0.32em] uppercase', light ? 'text-bleu-clair' : 'text-ardoise']}>Domaine de</span>
+      <span class:list={['font-display text-[0.78rem] font-semibold tracking-[0.28em] uppercase', light ? 'text-bleu-clair' : 'text-ardoise']}>Domaine de</span>
       <span class:list={['font-display text-[1.55rem] font-semibold tracking-wide uppercase -mt-0.5', light ? 'text-white' : 'text-bleu']}>Grosbois</span>
     </span>
   </span>
 )}
 
 <style>
-  .logo-mark { width: 2.5rem; height: 2.5rem; flex: none; }
+  .logo-mark { width: 2.75rem; height: 2.75rem; flex: none; object-fit: contain; }
+  .logo-lg .logo-mark { width: 4.75rem; height: 4.75rem; }
+  .logo-lg { gap: 0.85rem; }
 </style>

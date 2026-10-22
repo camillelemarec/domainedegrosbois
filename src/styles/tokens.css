@@ -1,28 +1,28 @@
 /*
- * Design tokens — source unique de la charte (à transposer dans `theme.json` du thème WordPress).
+ * Design tokens : source unique de la charte (à transposer dans `theme.json` du thème WordPress).
  * Valeurs SETF 2023 lues sur le nuancier du cahier des charges (p.6) : à confirmer avec la charte officielle.
  * Palette « château » (p.7) : propositions à valider (brique, ardoise, sable, doré, rouge sombre).
  */
 :root {
-  /* --- Couleurs SETF 2023 ------------------------------------------------ */
-  --color-setf-blue: #0e386b;        /* Pantone 2955 C — navigation, titres, fonds forts */
-  --color-setf-navy: #021e41;        /* Pantone 2767 C — footer, hero overlay */
-  --color-setf-blue-light: #d0dee8;  /* Pantone 9402 C — fonds doux, bordures */
-  --color-setf-grey-light: #f5f5f5;  /* fonds de section */
-  --color-setf-red: #d3052d;         /* Pantone 186 C — logo et micro-accents uniquement */
-  --color-setf-red-light: #e54242;   /* Pantone P 52-7 C — états d'erreur */
+  /* --- Palette du Domaine ------------------------------------------------- */
+  --color-setf-blue: #3e4e65;        /* bleu gris foncé : titres, liens */
+  --color-setf-navy: #081623;        /* bleu foncé : footer, fonds forts */
+  --color-setf-blue-light: #e4e8ee;  /* lavis du bleu gris clair : fonds doux, bordures */
+  --color-setf-grey-light: #eef1f5;  /* fonds de section */
+  --color-setf-red: #5f2f2d;         /* rouge sombre */
+  --color-setf-red-light: #8a4540;
 
-  /* --- Palette Grosbois (château) ---------------------------------------- */
-  --color-brick: #b8694f;            /* briques et sable des pistes */
-  --color-brick-dark: #96503a;       /* survol / texte brique sur clair (contraste AA) */
-  --color-slate: #4a5568;            /* ardoise des toitures — textes secondaires */
-  --color-slate-light: #8a9bb0;      /* bordures, pictos discrets */
-  --color-sand: #d9cdb0;             /* beige sable */
-  --color-sand-light: #f3eee2;       /* fond crème des sections chaleureuses */
-  --color-gold: #c9a961;             /* doré (référence Cornulier) — CTA secondaires, filets */
-  --color-gold-dark: #a8873f;        /* doré sur fond clair (contraste texte) */
-  --color-wine: #6b2e2e;             /* rouge sombre des portes — accents rares */
-  --color-ink: #0f1b2d;              /* texte principal */
+  --color-brick: #c7705c;            /* brique */
+  --color-brick-dark: #a85a48;       /* brique au survol */
+  --color-slate: #3e4e65;            /* bleu gris foncé : textes secondaires */
+  --color-slate-light: #76869d;      /* bleu gris clair : bordures, pictos */
+  --color-sand: #d4c9b3;             /* beige sable */
+  --color-sand-light: #f6f1e8;       /* beige sable éclairci */
+  --color-gold: #e8d497;             /* doré : bouton billetterie */
+  --color-gold-hover: #dcc98a;
+  --color-gold-dark: #7a6232;        /* doré assombri, lisible sur fond clair */
+  --color-wine: #5f2f2d;             /* rouge sombre */
+  --color-ink: #081623;              /* texte principal */
   --color-white: #ffffff;
 
   /* --- Sémantique --------------------------------------------------------- */
@@ -42,14 +42,15 @@
   --color-success: #1f6f43;
 
   /* --- Typographie -------------------------------------------------------- */
-  /* Charte 2015 : Minion Pro (GROSBOIS) + ITC Avant Garde Gothic (DOMAINE) — polices commerciales.
-     Prototype : alternatives libres auto-hébergées ; à remplacer par les fontes licenciées si fournies. */
+  /* Charte 2015 : Minion Pro (GROSBOIS). La linéale géométrique (Avant Garde / Jost)
+     jurait avec ce caractère. Prototype : paire prestige auto-hébergée :
+     Cormorant Garamond (titres et sous-titres) + EB Garamond (texte, proche de Minion). */
   --font-display: 'Cormorant Garamond', 'Minion Pro', Georgia, 'Times New Roman', serif;
-  --font-body: 'Jost', 'ITC Avant Garde Gothic Std', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'EB Garamond', 'Minion Pro', Georgia, 'Times New Roman', serif;
 
-  --text-xs: 0.8125rem;   /* 13px — mentions, légendes uniquement */
+  --text-xs: 0.8125rem;   /* 13px : mentions, légendes uniquement */
   --text-sm: 0.9375rem;   /* 15px */
-  --text-base: 1.0625rem; /* 17px — corps de texte (≥ 16px, lisibilité p.16) */
+  --text-base: 1.0625rem; /* 17px : corps de texte (≥ 16px, lisibilité p.16) */
   --text-lg: 1.1875rem;
   --text-xl: 1.375rem;
   --text-2xl: 1.75rem;
@@ -69,6 +70,6 @@
   --shadow-sm: 0 1px 2px rgb(2 30 65 / 0.08);
   --shadow-md: 0 8px 24px rgb(2 30 65 / 0.12);
   --shadow-lg: 0 20px 48px rgb(2 30 65 / 0.18);
-  --tap-target: 2.75rem;       /* 44px — cibles tactiles */
-  --header-height: 4.5rem;
+  --tap-target: 2.75rem;       /* 44px : cibles tactiles */
+  --header-height: 5.75rem;
 }

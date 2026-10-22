@@ -91,7 +91,7 @@ try {
 
   await page.goto(`${base}/agenda/#billetterie`, { waitUntil: 'networkidle' });
   const encart = await page.locator('[data-billetterie]').innerText();
-  if (!encart.includes('compte Weezevent SETF — accès à venir')) throw new Error('placeholder billetterie absent');
+  if (!encart.includes('compte Weezevent SETF, accès à venir')) throw new Error('placeholder billetterie absent');
   console.log('✓ placeholder billetterie');
   await context.close();
 } finally {

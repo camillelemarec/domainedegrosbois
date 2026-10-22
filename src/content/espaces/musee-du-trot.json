@@ -9,8 +9,29 @@
   "description": [
     { "fr": "[Texte provisoire] Les salles du musée se privatisent pour des réceptions en soirée, avec visite commentée des collections (sulkys, trophées, archives).", "en": "[Placeholder] The museum rooms can be hired for evening receptions, with a guided tour of the collections (sulkies, trophies, archives)." }
   ],
-  "surface": "500 m² (site actuel — à confirmer)",
-  "capacites": { "theatre": 60, "u": null, "classe": null, "cabaret": null, "cocktail": 120, "banquet": 50 },
+  "surface": "38–500 m²",
+  "salles": [
+    {
+      "nom": { "fr": "Grand hall", "en": "Great hall" },
+      "surface": "68 m²",
+      "capacites": { "u": 22, "theatre": 50, "reunion": 28, "cabaret": 30, "cocktail": 60 }
+    },
+    {
+      "nom": { "fr": "Salle de projection", "en": "Screening room" },
+      "surface": "38 m²",
+      "capacites": { "u": 14, "theatre": 30, "reunion": 16, "cabaret": 10, "cocktail": null }
+    },
+    {
+      "nom": { "fr": "Hall des immortels", "en": "Hall of the Immortals" },
+      "surface": "120 m²",
+      "capacites": { "u": null, "theatre": 70, "reunion": 50, "cabaret": 40, "cocktail": 90 }
+    },
+    {
+      "nom": { "fr": "Musée du trot", "en": "Trotting museum" },
+      "surface": "500 m²",
+      "capacites": { "u": null, "theatre": null, "reunion": null, "cabaret": null, "cocktail": 150 }
+    }
+  ],
   "ficheTechnique": [
     { "label": { "fr": "Contraintes", "en": "Constraints" }, "valeur": { "fr": "[à confirmer] Lieu muséal : prestations traiteur encadrées", "en": "[tbc] Museum venue: catering under supervision" } }
   ],
@@ -19,8 +40,9 @@
     { "fr": "Cocktail dînatoire", "en": "Cocktail dinner" }
   ],
   "images": {
-    "hero": { "src": "espaces/musee-du-trot/musee-du-trot-hero-01.jpg", "alt": { "fr": "Salle du musée du trot", "en": "Room of the trotting museum" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
-    "vignette": { "src": "espaces/musee-du-trot/musee-du-trot-vignette-01.jpg", "alt": { "fr": "Musée du trot", "en": "Trotting museum" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "hero": { "src": "musee-du-trot/Galerie-des-batailles-chateau-de-grosbois-JLL-LeTROT.jpg", "alt": { "fr": "Galerie des batailles du château de Grosbois, tableaux et lustres", "en": "Gallery of Battles at Grosbois castle, paintings and chandeliers" }, "credit": "JLL / LeTROT", "ratio": "21/9" },
+    "vignette": { "src": "musee-du-trot/Galerie-des-batailles-chateau-de-grosbois-JLL-LeTROT.jpg", "alt": { "fr": "Galerie des batailles du château de Grosbois, tableaux et lustres", "en": "Gallery of Battles at Grosbois castle, paintings and chandeliers" }, "credit": "JLL / LeTROT", "ratio": "4/3" },
+    "scenographie": { "src": "espaces/musee-du-trot/Chteau-de-Grosbois-salle-de-projection-configuration-thtre-JLL-LeTROT.jpg", "alt": { "fr": "Salle de projection du château de Grosbois en configuration théâtre", "en": "Projection room at Grosbois castle in theatre layout" }, "credit": "JLL / LeTROT", "ratio": "16/9" },
     "galerie": []
   }
 }

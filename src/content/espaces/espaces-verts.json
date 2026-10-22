@@ -10,7 +10,7 @@
     { "fr": "[Texte provisoire] 400 hectares dont 220 de bois : le Domaine offre des extérieurs variés, de la perspective du château aux allées forestières.", "en": "[Placeholder] 400 hectares including 220 of woodland: the estate offers varied outdoor settings, from the castle perspective to forest paths." }
   ],
   "surface": "400 ha (dont 220 ha de bois)",
-  "capacites": { "theatre": null, "u": null, "classe": null, "cabaret": null, "cocktail": 1000, "banquet": 500 },
+  "salles": [],
   "ficheTechnique": [
     { "label": { "fr": "Structures", "en": "Structures" }, "valeur": { "fr": "[à confirmer] Chapiteaux et tentes sur devis", "en": "[tbc] Marquees and tents on request" } }
   ],
@@ -19,8 +19,8 @@
     { "fr": "Rallyes, olympiades et activités nature", "en": "Rallies, olympiads and nature activities" }
   ],
   "images": {
-    "hero": { "src": "espaces/espaces-verts/espaces-verts-hero-01.jpg", "alt": { "fr": "Parc du Domaine de Grosbois", "en": "Park of Domaine de Grosbois" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
-    "vignette": { "src": "espaces/espaces-verts/espaces-verts-vignette-01.jpg", "alt": { "fr": "Espaces verts et parc", "en": "Grounds and park" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "hero": { "src": "espaces/espaces-verts/Infrastructure.jpg", "alt": { "fr": "Vue aérienne des infrastructures du Domaine de Grosbois", "en": "Aerial view of the Domaine de Grosbois facilities" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
+    "vignette": { "src": "espaces/espaces-verts/Infrastructure.jpg", "alt": { "fr": "Vue aérienne des infrastructures du Domaine de Grosbois", "en": "Aerial view of the Domaine de Grosbois facilities" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
     "galerie": []
   }
 }

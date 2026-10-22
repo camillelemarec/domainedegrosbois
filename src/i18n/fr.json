@@ -1,8 +1,8 @@
 {
   "meta": {
     "siteName": "Domaine de Grosbois",
-    "tagline": "Château, centre d'entraînement mondial du trot et musée — Boissy-Saint-Léger (94)",
-    "prototypeBanner": "Prototype de maquette — textes, visuels, dates et tarifs provisoires (à remplacer par les contenus du Domaine)."
+    "tagline": "Château, centre d'entraînement mondial du trot et musée, Boissy-Saint-Léger (94)",
+    "prototypeBanner": "Prototype de maquette : textes, visuels, dates et tarifs provisoires (à remplacer par les contenus du Domaine)."
   },
   "a11y": {
     "skipToContent": "Aller au contenu principal",
@@ -42,7 +42,7 @@
     "labels": "Nos labels et distinctions",
     "partners": "Ils nous accompagnent",
     "setf": "Un site de la Société du Trotteur Français",
-    "copyright": "© {year} Société du Trotteur Français — Domaine de Grosbois. Tous droits réservés.",
+    "copyright": "© {year} Société du Trotteur Français, Domaine de Grosbois. Tous droits réservés.",
     "cookieSettings": "Gérer mes cookies"
   },
   "common": {
@@ -72,7 +72,7 @@
     "entriesTitle": "Que souhaitez-vous faire ?",
     "facetsTitle": "Un domaine, trois facettes",
     "spacesTitle": "Privatiser le Domaine",
-    "spacesIntro": "Six espaces d'exception pour vos séminaires, réceptions, tournages et mariages, de 20 à 1 000 personnes.",
+    "spacesIntro": "Six espaces d'exception pour vos séminaires, réceptions, tournages et mariages, jusqu'à 1 500 personnes.",
     "agendaTitle": "Prochains rendez-vous",
     "commitmentsTitle": "Nos engagements",
     "newsletterTitle": "Restez informé"
@@ -91,13 +91,25 @@
     "groupsText": "À partir de 10 personnes, les visites se font sur réservation avec devis personnalisé.",
     "groupsCta": "Demander un devis de visite",
     "ticketsTitle": "Comment réserver ?",
-    "ticketsText": "compte Weezevent SETF — accès à venir. Ce prototype n'affiche pas le module : pas d'iframe, pas d'appel.",
+    "ticketsText": "compte Weezevent SETF, accès à venir. Ce prototype n'affiche pas le module : pas d'iframe, pas d'appel.",
     "ticketsCta": "Accéder à la billetterie",
     "practical": "Le Domaine est un site privé, accessible uniquement sur réservation.",
     "results": "{count} événement(s)"
   },
   "space": {
-    "capacities": "Capacités par configuration",
+    "capacities": "Capacités selon la disposition",
+    "layoutsIntro": "Le chiffre indique le nombre de personnes que la salle peut accueillir, selon la façon dont les tables et les sièges sont disposés.",
+    "room": "Salle",
+    "notSpecified": "Non spécifié",
+    "dashNote": "Un tiret signifie que cette disposition n’est pas indiquée pour la salle.",
+    "noRooms": "Les jauges de cet espace dépendent de l’événement (chapiteau, garden-party, installation). Décrivez votre projet dans la demande de devis.",
+    "layout": {
+      "u": { "name": "En U", "text": "Tables disposées en U : les participants font face à l’intervenant." },
+      "theatre": { "name": "Théâtre", "text": "Chaises en rangées, face à une scène ou un écran." },
+      "reunion": { "name": "Réunion", "text": "Une seule table : tout le monde est assis autour." },
+      "cabaret": { "name": "Cabaret", "text": "Tables rondes, en places assises." },
+      "cocktail": { "name": "Cocktail", "text": "Accueil debout, sans plan de table." }
+    },
     "scenography": "Scénographie",
     "history": "Histoire & atouts",
     "technical": "Fiche technique",
@@ -112,15 +124,7 @@
     "ctaTitle": "Un projet d'événement ?",
     "ctaText": "Décrivez-nous votre projet : nous vous adressons un devis personnalisé sous 48 h ouvrées.",
     "testimonials": "Ils nous ont fait confiance",
-    "people": "pers.",
-    "config": {
-      "theatre": "Théâtre",
-      "u": "En U",
-      "classe": "Classe",
-      "cabaret": "Cabaret",
-      "cocktail": "Cocktail",
-      "banquet": "Banquet"
-    }
+    "people": "pers."
   },
   "cookies": {
     "title": "Cookies et vie privée",

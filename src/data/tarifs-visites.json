@@ -3,8 +3,8 @@
   "tva": 0.2,
   "validiteJours": 30,
   "visites": {
-    "visite-individuelle": { "label": "Visite guidée — individuel", "adulte": 12, "enfant": 6, "forfait": 0 },
-    "visite-groupe": { "label": "Visite guidée — groupe adultes", "adulte": 9, "enfant": 6, "forfait": 80 },
+    "visite-individuelle": { "label": "Visite guidée, individuel", "adulte": 12, "enfant": 6, "forfait": 0 },
+    "visite-groupe": { "label": "Visite guidée, groupe adultes", "adulte": 9, "enfant": 6, "forfait": 80 },
     "visite-scolaire": { "label": "Visite scolaire", "adulte": 0, "enfant": 5, "forfait": 40 },
     "visite-entreprise": { "label": "Visite entreprise ou team-building", "adulte": 14, "enfant": 8, "forfait": 150 }
   },
@@ -14,11 +14,11 @@
     "restauration": { "label": "Pause restauration", "parPersonne": 12 }
   },
   "privatisation": {
-    "espace-affaires": { "label": "Espace Affaires — forfait journée indicatif", "forfait": 1200 },
-    "musee-du-trot": { "label": "Musée du trot — forfait journée indicatif", "forfait": 900 },
-    "chateau": { "label": "Château — forfait journée indicatif", "forfait": 3500 },
-    "orangerie": { "label": "Orangerie — forfait journée indicatif", "forfait": 2500 },
-    "piste-couverte": { "label": "Piste couverte — forfait journée indicatif", "forfait": 1800 },
-    "espaces-verts": { "label": "Espaces verts — forfait journée indicatif", "forfait": 1500 }
+    "espace-affaires": { "label": "Espace Affaires, forfait journée indicatif", "forfait": 1200 },
+    "musee-du-trot": { "label": "Musée du trot, forfait journée indicatif", "forfait": 900 },
+    "chateau": { "label": "Château, forfait journée indicatif", "forfait": 3500 },
+    "orangerie": { "label": "Orangerie, forfait journée indicatif", "forfait": 2500 },
+    "piste-couverte": { "label": "Piste couverte, forfait journée indicatif", "forfait": 1800 },
+    "espaces-verts": { "label": "Espaces verts, forfait journée indicatif", "forfait": 1500 }
   }
 }

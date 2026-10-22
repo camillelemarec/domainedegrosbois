@@ -64,7 +64,7 @@ export function computeQuote(input: QuoteInput): Quote | null {
 
   if (input.type === 'privatisation') {
     const espace = tarifs.privatisation[input.espaceId as keyof typeof tarifs.privatisation];
-    const label = espace?.label ?? 'Privatisation — forfait à confirmer';
+    const label = espace?.label ?? 'Privatisation, forfait à confirmer';
     const forfait = espace?.forfait ?? 0;
     const row = line(label, 'Forfait journée, hors options', Math.round(forfait * 100));
     if (row) lignes.push(row);

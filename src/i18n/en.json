@@ -1,8 +1,8 @@
 {
   "meta": {
     "siteName": "Domaine de Grosbois",
-    "tagline": "Castle, world-class trotting training centre and museum — Boissy-Saint-Léger, near Paris",
-    "prototypeBanner": "Mock-up prototype — texts, images, dates and prices are placeholders."
+    "tagline": "Castle, world-class trotting training centre and museum, Boissy-Saint-Léger, near Paris",
+    "prototypeBanner": "Mock-up prototype: texts, images, dates and prices are placeholders."
   },
   "a11y": {
     "skipToContent": "Skip to main content",
@@ -42,7 +42,7 @@
     "labels": "Labels and awards",
     "partners": "Our partners",
     "setf": "A website of the Société du Trotteur Français",
-    "copyright": "© {year} Société du Trotteur Français — Domaine de Grosbois. All rights reserved.",
+    "copyright": "© {year} Société du Trotteur Français, Domaine de Grosbois. All rights reserved.",
     "cookieSettings": "Cookie settings"
   },
   "common": {
@@ -72,7 +72,7 @@
     "entriesTitle": "What would you like to do?",
     "facetsTitle": "One estate, three facets",
     "spacesTitle": "Hire the estate",
-    "spacesIntro": "Six exceptional venues for seminars, receptions, film shoots and weddings, from 20 to 1,000 guests.",
+    "spacesIntro": "Six exceptional venues for seminars, receptions, film shoots and weddings, for up to 1,500 guests.",
     "agendaTitle": "Upcoming events",
     "commitmentsTitle": "Our commitments",
     "newsletterTitle": "Stay informed"
@@ -97,7 +97,19 @@
     "results": "{count} event(s)"
   },
   "space": {
-    "capacities": "Capacity by layout",
+    "capacities": "Capacity by seating layout",
+    "layoutsIntro": "Each figure is the number of guests the room can hold, depending on how the tables and seats are arranged.",
+    "room": "Room",
+    "notSpecified": "Not specified",
+    "dashNote": "A dash means this layout is not specified for the room.",
+    "noRooms": "Capacities for this venue depend on the event (marquee, garden party, installation). Describe your project in the quote request.",
+    "layout": {
+      "u": { "name": "U-shape", "text": "Tables set in a U, with guests facing the speaker." },
+      "theatre": { "name": "Theatre", "text": "Chairs in rows, facing a stage or a screen." },
+      "reunion": { "name": "Meeting", "text": "A single table, with everyone seated around it." },
+      "cabaret": { "name": "Cabaret", "text": "Round tables, seated." },
+      "cocktail": { "name": "Cocktail", "text": "A standing reception, without a seating plan." }
+    },
     "scenography": "Scenography",
     "history": "History & highlights",
     "technical": "Technical sheet",
@@ -112,15 +124,7 @@
     "ctaTitle": "Planning an event?",
     "ctaText": "Tell us about your project: we will send you a personalised quote within 2 working days.",
     "testimonials": "They trusted us",
-    "people": "pers.",
-    "config": {
-      "theatre": "Theatre",
-      "u": "U-shape",
-      "classe": "Classroom",
-      "cabaret": "Cabaret",
-      "cocktail": "Cocktail",
-      "banquet": "Banquet"
-    }
+    "people": "guests"
   },
   "cookies": {
     "title": "Cookies and privacy",

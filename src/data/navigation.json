@@ -7,7 +7,7 @@
       "href": "/#privatiser",
       "highlight": true,
       "children": [
-        { "fr": "Nos espaces", "en": "Our venues", "href": "/#privatiser" },
+        { "fr": "Nos espaces", "en": "Our venues", "href": "/#privatiser", "heading": true },
         { "fr": "Espace Affaires", "en": "Business Centre", "href": "/privatiser/espaces/espace-affaires/" },
         { "fr": "Musée du trot", "en": "Trotting museum", "href": "/privatiser/espaces/musee-du-trot/" },
         { "fr": "Château", "en": "Castle", "href": "/privatiser/espaces/chateau/" },
@@ -24,11 +24,11 @@
       "label": "nav.visiter",
       "href": "",
       "children": [
+        { "fr": "Agenda & billetterie", "en": "Events & tickets", "href": "/agenda/" },
         { "fr": "Visiteurs individuels", "en": "Individual visitors", "href": "" },
         { "fr": "Groupes adultes", "en": "Adult groups", "href": "" },
         { "fr": "Scolaires & enfants", "en": "Schools & children", "href": "" },
         { "fr": "Entreprises & team-building", "en": "Companies & team-building", "href": "" },
-        { "fr": "Agenda & billetterie", "en": "Events & tickets", "href": "/agenda/" },
         { "fr": "Réserver une visite", "en": "Book a visit", "href": "/visiter/reserver/", "cta": true }
       ]
     },
@@ -46,36 +46,20 @@
     {
       "id": "infos",
       "label": "nav.infos",
-      "href": "",
-      "children": [
-        { "fr": "Coordonnées & contact", "en": "Contact details", "href": "" },
-        { "fr": "Conditions d'accès", "en": "Access conditions", "href": "" },
-        { "fr": "Plan d'accès & GPS", "en": "Access map & GPS", "href": "" },
-        { "fr": "Circulation & stationnement", "en": "Traffic & parking", "href": "" },
-        { "fr": "Réservation & billetterie", "en": "Booking & tickets", "href": "/agenda/#billetterie" },
-        { "fr": "À proximité", "en": "Nearby", "href": "" }
-      ]
+      "href": "/infos-pratiques/",
+      "children": []
     },
     {
       "id": "suivre",
       "label": "nav.suivre",
-      "href": "",
-      "children": [
-        { "fr": "Agenda", "en": "Events", "href": "/agenda/" },
-        { "fr": "Actualités", "en": "News", "href": "" },
-        { "fr": "Presse", "en": "Press", "href": "" }
-      ]
+      "href": "/nous-suivre/",
+      "children": []
     },
     {
       "id": "grosbois",
       "label": "nav.grosbois",
-      "href": "",
-      "children": [
-        { "fr": "Nos engagements", "en": "Our commitments", "href": "" },
-        { "fr": "Nous soutenir", "en": "Support us", "href": "" },
-        { "fr": "Nous rejoindre", "en": "Join us", "href": "" },
-        { "fr": "Nos équipes", "en": "Our team", "href": "" }
-      ]
+      "href": "/grosbois-et-vous/",
+      "children": []
     }
   ],
   "footer": [

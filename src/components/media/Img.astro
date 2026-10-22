@@ -23,6 +23,8 @@ interface Props {
   showCredit?: boolean;
   /** Placeholder : ton clair (défaut) ou sombre (hero). */
   tone?: 'light' | 'dark';
+  /** Point de cadrage quand l'image est recadrée (`object-position`). */
+  objectPosition?: string;
 }
 
 const {
@@ -36,16 +38,18 @@ const {
   sizes,
   showCredit = false,
   tone = 'light',
+  objectPosition,
 } = Astro.props;
 
 const resolved = resolveImage(image, lang);
-const aspect = ratio ?? (resolved.ratio && resolved.ratio !== 'auto' ? resolved.ratio : undefined);
+const requested = ratio === 'auto' ? undefined : ratio;
+const aspect = requested ?? (resolved.ratio && resolved.ratio !== 'auto' ? resolved.ratio : undefined);
 const style = aspect ? `aspect-ratio: ${aspect};` : undefined;
 const creditText = resolved.credit && !resolved.credit.startsWith('[') ? resolved.credit : undefined;
 const Wrapper = showCredit && creditText ? 'figure' : 'div';
 ---
 
-<Wrapper class:list={['img relative overflow-hidden', className]} style={style}>
+<Wrapper class:list={['img overflow-hidden', className]} style={style}>
   {resolved.exists ? (
     <img
       src={resolved.url}
@@ -55,6 +59,7 @@ const Wrapper = showCredit && creditText ? 'figure' : 'div';
       decoding="async"
       sizes={sizes}
       class:list={['h-full w-full', fit === 'cover' ? 'object-cover' : 'object-contain']}
+      style={objectPosition ? `object-position: ${objectPosition};` : undefined}
     />
   ) : (
     <div
@@ -74,6 +79,8 @@ const Wrapper = showCredit && creditText ? 'figure' : 'div';
 </Wrapper>
 
 <style>
+  /* `relative` seulement hors remplissage absolu (le hero passe `absolute`). */
+  .img:not(.absolute) { position: relative; }
   .img-placeholder {
     background-image: repeating-linear-gradient(135deg, transparent 0 14px, rgb(2 30 65 / 0.05) 14px 15px);
     min-height: 4rem;

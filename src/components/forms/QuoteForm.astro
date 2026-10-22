@@ -16,7 +16,7 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
 <div class="section">
   <div class="container-site grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
     <div>
-      <p class="badge badge-provisional">Tarifs provisoires — simulation à l'écran</p>
+      <p class="badge badge-provisional">Tarifs provisoires : simulation à l'écran</p>
       <h1 class="mt-3">{contexte === 'privatisation' ? 'Demander un devis' : 'Réserver une visite'}</h1>
       <p class="section-lead mt-3">{intro}</p>
 
@@ -165,7 +165,7 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
       </form>
 
       <div id="quote-result" class="mt-2 scroll-mt-28" hidden>
-        <p class="badge badge-provisional">Simulation — aucun document généré</p>
+        <p class="badge badge-provisional">Simulation : aucun document généré</p>
         <h2 id="quote-result-title" class="mt-3" tabindex="-1"></h2>
         <p id="quote-result-lead" class="mt-2 text-ardoise"></p>
         <dl id="quote-result-meta" class="mt-6 grid gap-3 text-sm sm:grid-cols-2"></dl>
@@ -372,7 +372,7 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
       title.textContent = 'Demande de renseignement préparée';
       lead.textContent = `${prenom} ${nom}, votre question est récapitulée ci-dessous. Elle n’a pas été transmise.`;
       addMeta('Motif', 'Renseignement');
-      addMeta('Contact', `${prenom} ${nom} — ${email} — ${telephone}`);
+      addMeta('Contact', `${prenom} ${nom}, ${email}, ${telephone}`);
       if (message) addMeta('Message', message);
       tableWrap.hidden = true;
       mention.textContent = '';
@@ -382,9 +382,9 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
       addMeta('Motif', 'Réservation');
       addMeta('Projet', type === 'privatisation' ? espaceNom : typeNom);
       addMeta('Date', `${dateLabel}${checked('flexible') ? ' (flexible)' : ''}`);
-      addMeta('Horaires', `${value('heureDebut') || '—'} – ${value('heureFin') || '—'}`);
+      addMeta('Horaires', `${value('heureDebut') || '-'} – ${value('heureFin') || '-'}`);
       addMeta('Participants', `${adultes} adulte(s), ${enfants} enfant(s)`);
-      addMeta('Contact', `${prenom} ${nom} — ${email}`);
+      addMeta('Contact', `${prenom} ${nom}, ${email}`);
       if (value('raisonSociale')) addMeta('Organisation', value('raisonSociale'));
       if (value('facturation')) addMeta('Facturation', value('facturation'));
       for (const row of quote.lignes) {

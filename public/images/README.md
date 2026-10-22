@@ -1,4 +1,4 @@
-# Dossier images — convention de dépôt
+# Dossier images, convention de dépôt
 
 Ce dossier est alimenté par Camille. Le site ne « casse » jamais si une image manque : un
 placeholder neutre s'affiche avec le nom du fichier attendu. Dès qu'un fichier est déposé au

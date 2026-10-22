@@ -7,7 +7,6 @@ import '@/styles/global.css';
 import SiteHeader from '@/components/nav/SiteHeader.astro';
 import SiteFooter from '@/components/nav/SiteFooter.astro';
 import CookieBanner from '@/components/ui/CookieBanner.astro';
-import PrototypeBanner from '@/components/ui/PrototypeBanner.astro';
 import { alternatePath, langFromUrl, useTranslations, LANGS, type Lang } from '@/lib/i18n';
 import site from '@/data/site.json';
 
@@ -24,7 +23,7 @@ const lang: Lang = Astro.props.lang ?? langFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { title, description = t('meta.tagline'), mainClass = '', noIndex = false } = Astro.props;
 // Se démarquer des homonymes « Domaine de Grosbois » (p.4) : nommage complet dans le <title>.
-const fullTitle = title === site.name ? `${site.name} — ${t('meta.tagline')}` : `${title} · ${site.name}`;
+const fullTitle = title === site.name ? `${site.name} · ${t('meta.tagline')}` : `${title} · ${site.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 ---
 
@@ -38,7 +37,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
     <link rel="canonical" href={canonical.href} />
     {LANGS.map((alt) => <link rel="alternate" hreflang={alt} href={new URL(alternatePath(Astro.url, alt), canonical.origin).href} />)}
     <link rel="alternate" hreflang="x-default" href={new URL(alternatePath(Astro.url, 'fr'), canonical.origin).href} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/images/logo/logogb.png" type="image/png" />
     <meta name="theme-color" content="#0E386B" />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:site_name" content={site.name} />
@@ -60,7 +59,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
     <a href="#contenu" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-nuit focus:px-4 focus:py-3 focus:text-white">
       {t('a11y.skipToContent')}
     </a>
-    <PrototypeBanner lang={lang} />
     <SiteHeader lang={lang} />
     <main id="contenu" class={mainClass} tabindex="-1">
       <slot />

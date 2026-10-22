@@ -1,17 +1,14 @@
 ---
 /**
- * Gabarit « Accueil » (livrable L1, maquette p.10) : hero château, « Vous êtes… », 3 entrées
+ * Gabarit « Accueil » (livrable L1, maquette p.10) : hero château, 3 entrées
  * Évènements / Visites / Actualités, 3 facettes du Domaine, mosaïque Privatiser + CTA devis,
  * prochains rendez-vous, engagements, newsletter. Rendu en FR (/) et EN (/en/).
  */
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/Hero.astro';
-import AudienceSwitcher from '@/components/sections/AudienceSwitcher.astro';
 import SectionHeading from '@/components/sections/SectionHeading.astro';
-import Card from '@/components/cards/Card.astro';
 import EventCard from '@/components/cards/EventCard.astro';
-import CtaBanner from '@/components/sections/CtaBanner.astro';
 import Img from '@/components/media/Img.astro';
 import Icon from '@/components/ui/Icon.astro';
 import site from '@/data/site.json';
@@ -27,21 +24,21 @@ const espaces = (await getCollection('espaces')).sort((a, b) => a.data.ordre - b
 const evenements = (await getCollection('evenements')).sort((a, b) => a.data.dateDebut.localeCompare(b.data.dateDebut)).slice(0, 3);
 const actualites = (await getCollection('actualites')).sort((a, b) => b.data.date.localeCompare(a.data.date));
 
-const entries: { image: ImageKey; fr: string; en: string; textFr: string; textEn: string; href: string }[] = [
-  { image: 'accueil.entree-evenements', fr: 'Évènements', en: 'Events', textFr: 'Journées spéciales, Noël au château, rendez-vous du trot : réservez vos billets.', textEn: 'Special days, Christmas at the castle, trotting events: book your tickets.', href: '/agenda/' },
-  { image: 'accueil.entree-visites', fr: 'Visites', en: 'Visits', textFr: 'Château, centre d’entraînement et musée en visite guidée, seul, en famille ou en groupe.', textEn: 'Guided tours of the castle, training centre and museum — solo, family or group.', href: '/visiter/reserver/' },
-  { image: 'accueil.entree-actualites', fr: 'Actualités', en: 'News', textFr: 'La vie du Domaine, les cracks à l’entraînement, nos engagements.', textEn: 'Life on the estate, champions in training, our commitments.', href: '#actualites' },
+const facets: { image: ImageKey; ratio: string; fr: string; en: string; textFr: string; textEn: string; href: string }[] = [
+  { image: 'chateau.facade-cour', ratio: '16/9', fr: 'Le château', en: 'The castle', textFr: '[Texte provisoire] Un passé royal, un bijou architectural du XVIIe siècle et des collections inestimables.', textEn: '[Placeholder] A royal past, a 17th-century architectural gem and priceless collections.', href: '/decouvrir/chateau/' },
+  { image: 'centre.piste', ratio: '3/2', fr: 'Le centre d’entraînement', en: 'The training centre', textFr: '[Texte provisoire] De Joinville à Grosbois : des infrastructures de pointe où s’entraînent les cracks du trot.', textEn: '[Placeholder] From Joinville to Grosbois: state-of-the-art facilities where trotting champions train.', href: '/decouvrir/centre-d-entrainement/' },
+  { image: 'musee.salle', ratio: '3/4', fr: 'Le musée du trot', en: 'The trotting museum', textFr: '[Texte provisoire] Du fiacre au sulky, deux siècles d’histoire et un centre de documentation.', textEn: '[Placeholder] From hackney cab to sulky, two centuries of history and a documentation centre.', href: '/decouvrir/musee-du-trot/' },
 ];
 
-const facets: { image: ImageKey; fr: string; en: string; textFr: string; textEn: string; href: string }[] = [
-  { image: 'chateau.facade-cour', fr: 'Le château', en: 'The castle', textFr: '[Texte provisoire] Un passé royal, un bijou architectural du XVIIe siècle et des collections inestimables.', textEn: '[Placeholder] A royal past, a 17th-century architectural gem and priceless collections.', href: '/decouvrir/chateau/' },
-  { image: 'centre.piste', fr: 'Le centre d’entraînement', en: 'The training centre', textFr: '[Texte provisoire] De Joinville à Grosbois : des infrastructures de pointe où s’entraînent les cracks du trot.', textEn: '[Placeholder] From Joinville to Grosbois: state-of-the-art facilities where trotting champions train.', href: '/decouvrir/centre-d-entrainement/' },
-  { image: 'musee.salle', fr: 'Le musée du trot', en: 'The trotting museum', textFr: '[Texte provisoire] Du fiacre au sulky, deux siècles d’histoire et un centre de documentation.', textEn: '[Placeholder] From hackney cab to sulky, two centuries of history and a documentation centre.', href: '/decouvrir/musee-du-trot/' },
-];
+const fmtGuests = (n: number) => new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-GB').format(n);
+function peakCapacity(salles: { capacites: Record<'u' | 'theatre' | 'reunion' | 'cabaret' | 'cocktail', number | null> }[]) {
+  const values = salles.flatMap((salle) => Object.values(salle.capacites).filter((value): value is number => value !== null));
+  return values.length ? Math.max(...values) : null;
+}
 
-const engagements = lang === 'fr'
-  ? ['Forêt de 220 ha certifiée PEFC', 'Apiculture, plantations et foins du Domaine', 'Bien-être animal : la charte SETF', 'Recyclage et projet de méthanisation']
-  : ['220 ha PEFC-certified forest', 'Beekeeping, planting and hay from the estate', 'Animal welfare: the SETF charter', 'Recycling and biomethane project'];
+const grosboisLiens = lang === 'fr'
+  ? ['Nos engagements', 'Nous soutenir', 'Nous rejoindre', 'Nos équipes']
+  : ['Our commitments', 'Support us', 'Join us', 'Our team'];
 ---
 
 <BaseLayout title={site.name} lang={lang}>
@@ -49,40 +46,31 @@ const engagements = lang === 'fr'
     image="accueil.hero"
     lang={lang}
     variant="full"
-    eyebrow={lang === 'fr' ? 'Boissy-Saint-Léger · à 15 km de Paris-Vincennes' : 'Boissy-Saint-Léger · 15 km from Paris-Vincennes'}
+    objectPosition="center 46%"
     title={t('home.heroTitle')}
     subtitle={t('home.heroSubtitle')}
-  >
-    <div class="mt-8 flex flex-wrap gap-3">
-      <a href={site.ticketingUrl} class="btn btn-gold btn-lg"><Icon name="ticket" size={20} />{t('home.ctaVisit')}</a>
-      <a href={l('/privatiser/espaces/orangerie/')} class="btn btn-outline-light btn-lg">{t('home.ctaPrivatize')}</a>
-    </div>
-  </Hero>
+    split
+    scrollTo="#facettes"
+    scrollLabel={lang === 'fr' ? 'Découvrir le domaine' : 'Discover the estate'}
+  />
 
-  <AudienceSwitcher lang={lang} />
-
-  <section class="section" aria-labelledby="entrees">
+  <section class="section bg-creme facets" aria-labelledby="facettes">
     <div class="container-site">
-      <SectionHeading id="entrees" eyebrow={t('meta.siteName')} title={t('home.entriesTitle')} />
-      <div class="grid gap-6 md:grid-cols-3">
-        {entries.map((e) => (
-          <Card image={e.image} lang={lang} title={e[lang]} text={lang === 'fr' ? e.textFr : e.textEn} href={l(e.href)} cta={t('common.readMore')} headingLevel="h3" />
-        ))}
+      <div data-reveal>
+        <SectionHeading id="facettes" eyebrow={t('nav.decouvrir')} title={t('home.facetsTitle')} lead={lang === 'fr' ? '400 hectares, trois univers : le patrimoine, le sport et la mémoire du trot français.' : '400 hectares, three worlds: heritage, sport and the memory of French trotting.'} />
+        <span class="facets-rule" aria-hidden="true"></span>
       </div>
-    </div>
-  </section>
-
-  <section class="section bg-gris-clair" aria-labelledby="facettes">
-    <div class="container-site">
-      <SectionHeading id="facettes" eyebrow={t('nav.decouvrir')} title={t('home.facetsTitle')} lead={lang === 'fr' ? '400 hectares, trois univers : le patrimoine, le sport et la mémoire du trot français.' : '400 hectares, three worlds: heritage, sport and the memory of French trotting.'} />
-      <div class="grid gap-6 md:grid-cols-3">
-        {facets.map((f) => (
-          <article class="relative block overflow-hidden rounded-md shadow-sm">
-            <Img image={f.image} lang={lang} ratio="3/4" />
-            <div class="overlay-card absolute inset-0" aria-hidden="true"></div>
-            <div class="absolute inset-x-0 bottom-0 p-5 text-white">
-              <h3 class="font-display text-2xl !text-white">{f[lang]}</h3>
-              <p class="mt-1 text-sm text-white/85">{lang === 'fr' ? f.textFr : f.textEn}</p>
+      <div class="flex flex-col gap-16 lg:gap-24">
+        {facets.map((f, index) => (
+          <article class="facet grid items-center gap-6 lg:grid-cols-2 lg:gap-16" data-reveal>
+            <a href={l(f.href)} aria-label={f[lang]} class:list={['group block overflow-hidden rounded-md shadow-md', index % 2 === 1 && 'lg:order-2']}>
+              <Img image={f.image} lang={lang} ratio={f.ratio} class="transition-transform duration-700 group-hover:scale-[1.03]" />
+            </a>
+            <div>
+              <p class="eyebrow">{String(index + 1).padStart(2, '0')}</p>
+              <h3 class="mt-3 font-display text-4xl md:text-5xl">{f[lang]}</h3>
+              <p class="lede mt-4 text-ardoise">{lang === 'fr' ? f.textFr : f.textEn}</p>
+              <a href={l(f.href)} class="btn btn-outline mt-6">{t('common.readMore')}<Icon name="arrow-right" size={18} /></a>
             </div>
           </article>
         ))}
@@ -97,18 +85,25 @@ const engagements = lang === 'fr'
         <a href={l('/privatiser/demande-de-devis/')} class="btn btn-cta shrink-0">{t('common.quote')}<Icon name="arrow-right" size={18} /></a>
       </div>
       <ul class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
-        {espaces.map((e) => (
-          <li>
-            <a href={l(`/privatiser/espaces/${e.id}/`)} class="group relative block overflow-hidden rounded-md">
-              <Img image={e.data.images.vignette} lang={lang} ratio="4/3" class="transition-transform duration-500 group-hover:scale-105" />
-              <div class="overlay-card absolute inset-0" aria-hidden="true"></div>
-              <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-4 text-white">
-                <span class="font-display text-xl font-semibold leading-tight">{e.data.nom[lang] ?? e.data.nom.fr}</span>
-                <span class="hidden items-center gap-1 text-xs font-semibold text-dore sm:inline-flex"><Icon name="users" size={14} />{Math.max(...Object.values(e.data.capacites).filter((v): v is number => v !== null))}</span>
-              </div>
-            </a>
-          </li>
-        ))}
+        {espaces.map((e) => {
+          const peak = peakCapacity(e.data.salles);
+          return (
+            <li>
+              <a href={l(`/privatiser/espaces/${e.id}/`)} class="group relative block overflow-hidden rounded-md">
+                <Img image={e.data.images.vignette} lang={lang} ratio="4/3" class="transition-transform duration-500 group-hover:scale-105" />
+                <div class="overlay-card absolute inset-0" aria-hidden="true"></div>
+                <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-4 text-white">
+                  <span class="font-display text-xl font-semibold leading-tight">{e.data.nom[lang] ?? e.data.nom.fr}</span>
+                  {peak !== null && (
+                    <span class="hidden items-center gap-1 text-xs font-semibold text-dore sm:inline-flex" title={lang === 'fr' ? `Jusqu’à ${fmtGuests(peak)} personnes` : `Up to ${fmtGuests(peak)} guests`}>
+                      <Icon name="users" size={14} />{fmtGuests(peak)}
+                    </span>
+                  )}
+                </div>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   </section>
@@ -128,17 +123,21 @@ const engagements = lang === 'fr'
   <section class="section" aria-labelledby="engagements">
     <div class="container-site grid gap-10 lg:grid-cols-2 lg:items-center">
       <div>
-        <SectionHeading id="engagements" eyebrow={t('nav.grosbois')} title={t('home.commitmentsTitle')} lead={lang === 'fr' ? '[Texte provisoire] Mot du chef d’établissement : un domaine vivant, géré durablement, au service du cheval et du territoire.' : '[Placeholder] A living estate, sustainably managed, serving the horse and the local area.'} />
-        <ul class="grid gap-3 sm:grid-cols-2">
-          {engagements.map((item) => (
-            <li class="flex items-start gap-3 rounded-md border border-bleu-clair bg-white p-4 text-sm font-medium text-nuit">
-              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-creme text-dore-fonce"><Icon name="leaf" size={18} /></span>{item}
-            </li>
+        <SectionHeading id="engagements" title={lang === 'fr' ? 'Grosbois & Vous' : 'Grosbois & You'} lead={lang === 'fr' ? '[Texte provisoire] Mot du chef d’établissement : un domaine vivant, géré durablement, au service du cheval et du territoire.' : '[Placeholder] A living estate, sustainably managed, serving the horse and the local area.'} />
+        <ul class="grid grid-cols-2 gap-3">
+          {grosboisLiens.map((item) => (
+            <li class="rounded-full border border-bleu-clair bg-white px-4 py-2.5 text-center text-sm font-medium text-nuit">{item}</li>
           ))}
         </ul>
       </div>
       <div id="actualites">
-        <h3 class="font-display text-2xl">{lang === 'fr' ? 'Dernières actualités' : 'Latest news'}</h3>
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h3 class="font-display text-2xl">{lang === 'fr' ? 'Dernières actualités' : 'Latest news'}</h3>
+            <p class="mt-1 text-sm font-medium text-dore-fonce">{lang === 'fr' ? 'Suivre notre Newsletter' : 'Follow our newsletter'}</p>
+          </div>
+          <a href={l('/nous-suivre/')} class="btn btn-outline btn-sm shrink-0">{lang === 'fr' ? 'Toutes les actualités' : 'All news'}<Icon name="arrow-right" size={16} /></a>
+        </div>
         <ul class="mt-4 divide-y divide-bleu-clair border-y border-bleu-clair">
           {actualites.map((a) => (
             <li>
@@ -156,13 +155,50 @@ const engagements = lang === 'fr'
       </div>
     </div>
   </section>
-
-  <CtaBanner
-    title={lang === 'fr' ? 'Réservez votre venue au Domaine' : 'Plan your visit to the estate'}
-    text={t('agenda.practical')}
-    actions={[
-      { label: t('header.tickets'), href: site.ticketingUrl, icon: 'ticket', style: 'gold' },
-      { label: t('agenda.groupsCta'), href: l('/visiter/reserver/'), style: 'outline-light' },
-    ]}
-  />
 </BaseLayout>
+
+<style>
+  .facets :global(.section-title) {
+    font-size: clamp(3rem, 6.4vw, 5.25rem);
+    letter-spacing: -0.02em;
+  }
+  .facets-rule {
+    display: block;
+    width: 5rem;
+    height: 2px;
+    margin: -1.25rem 0 2.75rem;
+    background: var(--color-gold);
+    transform-origin: left;
+  }
+  [data-reveal].is-in {
+    animation: rise 1.05s cubic-bezier(0.22, 0.8, 0.28, 1) both;
+  }
+  [data-reveal].is-in .facets-rule {
+    animation: draw 1s 0.25s cubic-bezier(0.22, 0.8, 0.28, 1) both;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes draw {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+</style>
+
+<script>
+  const nodes = document.querySelectorAll('[data-reveal]');
+  const mark = (element: Element) => element.classList.add('is-in');
+  if (!('IntersectionObserver' in window)) {
+    nodes.forEach(mark);
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        mark(entry.target);
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.28 });
+    nodes.forEach((node) => observer.observe(node));
+  }
+</script>

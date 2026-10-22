@@ -23,14 +23,22 @@ const espaces = defineCollection({
     accroche: i18nText,
     description: z.array(i18nText),
     surface: z.string().optional(),
-    capacites: z.object({
-      theatre: z.number().nullable(),
-      u: z.number().nullable(),
-      classe: z.number().nullable(),
-      cabaret: z.number().nullable(),
-      cocktail: z.number().nullable(),
-      banquet: z.number().nullable(),
-    }),
+    /**
+     * Salles privatiséables. Chaque jauge est le nombre de personnes
+     * selon la disposition des tables (en U, théâtre, réunion, cabaret, cocktail).
+     * `null` = disposition non indiquée.
+     */
+    salles: z.array(z.object({
+      nom: i18nText,
+      surface: z.string(),
+      capacites: z.object({
+        u: z.number().nullable(),
+        theatre: z.number().nullable(),
+        reunion: z.number().nullable(),
+        cabaret: z.number().nullable(),
+        cocktail: z.number().nullable(),
+      }),
+    })).default([]),
     histoire: z.array(i18nText).default([]),
     ficheTechnique: z.array(z.object({ label: i18nText, valeur: i18nText })).default([]),
     prestations: z.array(i18nText).default([]),
@@ -40,6 +48,7 @@ const espaces = defineCollection({
     images: z.object({
       hero: imageRef,
       vignette: imageRef,
+      scenographie: imageRef.optional(),
       galerie: z.array(imageRef).default([]),
     }),
     provisoire: z.boolean().default(true),

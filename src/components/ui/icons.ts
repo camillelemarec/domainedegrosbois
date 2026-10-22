@@ -4,7 +4,7 @@ export type IconName =
   | 'calendar' | 'clock' | 'map-pin' | 'users' | 'external' | 'globe' | 'download' | 'check' | 'info'
   | 'image' | 'euro' | 'printer' | 'leaf' | 'car' | 'train' | 'accessibility' | 'star' | 'quote'
   | 'facebook' | 'instagram' | 'linkedin' | 'youtube'
-  | 'config-theatre' | 'config-u' | 'config-classe' | 'config-cabaret' | 'config-cocktail' | 'config-banquet'
+  | 'config-theatre' | 'config-u' | 'config-reunion' | 'config-cabaret' | 'config-cocktail'
   | 'building' | 'castle' | 'horse' | 'museum' | 'camera' | 'file-text' | 'cookie' | 'alert';
 
 export const iconPaths: Record<IconName, string> = {
@@ -41,10 +41,9 @@ export const iconPaths: Record<IconName, string> = {
   youtube: '<path d="M2.5 17a24.1 24.1 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.6 49.6 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.1 24.1 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.6 49.6 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/>',
   'config-theatre': '<rect x="9" y="3" width="6" height="3" rx="1"/><path d="M4 11h3M10.5 11h3M17 11h3M4 15h3M10.5 15h3M17 15h3M4 19h3M10.5 19h3M17 19h3"/>',
   'config-u': '<rect x="9" y="3" width="6" height="3" rx="1"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9"/><path d="M8 11h.01M8 15h.01M16 11h.01M16 15h.01M11 18h2"/>',
-  'config-classe': '<rect x="9" y="3" width="6" height="3" rx="1"/><rect x="3" y="10" width="7" height="3" rx=".5"/><rect x="14" y="10" width="7" height="3" rx=".5"/><rect x="3" y="17" width="7" height="3" rx=".5"/><rect x="14" y="17" width="7" height="3" rx=".5"/>',
+  'config-reunion': '<rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 4h.01M12 4h.01M15 4h.01M9 20h.01M12 20h.01M15 20h.01M4 10h.01M4 14h.01M20 10h.01M20 14h.01"/>',
   'config-cabaret': '<rect x="9" y="3" width="6" height="3" rx="1"/><circle cx="7.5" cy="14" r="3"/><circle cx="16.5" cy="14" r="3"/><path d="M4 19.5h7M13 19.5h7"/>',
   'config-cocktail': '<circle cx="6" cy="8" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 11v5M12 9v6M18 12v5M4 21h16"/>',
-  'config-banquet': '<rect x="4" y="9" width="16" height="6" rx="1"/><path d="M7 6h.01M12 6h.01M17 6h.01M7 18h.01M12 18h.01M17 18h.01"/>',
   building: '<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/>',
   castle: '<path d="M3 21h18M5 21V9l2-2v-3h2v2h2V4h2v2h2V4h2v3l2 2v12"/><path d="M10 21v-5a2 2 0 0 1 4 0v5"/>',
   horse: '<path d="M4 20c0-5 2-9 6-11l1-5 3 3 4 1c1 0 2 1 2 2 0 2-2 3-3 3l-1 7"/><path d="M8 20l1-4M14 20l-1-4"/>',

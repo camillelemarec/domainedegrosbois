@@ -9,8 +9,14 @@
   "description": [
     { "fr": "[Texte provisoire] Équipement de pointe du centre d'entraînement, la piste couverte peut accueillir plusieurs centaines de personnes et des installations techniques lourdes.", "en": "[Placeholder] A state-of-the-art facility of the training centre, the indoor track can host several hundred people and heavy technical set-ups." }
   ],
-  "surface": "1 800 m² (manège, site actuel — à confirmer)",
-  "capacites": { "theatre": 1000, "u": null, "classe": null, "cabaret": 500, "cocktail": 1000, "banquet": 600 },
+  "surface": "1 800 m²",
+  "salles": [
+    {
+      "nom": { "fr": "Manège", "en": "Indoor arena" },
+      "surface": "1 800 m²",
+      "capacites": { "u": null, "theatre": 1500, "reunion": null, "cabaret": 1500, "cocktail": 1500 }
+    }
+  ],
   "ficheTechnique": [
     { "label": { "fr": "Accès technique", "en": "Technical access" }, "valeur": { "fr": "[à confirmer] Accès poids lourds, puissance électrique", "en": "[tbc] Heavy vehicle access, electrical power" } }
   ],
@@ -19,8 +25,9 @@
     { "fr": "Démonstrations de trot et baptêmes en sulky", "en": "Trotting demonstrations and sulky rides" }
   ],
   "images": {
-    "hero": { "src": "espaces/piste-couverte/piste-couverte-hero-01.jpg", "alt": { "fr": "Piste couverte du centre d'entraînement", "en": "Indoor track of the training centre" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
-    "vignette": { "src": "espaces/piste-couverte/piste-couverte-vignette-01.jpg", "alt": { "fr": "Piste couverte", "en": "Indoor track" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "hero": { "src": "espaces/piste-couverte/ManegedegrosboisJLL-LETROT.jpg", "alt": { "fr": "Manège couvert du Domaine de Grosbois, charpente et piste de sable", "en": "Indoor riding hall at Domaine de Grosbois, timber roof and sand track" }, "credit": "JLL / LeTROT", "ratio": "21/9" },
+    "vignette": { "src": "espaces/piste-couverte/ManegedegrosboisJLL-LETROT.jpg", "alt": { "fr": "Manège couvert du Domaine de Grosbois, charpente et piste de sable", "en": "Indoor riding hall at Domaine de Grosbois, timber roof and sand track" }, "credit": "JLL / LeTROT", "ratio": "4/3" },
+    "scenographie": { "src": "espaces/piste-couverte/Mange-aujourd-hui.jpg", "alt": { "fr": "Le manège couvert aujourd’hui", "en": "The indoor riding hall today" }, "credit": "[À COMPLÉTER]", "ratio": "16/9" },
     "galerie": []
   }
 }

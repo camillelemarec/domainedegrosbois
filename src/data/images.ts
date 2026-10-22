@@ -11,7 +11,7 @@
  * au bon chemin, ou modifier `src` ci-dessous.
  */
 
-export type ImageRatio = '16/9' | '21/9' | '4/3' | '3/2' | '1/1' | 'auto';
+export type ImageRatio = '16/9' | '21/9' | '4/3' | '3/2' | '3/4' | '1/1' | 'auto';
 
 export interface ImageEntry {
   src: string;
@@ -26,12 +26,12 @@ export const images = {
   // --- Logos -----------------------------------------------------------------
   'logo.grosbois': {
     src: 'logo/logo-grosbois-2023.svg',
-    alt: { fr: 'Domaine de Grosbois — retour à l’accueil', en: 'Domaine de Grosbois — back to home' },
+    alt: { fr: 'Domaine de Grosbois, retour à l’accueil', en: 'Domaine de Grosbois, back to home' },
     ratio: 'auto',
   },
   'logo.ideeparis': {
     src: 'logo/logo-grosbois-ideeparis-rose.png',
-    alt: { fr: 'Grosbois par IdéeParis — mariages et réceptions', en: 'Grosbois by IdéeParis — weddings and receptions' },
+    alt: { fr: 'Grosbois par IdéeParis, mariages et réceptions', en: 'Grosbois by IdéeParis, weddings and receptions' },
     ratio: 'auto',
   },
   'logo.setf': {
@@ -42,10 +42,10 @@ export const images = {
 
   // --- Accueil ---------------------------------------------------------------
   'accueil.hero': {
-    src: 'accueil/hero-chateau-trotteurs-01.jpg',
+    src: 'accueil/ChateaudeGrosboisetsulky.jpg',
     alt: {
-      fr: 'Façade du château de Grosbois avec des trotteurs au premier plan',
-      en: 'Grosbois castle facade with trotters in the foreground',
+      fr: 'Château de Grosbois et sulky attelé traversant la cour',
+      en: 'Grosbois castle and a harnessed sulky crossing the courtyard',
     },
     credit: CREDIT_TODO,
     ratio: '21/9',
@@ -71,10 +71,10 @@ export const images = {
 
   // --- Découvrir -------------------------------------------------------------
   'chateau.facade-cour': {
-    src: 'chateau/chateau-facade-cour-01.jpg',
-    alt: { fr: 'Façade du château de Grosbois vue de la cour', en: 'Courtyard facade of Grosbois castle' },
-    credit: CREDIT_TODO,
-    ratio: '4/3',
+    src: 'chateau/Chateau-de-Grosbois-JLL-LeTROT.jpg',
+    alt: { fr: 'Façade du château de Grosbois, allée centrale et statues équestres', en: 'Facade of Grosbois castle, central drive and equestrian statues' },
+    credit: 'JLL / LeTROT',
+    ratio: '16/9',
   },
   'chateau.grilles': {
     src: 'chateau/chateau-grilles-01.jpg',
@@ -83,16 +83,16 @@ export const images = {
     ratio: '4/3',
   },
   'centre.piste': {
-    src: 'centre-entrainement/piste-qualifications-01.jpg',
-    alt: { fr: 'Trotteurs sur la piste du centre d’entraînement', en: 'Trotters on the training centre track' },
+    src: 'centre-entrainement/triodetrotteurssurlapistedesqualifications.jpg',
+    alt: { fr: 'Trois trotteurs attelés lancés sur la piste des qualifications', en: 'Three harnessed trotters racing on the qualification track' },
     credit: CREDIT_TODO,
-    ratio: '4/3',
+    ratio: '3/2',
   },
   'musee.salle': {
-    src: 'musee-du-trot/musee-salle-01.jpg',
-    alt: { fr: 'Salle d’exposition du musée du trot', en: 'Exhibition room of the trotting museum' },
-    credit: CREDIT_TODO,
-    ratio: '4/3',
+    src: 'musee-du-trot/Galerie-des-batailles-chateau-de-grosbois-JLL-LeTROT.jpg',
+    alt: { fr: 'Galerie des batailles du château de Grosbois, tableaux et lustres', en: 'Gallery of Battles at Grosbois castle, paintings and chandeliers' },
+    credit: 'JLL / LeTROT',
+    ratio: '3/4',
   },
 
   // --- Espaces (fiche Orangerie détaillée) -----------------------------------
@@ -129,38 +129,38 @@ export const images = {
 
   // --- Vignettes des 6 espaces (mosaïque « Nos espaces ») --------------------
   'espaces.espace-affaires.vignette': {
-    src: 'espaces/espace-affaires/espace-affaires-vignette-01.jpg',
-    alt: { fr: 'Espace Affaires', en: 'Business Centre' },
-    credit: CREDIT_TODO,
+    src: 'espaces/espace-affaires/Cour-des-ferme-JLL-LeTROT.jpg',
+    alt: { fr: 'Cour de la ferme du Domaine de Grosbois, horloge et communs', en: 'Farm courtyard of Domaine de Grosbois, clock and outbuildings' },
+    credit: 'JLL / LeTROT',
     ratio: '4/3',
   },
   'espaces.musee-du-trot.vignette': {
-    src: 'espaces/musee-du-trot/musee-du-trot-vignette-01.jpg',
-    alt: { fr: 'Musée du trot', en: 'Trotting museum' },
-    credit: CREDIT_TODO,
+    src: 'musee-du-trot/Galerie-des-batailles-chateau-de-grosbois-JLL-LeTROT.jpg',
+    alt: { fr: 'Galerie des batailles du château de Grosbois', en: 'Gallery of Battles at Grosbois castle' },
+    credit: 'JLL / LeTROT',
     ratio: '4/3',
   },
   'espaces.chateau.vignette': {
-    src: 'espaces/chateau/chateau-vignette-01.jpg',
-    alt: { fr: 'Salons du château', en: 'Castle reception rooms' },
-    credit: CREDIT_TODO,
+    src: 'espaces/chateau/cour-d-honneur-du-chteau-JLL-LeTROT.jpg',
+    alt: { fr: 'Cour d’honneur du château de Grosbois', en: 'Main courtyard of Grosbois castle' },
+    credit: 'JLL / LeTROT',
     ratio: '4/3',
   },
   'espaces.orangerie.vignette': {
-    src: 'espaces/orangerie/orangerie-vignette-01.jpg',
-    alt: { fr: 'L’Orangerie', en: 'The Orangery' },
+    src: 'espaces/orangerie/interieur-du-Jardin-de-l-orangerie.jpg',
+    alt: { fr: 'Jardin de l’orangerie du Domaine de Grosbois', en: 'Orangery garden of Domaine de Grosbois' },
     credit: CREDIT_TODO,
     ratio: '4/3',
   },
   'espaces.piste-couverte.vignette': {
-    src: 'espaces/piste-couverte/piste-couverte-vignette-01.jpg',
-    alt: { fr: 'Piste couverte', en: 'Indoor track' },
-    credit: CREDIT_TODO,
+    src: 'espaces/piste-couverte/ManegedegrosboisJLL-LETROT.jpg',
+    alt: { fr: 'Manège couvert du Domaine de Grosbois, charpente et piste de sable', en: 'Indoor riding hall at Domaine de Grosbois, timber roof and sand track' },
+    credit: 'JLL / LeTROT',
     ratio: '4/3',
   },
   'espaces.espaces-verts.vignette': {
-    src: 'espaces/espaces-verts/espaces-verts-vignette-01.jpg',
-    alt: { fr: 'Espaces verts et parc', en: 'Grounds and park' },
+    src: 'espaces/espaces-verts/Infrastructure.jpg',
+    alt: { fr: 'Vue aérienne des infrastructures du Domaine de Grosbois', en: 'Aerial view of the Domaine de Grosbois facilities' },
     credit: CREDIT_TODO,
     ratio: '4/3',
   },

@@ -1,37 +1,91 @@
 ---
-/** Capacités par configuration avec pictos (p.17, p.21) : grille de 6 configurations + tableau accessible. */
+/**
+ * Jauges par salle. Chaque chiffre est le nombre de personnes accueillies
+ * selon une disposition de tables (en U, théâtre, réunion, cabaret, cocktail).
+ */
 import Icon from '@/components/ui/Icon.astro';
 import type { IconName } from '@/components/ui/icons';
 import { useTranslations, type Lang } from '@/lib/i18n';
 
-type Config = 'theatre' | 'u' | 'classe' | 'cabaret' | 'cocktail' | 'banquet';
-interface Props { capacites: Record<Config, number | null>; lang: Lang; provisoire?: boolean; compact?: boolean }
-const { capacites, lang, provisoire = true, compact = false } = Astro.props;
+type Config = 'u' | 'theatre' | 'reunion' | 'cabaret' | 'cocktail';
+
+export interface SalleCapacites {
+  nom: { fr: string; en?: string };
+  surface: string;
+  capacites: Record<Config, number | null>;
+}
+
+interface Props {
+  salles: SalleCapacites[];
+  lang: Lang;
+}
+
+const { salles, lang } = Astro.props;
 const t = useTranslations(lang);
-const configs: Config[] = ['theatre', 'u', 'classe', 'cabaret', 'cocktail', 'banquet'];
+const configs: Config[] = ['u', 'theatre', 'reunion', 'cabaret', 'cocktail'];
 const fmt = (n: number) => new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-GB').format(n);
+const roomName = (salle: SalleCapacites) => salle.nom[lang] ?? salle.nom.fr;
 ---
 
 <div>
-  <ul class:list={['grid gap-3', compact ? 'grid-cols-3 sm:grid-cols-6' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6']}>
-    {configs.map((c) => {
-      const value = capacites[c];
-      return (
-        <li class:list={['flex flex-col items-center gap-1 rounded-md border p-3 text-center', value === null ? 'border-dashed border-ardoise-clair/60 text-ardoise-clair' : 'border-bleu-clair bg-white text-nuit']}>
-          <Icon name={`config-${c}` as IconName} size={compact ? 26 : 34} class={value === null ? 'opacity-50' : 'text-bleu'} />
-          <span class="text-xs font-semibold uppercase tracking-wider">{t(`space.config.${c}`)}</span>
-          <span class:list={['font-display font-semibold leading-none', compact ? 'text-xl' : 'text-3xl']}>
-            {value === null ? <span aria-label={lang === 'fr' ? 'non proposé' : 'not available'}>—</span> : fmt(value)}
-          </span>
-          {value !== null && <span class="text-xs text-ardoise">{t('space.people')}</span>}
-        </li>
-      );
-    })}
-  </ul>
-  {provisoire && !compact && (
-    <p class="mt-3 text-xs text-ardoise">
-      <span class="badge badge-provisional">{lang === 'fr' ? 'Jauges indicatives' : 'Indicative capacities'}</span>
-      <span class="ml-2">{lang === 'fr' ? 'Capacités à confirmer par le Domaine selon la configuration et les normes de sécurité.' : 'Capacities to be confirmed by the estate according to layout and safety regulations.'}</span>
-    </p>
+  {salles.length === 0 ? (
+    <p class="max-w-2xl text-ardoise">{t('space.noRooms')}</p>
+  ) : (
+    <>
+      <p class="max-w-3xl text-lg text-ardoise">{t('space.layoutsIntro')}</p>
+
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+        {configs.map((c) => (
+          <li class="rounded-md border border-bleu-clair bg-white p-4">
+            <div class="flex items-center gap-3">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-creme text-bleu" aria-hidden="true">
+                <Icon name={`config-${c}` as IconName} size={22} />
+              </span>
+              <p class="font-display text-xl font-semibold leading-none text-bleu">{t(`space.layout.${c}.name`)}</p>
+            </div>
+            <p class="mt-3 text-sm leading-snug text-ardoise">{t(`space.layout.${c}.text`)}</p>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-8 overflow-x-auto">
+        <table class="w-full min-w-[48rem] border-collapse text-left">
+          <caption class="sr-only">{t('space.capacities')}</caption>
+          <thead>
+            <tr class="border-b-2 border-bleu">
+              <th scope="col" class="py-3 pr-4 text-xs font-semibold uppercase tracking-[0.14em] text-ardoise">{t('space.room')}</th>
+              <th scope="col" class="px-2 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-ardoise">{t('space.surface')}</th>
+              {configs.map((c) => (
+                <th scope="col" class="px-2 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-bleu">
+                  {t(`space.layout.${c}.name`)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {salles.map((salle) => (
+              <tr class="border-b border-bleu-clair">
+                <th scope="row" class="py-4 pr-4 font-display text-2xl font-semibold text-bleu">{roomName(salle)}</th>
+                <td class="px-2 py-4 text-sm text-nuit">{salle.surface}</td>
+                {configs.map((c) => {
+                  const value = salle.capacites[c];
+                  return (
+                    <td class="px-2 py-4 text-center">
+                      {value === null ? (
+                        <span class="text-xl text-ardoise-clair" aria-label={t('space.notSpecified')}>-</span>
+                      ) : (
+                        <span class="font-display text-3xl font-semibold leading-none text-nuit">{fmt(value)}</span>
+                      )}
+                      {value !== null && <span class="mt-1 block text-xs text-ardoise">{t('space.people')}</span>}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-sm text-ardoise">{t('space.dashNote')}</p>
+    </>
   )}
 </div>

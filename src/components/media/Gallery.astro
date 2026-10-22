@@ -14,7 +14,7 @@ const resolved = images.map((img) => resolveImage(img, lang));
   <ul class="grid grid-cols-2 gap-3 md:grid-cols-4">
     {images.map((img, i) => (
       <li>
-        <button type="button" class="group block w-full overflow-hidden rounded-md text-left" data-gallery-open={i} aria-label={`${resolved[i].altText} — ${lang === 'fr' ? 'agrandir' : 'enlarge'}`}>
+        <button type="button" class="group block w-full overflow-hidden rounded-md text-left" data-gallery-open={i} aria-label={`${resolved[i].altText}, ${lang === 'fr' ? 'agrandir' : 'enlarge'}`}>
           <Img image={img} lang={lang} ratio="4/3" class="transition-transform duration-300 group-hover:scale-[1.03]" />
           <span class="mt-1.5 block text-sm text-ardoise">{resolved[i].altText}</span>
         </button>

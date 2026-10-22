@@ -60,12 +60,15 @@ const anchors = [
         <div class="prose-site mt-4">
           {data.description.map((paragraph) => <p>{paragraph.fr}</p>)}
         </div>
+        {data.images.scenographie && (
+          <Img image={data.images.scenographie} lang={lang} ratio="16/9" class="mt-6 rounded-md" />
+        )}
       </section>
 
       <section id="capacites" class="scroll-mt-32">
         <h2>{t('space.capacities')}</h2>
         <div class="mt-4">
-          <CapacityGrid capacites={data.capacites} lang={lang} provisoire={data.provisoire} />
+          <CapacityGrid salles={data.salles} lang={lang} />
         </div>
       </section>
 
@@ -139,7 +142,7 @@ const anchors = [
       <section id="devis" class="scroll-mt-32 rounded-md bg-bleu p-6 text-white md:p-8">
         <h2 class="!text-white">{t('space.ctaTitle')}</h2>
         <p class="mt-2 max-w-2xl text-white/85">{t('space.ctaText')}</p>
-        <a href={devisHref} class="btn btn-gold mt-6">{t('common.quote')}<Icon name="arrow-right" size={18} /></a>
+        <a href={devisHref} class="btn btn-cta mt-6">{t('common.quote')}<Icon name="arrow-right" size={18} /></a>
       </section>
 
       {autres.length > 0 && (

@@ -9,8 +9,19 @@
   "description": [
     { "fr": "[Texte provisoire] L'Espace Affaires réunit plusieurs salles de sous-commission et une salle plénière, avec vue sur les pistes. Idéal pour les formats journée d'étude et comité de direction.", "en": "[Placeholder] The Business Centre brings together several breakout rooms and a plenary hall overlooking the tracks. Ideal for study days and board meetings." }
   ],
-  "surface": "120 m² (site actuel — à confirmer)",
-  "capacites": { "theatre": 120, "u": 40, "classe": 60, "cabaret": 72, "cocktail": 150, "banquet": 100 },
+  "surface": "37–73 m²",
+  "salles": [
+    {
+      "nom": { "fr": "Salon", "en": "Lounge" },
+      "surface": "37 m²",
+      "capacites": { "u": 24, "theatre": 40, "reunion": 24, "cabaret": 28, "cocktail": 50 }
+    },
+    {
+      "nom": { "fr": "Salle de séminaires", "en": "Seminar room" },
+      "surface": "73 m²",
+      "capacites": { "u": 9, "theatre": 28, "reunion": 20, "cabaret": 28, "cocktail": 32 }
+    }
+  ],
   "ficheTechnique": [
     { "label": { "fr": "Équipements", "en": "Equipment" }, "valeur": { "fr": "[à confirmer] Écrans, visioconférence, Wi-Fi, paperboards", "en": "[tbc] Screens, video conferencing, Wi-Fi, flip charts" } },
     { "label": { "fr": "Accessibilité", "en": "Accessibility" }, "valeur": { "fr": "[à confirmer]", "en": "[tbc]" } }
@@ -20,8 +31,9 @@
     { "fr": "Activités de cohésion au centre d'entraînement", "en": "Team-building activities at the training centre" }
   ],
   "images": {
-    "hero": { "src": "espaces/espace-affaires/espace-affaires-hero-01.jpg", "alt": { "fr": "Salle plénière de l'Espace Affaires", "en": "Plenary room of the Business Centre" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },
-    "vignette": { "src": "espaces/espace-affaires/espace-affaires-vignette-01.jpg", "alt": { "fr": "Espace Affaires", "en": "Business Centre" }, "credit": "[À COMPLÉTER]", "ratio": "4/3" },
+    "hero": { "src": "espaces/espace-affaires/Cour-des-ferme-JLL-LeTROT.jpg", "alt": { "fr": "Cour de la ferme du Domaine de Grosbois, horloge et communs", "en": "Farm courtyard of Domaine de Grosbois, clock and outbuildings" }, "credit": "JLL / LeTROT", "ratio": "21/9" },
+    "vignette": { "src": "espaces/espace-affaires/Cour-des-ferme-JLL-LeTROT.jpg", "alt": { "fr": "Cour de la ferme du Domaine de Grosbois, horloge et communs", "en": "Farm courtyard of Domaine de Grosbois, clock and outbuildings" }, "credit": "JLL / LeTROT", "ratio": "4/3" },
+    "scenographie": { "src": "espaces/espace-affaires/Salle-de-sminaire-Domaine-de-Grosbois-en-configuration-runion-AP-LeTROT.jpg", "alt": { "fr": "Salle de séminaire du Domaine de Grosbois en configuration réunion", "en": "Seminar room at Domaine de Grosbois in meeting layout" }, "credit": "AP / LeTROT", "ratio": "16/9" },
     "galerie": []
   }
 }
