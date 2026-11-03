@@ -21,7 +21,7 @@ const light = variant === 'light';
   <img src={logo.url} alt={logo.altText} class:list={['h-full w-auto', className]} width="180" height="56" />
 ) : (
   <span class:list={['logo-wordmark inline-flex items-center gap-2.5', size === 'lg' && 'logo-lg', className]} role="img" aria-label={logo.altText}>
-    <img src="/images/logo/logogb.png" alt="" class="logo-mark" width={size === 'lg' ? 72 : 40} height={size === 'lg' ? 72 : 40} />
+    <img src={`${import.meta.env.BASE_URL}images/logo/logogb.png`} alt="" class="logo-mark" width={size === 'lg' ? 72 : 40} height={size === 'lg' ? 72 : 40} />
     <span class="flex flex-col leading-none">
       <span class:list={['font-display text-[0.78rem] font-semibold tracking-[0.28em] uppercase', light ? 'text-bleu-clair' : 'text-ardoise']}>Domaine de</span>
       <span class:list={['font-display text-[1.55rem] font-semibold tracking-wide uppercase -mt-0.5', light ? 'text-white' : 'text-bleu']}>Grosbois</span>

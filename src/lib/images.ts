@@ -30,7 +30,7 @@ export function resolveImage(ref: ImageRef, lang: Lang = 'fr'): ResolvedImage {
   return {
     ...entry,
     src: cleanSrc,
-    url: `/images/${cleanSrc}`,
+    url: `${import.meta.env.BASE_URL}images/${cleanSrc}`,
     exists,
     altText: entry.alt[lang] ?? entry.alt.fr,
   };

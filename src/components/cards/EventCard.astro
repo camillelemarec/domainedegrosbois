@@ -3,7 +3,7 @@
 import type { CollectionEntry } from 'astro:content';
 import Img from '@/components/media/Img.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { formatPrice, useTranslations, type Lang } from '@/lib/i18n';
+import { formatPrice, localizePath, useTranslations, type Lang } from '@/lib/i18n';
 import { eventTypeLabel, eventAudienceLabel, monthKey } from '@/lib/events';
 
 interface Props { event: CollectionEntry<'evenements'>; lang: Lang; headingLevel?: 'h2' | 'h3'; compact?: boolean }
@@ -57,7 +57,7 @@ const price = d.prix === null ? t('common.free') : `${t('common.from')} ${format
       {d.complet ? (
         <span class="btn btn-sm btn-outline" aria-disabled="true">{t('common.soldOut')}</span>
       ) : (
-        <a href="/agenda/#billetterie" class="btn btn-gold btn-sm"><Icon name="ticket" size={16} />{t('common.tickets')}</a>
+        <a href={localizePath('/agenda/#billetterie', lang)} class="btn btn-gold btn-sm"><Icon name="ticket" size={16} />{t('common.tickets')}</a>
       )}
     </div>
   </div>

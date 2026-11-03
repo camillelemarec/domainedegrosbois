@@ -8,7 +8,7 @@ import CapacityGrid from '@/components/sections/CapacityGrid.astro';
 import Gallery from '@/components/media/Gallery.astro';
 import Img from '@/components/media/Img.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { useTranslations } from '@/lib/i18n';
+import { localizePath, useTranslations } from '@/lib/i18n';
 
 export async function getStaticPaths() {
   const espaces = await getCollection('espaces');
@@ -24,7 +24,7 @@ const nom = data.nom.fr;
 const autres = (await getCollection('espaces'))
   .filter((item) => item.id !== espace.id)
   .sort((a, b) => a.data.ordre - b.data.ordre);
-const devisHref = `/privatiser/demande-de-devis/?espace=${espace.id}`;
+const devisHref = localizePath(`/privatiser/demande-de-devis/?espace=${espace.id}`, lang);
 
 const anchors = [
   { id: 'scenographie', label: t('space.scenography') },
@@ -151,7 +151,7 @@ const anchors = [
           <ul class="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
             {autres.map((item) => (
               <li>
-                <a href={`/privatiser/espaces/${item.id}/`} class="group relative block overflow-hidden rounded-md">
+                <a href={localizePath(`/privatiser/espaces/${item.id}/`, lang)} class="group relative block overflow-hidden rounded-md">
                   <Img image={item.data.images.vignette} lang={lang} ratio="4/3" class="transition-transform duration-500 group-hover:scale-105" />
                   <div class="overlay-card absolute inset-0" aria-hidden="true"></div>
                   <span class="absolute inset-x-0 bottom-0 p-3 font-display text-lg text-white">{item.data.nom.fr}</span>

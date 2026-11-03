@@ -27,11 +27,18 @@ export function useTranslations(lang: Lang) {
   };
 }
 
+/** Préfixe le sous-dossier GitHub Pages (`/domainedegrosbois`) quand `base` n'est pas `/`. */
+function withBase(path: string): string {
+  if (!path.startsWith('/') || path.startsWith('//')) return path;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return base ? `${base}${path}` : path;
+}
+
 /** Préfixe une route interne selon la langue (`/agenda/` → `/en/agenda/`). */
 export function localizePath(path: string, lang: Lang): string {
-  if (lang === DEFAULT_LANG) return path;
   if (path.startsWith('http') || path.startsWith('#') || path.startsWith('mailto:') || path.startsWith('tel:')) return path;
-  return `/${lang}${path.startsWith('/') ? path : `/${path}`}`;
+  const localized = lang === DEFAULT_LANG ? path : `/${lang}${path.startsWith('/') ? path : `/${path}`}`;
+  return withBase(localized.startsWith('/') ? localized : `/${localized}`);
 }
 
 /** Détermine la langue à partir de l'URL courante. */
