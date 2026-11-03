@@ -13,6 +13,7 @@ import SocialIcons from '@/components/nav/SocialIcons.astro';
 import LabelsBar from '@/components/sections/LabelsBar.astro';
 import PartnersStrip from '@/components/sections/PartnersStrip.astro';
 import { resolveImage } from '@/lib/images';
+import { mediaUrl } from '@/lib/media';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -24,7 +25,7 @@ const setf = resolveImage('logo.setf', lang);
 
 <div class="footer-slot">
 <footer class="relative bg-nuit text-bleu-clair">
-  <div class="footer-crest" style={`--crest: url('${import.meta.env.BASE_URL}path1.png')`} aria-hidden="true"></div>
+  <div class="footer-crest" style={`--crest: url('${mediaUrl('path1.png')}')`} aria-hidden="true"></div>
   <LabelsBar lang={lang} />
 
   <div class="container-site grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-12">

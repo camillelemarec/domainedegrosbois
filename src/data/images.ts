@@ -1,14 +1,15 @@
 /**
  * Mapping central des images du site.
  *
- * - `src` : chemin relatif à `public/images/` (voir `public/images/README.md` pour la convention).
+ * - `src` : chemin relatif à `public/images/` (identique dans le bucket privé).
+ *   La clé Backblaze se règle dans `.env` (`B2_KEY_ID`, `B2_APPLICATION_KEY`,
+ *   `B2_BUCKET_ID`, `B2_BUCKET_NAME`). Le site sert le fichier via `/media/…`.
  * - `alt` : texte alternatif FR / EN (obligatoire, accessibilité).
  * - `credit` : crédit photo affiché en légende (© …). `[À COMPLÉTER]` tant que non fourni.
  * - `ratio` : ratio d'affichage par défaut.
  *
- * Tant que le fichier n'existe pas dans `public/images/`, le composant `<Img>` affiche un
- * placeholder neutre portant le nom attendu. Pour brancher une vraie image : déposer le fichier
- * au bon chemin, ou modifier `src` ci-dessous.
+ * Tant que le fichier n'est pas dans le bucket (liste `src/data/media-manifest.json`),
+ * le composant `<Img>` affiche un placeholder neutre portant le nom attendu.
  */
 
 export type ImageRatio = '16/9' | '21/9' | '4/3' | '3/2' | '3/4' | '1/1' | 'auto';

@@ -9,6 +9,7 @@ import SiteFooter from '@/components/nav/SiteFooter.astro';
 import CookieBanner from '@/components/ui/CookieBanner.astro';
 import { alternatePath, langFromUrl, useTranslations, LANGS, type Lang } from '@/lib/i18n';
 import site from '@/data/site.json';
+import { mediaUrl } from '@/lib/media';
 
 interface Props {
   title: string;
@@ -37,7 +38,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
     <link rel="canonical" href={canonical.href} />
     {LANGS.map((alt) => <link rel="alternate" hreflang={alt} href={new URL(alternatePath(Astro.url, alt), canonical.origin).href} />)}
     <link rel="alternate" hreflang="x-default" href={new URL(alternatePath(Astro.url, 'fr'), canonical.origin).href} />
-    <link rel="icon" href={`${import.meta.env.BASE_URL}images/logo/logogb.png`} type="image/png" />
+    <link rel="icon" href={mediaUrl('images/logo/logogb.png')} type="image/png" />
     <meta name="theme-color" content="#0E386B" />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:site_name" content={site.name} />
