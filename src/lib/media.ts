@@ -25,10 +25,12 @@ export function mediaFileOnBucket(publicPath: string): boolean {
 }
 
 /**
- * URL same-origin d’un fichier du bucket.
- * Le navigateur appelle `/media/…` ; la clé Backblaze ne quitte pas le serveur.
+ * URL d’un fichier du bucket.
+ * Sur GitHub Pages (`PAGES_BASE`), le fichier est copié dans le site statique.
+ * Avec le serveur Node, le navigateur appelle `/media/…` et la clé reste côté serveur.
  */
 export function mediaUrl(publicPath: string): string {
+  if (process.env.PAGES_BASE) return localPublicUrl(publicPath);
   return `${sitePrefix()}media/${encodePath(publicPath)}`;
 }
 

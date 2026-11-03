@@ -24,13 +24,21 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: node scripts/fetch-b2-media.mjs
+        env:
+          B2_KEY_ID: ${{ secrets.B2_KEY_ID }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
+          B2_BUCKET_ID: ${{ secrets.B2_BUCKET_ID }}
+          B2_BUCKET_NAME: ${{ secrets.B2_BUCKET_NAME }}
+          B2_OBJECT_PREFIX: public
       - run: npm run build
         env:
           PAGES_BASE: /domainedegrosbois
           PAGES_SITE: https://camillelemarec.github.io
+      - run: cp .nojekyll dist/client/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/client
 
   deploy:
     needs: build
