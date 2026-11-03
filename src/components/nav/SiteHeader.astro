@@ -12,8 +12,8 @@ import { localizePath, useTranslations, type Lang } from '@/lib/i18n';
 import Icon from '@/components/ui/Icon.astro';
 import Logo from '@/components/ui/Logo.astro';
 
-interface Props { lang: Lang }
-const { lang } = Astro.props;
+interface Props { lang: Lang; overlay?: boolean }
+const { lang, overlay = false } = Astro.props;
 const t = useTranslations(lang);
 const l = (p: string) => localizePath(p, lang);
 const currentPath = Astro.url.pathname;
@@ -33,11 +33,12 @@ const isActive = (item: (typeof navigation.main)[number]) => {
 };
 ---
 
-<header class="site-header relative z-40 bg-white shadow-sm" data-header>
+<header class:list={['site-header relative z-40', overlay && 'is-home']} data-header data-overlay={overlay ? '' : undefined}>
   {/* Barre principale */}
   <div class="container-site flex items-center justify-between gap-4" style="min-height: var(--header-height)">
     <a href={l('/')} class="flex h-[4.75rem] shrink-0 items-center" aria-label={t('meta.siteName')}>
-      <Logo lang={lang} size="lg" />
+      <span class="logo-on-light"><Logo lang={lang} size="lg" /></span>
+      <span class="logo-on-slate"><Logo lang={lang} size="lg" variant="light" /></span>
     </a>
 
     <nav class="hidden flex-1 justify-center lg:flex" aria-label={t('a11y.mainNav')} data-main-nav>
@@ -48,7 +49,7 @@ const isActive = (item: (typeof navigation.main)[number]) => {
               <a
                 href={l(item.href)}
                 class:list={[
-                  'nav-link inline-flex h-12 items-center rounded-sm px-3 text-[0.95rem] font-medium text-nuit hover:bg-bleu-clair/60',
+                  'nav-link inline-flex h-12 items-center rounded-sm px-3 text-[0.95rem] font-medium text-white hover:bg-white/15',
                   isActive(item) && 'nav-link-active',
                 ]}
               >
@@ -59,7 +60,7 @@ const isActive = (item: (typeof navigation.main)[number]) => {
                 <button
                   type="button"
                   class:list={[
-                    'nav-link inline-flex h-12 items-center gap-1 rounded-sm px-3 text-[0.95rem] font-medium text-nuit hover:bg-bleu-clair/60',
+                    'nav-link inline-flex h-12 items-center gap-1 rounded-sm px-3 text-[0.95rem] font-medium text-white hover:bg-white/15',
                     item.highlight && 'font-semibold',
                     isActive(item) && 'nav-link-active',
                   ]}
@@ -116,7 +117,7 @@ const isActive = (item: (typeof navigation.main)[number]) => {
       </a>
       <button
         type="button"
-        class="grid h-11 w-11 place-items-center rounded-sm text-nuit hover:bg-bleu-clair/60 lg:hidden"
+        class="menu-toggle grid h-11 w-11 place-items-center rounded-sm text-white hover:bg-white/15 lg:hidden"
         aria-label={t('a11y.openMenu')}
         aria-expanded="false"
         aria-controls="mobile-menu"
@@ -186,11 +187,30 @@ const isActive = (item: (typeof navigation.main)[number]) => {
 </header>
 
 <style>
-  .site-header { position: sticky; top: 0; }
+  .site-header {
+    position: sticky;
+    top: 0;
+    background: var(--color-slate-roof);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+    transition: background-color .4s ease, box-shadow .4s ease, color .4s ease;
+  }
+  .site-header.is-home:not(.is-solid) { background: #fff; color: var(--color-ink); }
+  .site-header.is-home:not(.is-solid) :global(.nav-link),
+  .site-header.is-home:not(.is-solid) .menu-toggle { color: var(--color-ink); }
+  .site-header.is-home:not(.is-solid) :global(.nav-link):hover,
+  .site-header.is-home:not(.is-solid) .menu-toggle:hover { background: rgb(228 232 238 / 0.6); }
+  .site-header.is-home:not(.is-solid) [data-nav-item].is-open [data-nav-toggle] { background: var(--color-setf-blue-light); }
+  .logo-on-slate { display: none; }
+  .site-header:not(.is-home) .logo-on-light,
+  .site-header.is-solid .logo-on-light { display: none; }
+  .site-header:not(.is-home) .logo-on-slate,
+  .site-header.is-solid .logo-on-slate { display: contents; }
+  .nav-link, .menu-toggle { transition: color .4s ease, background-color .2s ease; }
   .nav-link-active { box-shadow: inset 0 -3px 0 var(--color-gold); }
   [data-nav-item].is-open .submenu { display: block; }
   [data-nav-item].is-open [data-nav-toggle] svg { transform: rotate(180deg); }
-  [data-nav-item].is-open [data-nav-toggle] { background: var(--color-setf-blue-light); }
+  [data-nav-item].is-open [data-nav-toggle] { background: rgb(255 255 255 / 0.16); }
   .mobile-menu.is-open { display: flex; }
   @media (min-width: 64rem) { .lg\:btn-md { min-height: var(--tap-target); padding: 0.65rem 1.4rem; font-size: var(--text-sm); } }
 </style>
@@ -218,6 +238,17 @@ const isActive = (item: (typeof navigation.main)[number]) => {
       if (!item.contains(e.relatedTarget as Node)) { item.classList.remove('is-open'); toggle?.setAttribute('aria-expanded', 'false'); }
     });
   });
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const discover = document.querySelector('.facets');
+  if (header?.hasAttribute('data-overlay') && discover) {
+    const syncHeader = () => {
+      header.classList.toggle('is-solid', discover.getBoundingClientRect().top <= header.offsetHeight);
+    };
+    syncHeader();
+    window.addEventListener('scroll', syncHeader, { passive: true });
+    window.addEventListener('resize', syncHeader);
+  }
+
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeAll(); closeMobile(); } });
   document.addEventListener('click', (e) => { if (!(e.target as HTMLElement).closest('[data-main-nav]')) closeAll(); });
 
