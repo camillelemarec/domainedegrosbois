@@ -53,10 +53,10 @@
     "fr": "[Texte provisoire] Domaine privé, accès sur réservation uniquement. Entrée véhicules et entrée piétons distinctes (coordonnées GPS à confirmer). À 15 km de Paris-Vincennes ; RER A Boissy-Saint-Léger puis bus Transdev.",
     "en": "[Placeholder] Private estate, access by reservation only. Separate vehicle and pedestrian entrances (GPS to be confirmed). 15 km from Paris-Vincennes; RER A Boissy-Saint-Léger then Transdev bus."
   },
-  "exploitant": { "nom": "IdéeParis (mariages et réceptions privées)", "url": "#", "logo": "logo.ideeparis" },
+  "exploitant": { "nom": { "fr": "IdéeParis (mariages et réceptions privées)", "en": "IdéeParis (weddings and private receptions)" }, "url": "#", "logo": "logo.ideeparis" },
   "temoignages": [
-    { "citation": { "fr": "[Témoignage provisoire] Un cadre exceptionnel et une équipe aux petits soins pour notre séminaire annuel.", "en": "[Placeholder testimonial] An exceptional setting and an attentive team for our annual seminar." }, "auteur": "[Entreprise cliente, à confirmer]" },
-    { "citation": { "fr": "[Témoignage provisoire] Nos invités parlent encore du dîner dans l'Orangerie face au château.", "en": "[Placeholder testimonial] Our guests still talk about the dinner in the Orangery facing the castle." }, "auteur": "[Mariés, à confirmer]" }
+    { "citation": { "fr": "[Témoignage provisoire] Un cadre exceptionnel et une équipe aux petits soins pour notre séminaire annuel.", "en": "[Placeholder testimonial] An exceptional setting and an attentive team for our annual seminar." }, "auteur": { "fr": "[Entreprise cliente, à confirmer]", "en": "[Client company, to be confirmed]" } },
+    { "citation": { "fr": "[Témoignage provisoire] Nos invités parlent encore du dîner dans l'Orangerie face au château.", "en": "[Placeholder testimonial] Our guests still talk about the dinner in the Orangery facing the castle." }, "auteur": { "fr": "[Mariés, à confirmer]", "en": "[Couple, to be confirmed]" } }
   ],
   "images": {
     "hero": { "src": "espaces/orangerie/interieur-du-Jardin-de-l-orangerie.jpg", "alt": { "fr": "Jardin de l’orangerie du Domaine de Grosbois", "en": "Orangery garden of Domaine de Grosbois" }, "credit": "[À COMPLÉTER]", "ratio": "21/9" },

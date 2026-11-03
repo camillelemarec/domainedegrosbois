@@ -1,4 +1,5 @@
 import tarifs from '@/data/tarifs-visites.json';
+import type { Lang } from '@/lib/i18n';
 
 export type Motif = 'renseignement' | 'reservation';
 export type TypeDemande = keyof typeof tarifs.visites | 'privatisation';
@@ -36,6 +37,10 @@ export interface Quote {
 
 const euros = (cents: number) => Math.round(cents) / 100;
 
+function named(entry: { label: string; labelEn?: string }, lang: Lang): string {
+  return lang === 'en' && entry.labelEn ? entry.labelEn : entry.label;
+}
+
 function line(label: string, detail: string, cents: number): QuoteLine | null {
   if (cents <= 0) return null;
   return { label, detail, montantHT: euros(cents) };
@@ -56,37 +61,46 @@ function numero(input: QuoteInput): string {
 }
 
 /** Devis indicatif calculé dans le navigateur. `null` pour un simple renseignement. */
-export function computeQuote(input: QuoteInput): Quote | null {
+export function computeQuote(input: QuoteInput, lang: Lang = 'fr'): Quote | null {
   if (input.motif !== 'reservation') return null;
+
+  const locale = lang === 'fr' ? 'fr-FR' : 'en-GB';
+  const money = (amount: number) => `${amount.toLocaleString(locale)} €`;
+  const dayPackage = lang === 'en' ? 'Day package, excluding options' : 'Forfait journée, hors options';
+  const basePackage = lang === 'en' ? 'Base package' : 'Forfait de base';
+  const adults = lang === 'en' ? 'Adults' : 'Adultes';
+  const children = lang === 'en' ? 'Children' : 'Enfants';
+  const flat = lang === 'en' ? 'Flat rate' : 'Forfait';
+  const fallbackHire = lang === 'en' ? 'Private hire, package to be confirmed' : 'Privatisation, forfait à confirmer';
 
   const lignes: QuoteLine[] = [];
   const personnes = Math.max(0, input.adultes) + Math.max(0, input.enfants);
 
   if (input.type === 'privatisation') {
     const espace = tarifs.privatisation[input.espaceId as keyof typeof tarifs.privatisation];
-    const label = espace?.label ?? 'Privatisation, forfait à confirmer';
+    const label = espace ? named(espace, lang) : fallbackHire;
     const forfait = espace?.forfait ?? 0;
-    const row = line(label, 'Forfait journée, hors options', Math.round(forfait * 100));
+    const row = line(label, dayPackage, Math.round(forfait * 100));
     if (row) lignes.push(row);
   } else {
     const visite = tarifs.visites[input.type as keyof typeof tarifs.visites];
     if (!visite) return null;
     if (visite.forfait > 0) {
-      const row = line(visite.label, 'Forfait de base', Math.round(visite.forfait * 100));
+      const row = line(named(visite, lang), basePackage, Math.round(visite.forfait * 100));
       if (row) lignes.push(row);
     }
     if (input.adultes > 0 && visite.adulte > 0) {
       const row = line(
-        'Adultes',
-        `${input.adultes} × ${visite.adulte.toLocaleString('fr-FR')} €`,
+        adults,
+        `${input.adultes} × ${money(visite.adulte)}`,
         Math.round(input.adultes * visite.adulte * 100),
       );
       if (row) lignes.push(row);
     }
     if (input.enfants > 0 && visite.enfant > 0) {
       const row = line(
-        'Enfants',
-        `${input.enfants} × ${visite.enfant.toLocaleString('fr-FR')} €`,
+        children,
+        `${input.enfants} × ${money(visite.enfant)}`,
         Math.round(input.enfants * visite.enfant * 100),
       );
       if (row) lignes.push(row);
@@ -94,21 +108,21 @@ export function computeQuote(input: QuoteInput): Quote | null {
   }
 
   if (input.guide) {
-    const row = line(tarifs.options.guide.label, 'Forfait', Math.round(tarifs.options.guide.forfait * 100));
+    const row = line(named(tarifs.options.guide, lang), flat, Math.round(tarifs.options.guide.forfait * 100));
     if (row) lignes.push(row);
   }
   if (input.livret && personnes > 0) {
     const row = line(
-      tarifs.options.livret.label,
-      `${personnes} × ${tarifs.options.livret.parPersonne.toLocaleString('fr-FR')} €`,
+      named(tarifs.options.livret, lang),
+      `${personnes} × ${money(tarifs.options.livret.parPersonne)}`,
       Math.round(personnes * tarifs.options.livret.parPersonne * 100),
     );
     if (row) lignes.push(row);
   }
   if (input.restauration && personnes > 0) {
     const row = line(
-      tarifs.options.restauration.label,
-      `${personnes} × ${tarifs.options.restauration.parPersonne.toLocaleString('fr-FR')} €`,
+      named(tarifs.options.restauration, lang),
+      `${personnes} × ${money(tarifs.options.restauration.parPersonne)}`,
       Math.round(personnes * tarifs.options.restauration.parPersonne * 100),
     );
     if (row) lignes.push(row);
@@ -127,10 +141,10 @@ export function computeQuote(input: QuoteInput): Quote | null {
     tauxTva: tarifs.tva,
     totalTTC: euros(totalCents + tvaCents),
     validite: validite.toISOString().slice(0, 10),
-    mention: tarifs.mention,
+    mention: lang === 'en' && tarifs.mentionEn ? tarifs.mentionEn : tarifs.mention,
   };
 }
 
-export function formatEuros(amount: number): string {
-  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount);
+export function formatEuros(amount: number, lang: Lang = 'fr'): string {
+  return new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', { style: 'currency', currency: 'EUR' }).format(amount);
 }

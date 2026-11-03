@@ -6,7 +6,10 @@
     "en": "Castle, trotting training centre and museum, Boissy-Saint-Léger, near Paris"
   },
   "address": {
-    "street": "[Adresse postale du Domaine à confirmer]",
+    "street": {
+      "fr": "[Adresse postale du Domaine à confirmer]",
+      "en": "[Postal address of the estate to be confirmed]"
+    },
     "postalCode": "94470",
     "city": "Boissy-Saint-Léger",
     "country": "France"

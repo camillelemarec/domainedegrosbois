@@ -1,24 +1,25 @@
 {
   "mention": "Grille provisoire, à confirmer par le Domaine. Aucune valeur contractuelle.",
+  "mentionEn": "Provisional price list, to be confirmed by the estate. Not a contractual figure.",
   "tva": 0.2,
   "validiteJours": 30,
   "visites": {
-    "visite-individuelle": { "label": "Visite guidée, individuel", "adulte": 12, "enfant": 6, "forfait": 0 },
-    "visite-groupe": { "label": "Visite guidée, groupe adultes", "adulte": 9, "enfant": 6, "forfait": 80 },
-    "visite-scolaire": { "label": "Visite scolaire", "adulte": 0, "enfant": 5, "forfait": 40 },
-    "visite-entreprise": { "label": "Visite entreprise ou team-building", "adulte": 14, "enfant": 8, "forfait": 150 }
+    "visite-individuelle": { "label": "Visite guidée, individuel", "labelEn": "Guided tour, individual", "adulte": 12, "enfant": 6, "forfait": 0 },
+    "visite-groupe": { "label": "Visite guidée, groupe adultes", "labelEn": "Guided tour, adult group", "adulte": 9, "enfant": 6, "forfait": 80 },
+    "visite-scolaire": { "label": "Visite scolaire", "labelEn": "School visit", "adulte": 0, "enfant": 5, "forfait": 40 },
+    "visite-entreprise": { "label": "Visite entreprise ou team-building", "labelEn": "Company visit or team-building", "adulte": 14, "enfant": 8, "forfait": 150 }
   },
   "options": {
-    "guide": { "label": "Guide-conférencier", "forfait": 90 },
-    "livret": { "label": "Livret", "parPersonne": 2 },
-    "restauration": { "label": "Pause restauration", "parPersonne": 12 }
+    "guide": { "label": "Guide-conférencier", "labelEn": "Guide", "forfait": 90 },
+    "livret": { "label": "Livret", "labelEn": "Booklet", "parPersonne": 2 },
+    "restauration": { "label": "Pause restauration", "labelEn": "Refreshment break", "parPersonne": 12 }
   },
   "privatisation": {
-    "espace-affaires": { "label": "Espace Affaires, forfait journée indicatif", "forfait": 1200 },
-    "musee-du-trot": { "label": "Musée du trot, forfait journée indicatif", "forfait": 900 },
-    "chateau": { "label": "Château, forfait journée indicatif", "forfait": 3500 },
-    "orangerie": { "label": "Orangerie, forfait journée indicatif", "forfait": 2500 },
-    "piste-couverte": { "label": "Piste couverte, forfait journée indicatif", "forfait": 1800 },
-    "espaces-verts": { "label": "Espaces verts, forfait journée indicatif", "forfait": 1500 }
+    "espace-affaires": { "label": "Espace Affaires, forfait journée indicatif", "labelEn": "Business Centre, indicative day rate", "forfait": 1200 },
+    "musee-du-trot": { "label": "Musée du trot, forfait journée indicatif", "labelEn": "Trotting museum, indicative day rate", "forfait": 900 },
+    "chateau": { "label": "Château, forfait journée indicatif", "labelEn": "Castle, indicative day rate", "forfait": 3500 },
+    "orangerie": { "label": "Orangerie, forfait journée indicatif", "labelEn": "Orangery, indicative day rate", "forfait": 2500 },
+    "piste-couverte": { "label": "Piste couverte, forfait journée indicatif", "labelEn": "Indoor track, indicative day rate", "forfait": 1800 },
+    "espaces-verts": { "label": "Espaces verts, forfait journée indicatif", "labelEn": "Grounds, indicative day rate", "forfait": 1500 }
   }
 }

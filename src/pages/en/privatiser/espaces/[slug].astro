@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../../privatiser/espaces/[slug].astro';
+
+export async function getStaticPaths() {
+  const espaces = await getCollection('espaces');
+  return espaces.map((espace) => ({ params: { slug: espace.id }, props: { espace } }));
+}
+
+const { espace } = Astro.props;
+---
+
+<Page espace={espace} lang="en" />

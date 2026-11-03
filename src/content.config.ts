@@ -3,6 +3,7 @@ import { glob } from 'astro/loaders';
 
 /** Texte bilingue : l'anglais est optionnel, repli sur le français à l'affichage. */
 const i18nText = z.object({ fr: z.string(), en: z.string().optional() });
+const i18nOrString = z.union([z.string(), i18nText]);
 
 const imageRef = z.object({
   src: z.string(),
@@ -43,8 +44,8 @@ const espaces = defineCollection({
     ficheTechnique: z.array(z.object({ label: i18nText, valeur: i18nText })).default([]),
     prestations: z.array(i18nText).default([]),
     acces: i18nText.optional(),
-    exploitant: z.object({ nom: z.string(), url: z.string().optional(), logo: z.string().optional() }).optional(),
-    temoignages: z.array(z.object({ citation: i18nText, auteur: z.string() })).default([]),
+    exploitant: z.object({ nom: i18nOrString, url: z.string().optional(), logo: z.string().optional() }).optional(),
+    temoignages: z.array(z.object({ citation: i18nText, auteur: i18nOrString })).default([]),
     images: z.object({
       hero: imageRef,
       vignette: imageRef,

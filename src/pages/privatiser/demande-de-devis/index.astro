@@ -2,16 +2,21 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import QuoteForm from '@/components/forms/QuoteForm.astro';
+import { pick, useTranslations, type Lang } from '@/lib/i18n';
 
+interface Props { lang?: Lang }
+const { lang = 'fr' } = Astro.props;
+const t = useTranslations(lang);
 const espaces = (await getCollection('espaces'))
   .sort((a, b) => a.data.ordre - b.data.ordre)
-  .map((espace) => ({ id: espace.id, nom: espace.data.nom.fr }));
+  .map((espace) => ({ id: espace.id, nom: pick(espace.data.nom, lang) }));
 ---
 
-<BaseLayout title="Demander un devis" description="Formulaire de devis pour une privatisation ou une visite au Domaine de Grosbois. Simulation à l'écran, sans envoi.">
+<BaseLayout lang={lang} title={t('quote.titlePrivatize')} description={t('quote.metaPrivatize')}>
   <QuoteForm
+    lang={lang}
     contexte="privatisation"
     espaces={espaces}
-    intro="Décrivez un projet de privatisation ou de visite. Le récapitulatif s'affiche ici, avec un devis indicatif si vous choisissez « réservation »."
+    intro={t('quote.introPrivatize')}
   />
 </BaseLayout>

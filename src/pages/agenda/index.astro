@@ -7,12 +7,17 @@ import EventCard from '@/components/cards/EventCard.astro';
 import TicketingPlaceholder from '@/components/sections/TicketingPlaceholder.astro';
 import CtaBanner from '@/components/sections/CtaBanner.astro';
 import { eventAudienceLabel, eventTypeLabel, EVENT_AUDIENCES, EVENT_TYPES, monthKey, monthLabel } from '@/lib/events';
+import { localizePath, pick, useTranslations, type Lang } from '@/lib/i18n';
 
-const lang = 'fr' as const;
+interface Props { lang?: Lang }
+const { lang = 'fr' } = Astro.props;
+const t = useTranslations(lang);
 const evenements = (await getCollection('evenements')).sort((a, b) => a.data.dateDebut.localeCompare(b.data.dateDebut));
 const months = [...new Set(evenements.map((event) => monthKey(event.data.dateDebut)))];
 
-const weekdays = ['lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.', 'dim.'];
+const weekdays = lang === 'fr'
+  ? ['lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.', 'dim.']
+  : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 function monthCells(key: string) {
   const [year, month] = key.split('-').map(Number);
@@ -24,7 +29,7 @@ function monthCells(key: string) {
   for (const event of inMonth) {
     const day = Number(event.data.dateDebut.slice(8, 10));
     const list = byDay.get(day) ?? [];
-    list.push({ id: event.id, titre: event.data.titre.fr });
+    list.push({ id: event.id, titre: pick(event.data.titre, lang) });
     byDay.set(day, list);
   }
   const cells: ({ day: number; events: { id: string; titre: string }[] } | null)[] = [
@@ -36,47 +41,47 @@ function monthCells(key: string) {
 }
 ---
 
-<BaseLayout title="Agenda & billetterie" description="Visites guidées, journées spéciales et événements du Domaine de Grosbois. Billetterie Weezevent non branchée dans ce prototype.">
+<BaseLayout lang={lang} title={t('agenda.title')} description={t('agenda.pageDescription')}>
   <Hero
     image="accueil.hero"
     lang={lang}
     variant="short"
-    eyebrow="Nous suivre"
-    title="Agenda & billetterie"
-    subtitle="Visites guidées, journées spéciales et événements grand public. Les dates et les tarifs sont des exemples."
+    eyebrow={t('nav.suivre')}
+    title={t('agenda.title')}
+    subtitle={t('agenda.pageLead')}
   />
 
   <div class="container-site py-6">
-    <Breadcrumb lang={lang} items={[{ label: 'Agenda & billetterie' }]} />
+    <Breadcrumb lang={lang} items={[{ label: t('agenda.title') }]} />
   </div>
 
   <section class="section !pt-0" aria-labelledby="filtres-titre">
     <div class="container-site">
-      <h2 id="filtres-titre" class="sr-only">Filtrer l'agenda</h2>
+      <h2 id="filtres-titre" class="sr-only">{t('agenda.filterTitle')}</h2>
       <form class="grid gap-4 rounded-md border border-bleu-clair bg-gris-clair p-4 md:grid-cols-3" data-filters>
         <label class="field">
-          <span class="field-label">Type</span>
+          <span class="field-label">{t('agenda.filterType')}</span>
           <select class="select" data-filter="type">
-            <option value="tous">Tous</option>
+            <option value="tous">{t('agenda.all')}</option>
             {EVENT_TYPES.map((type) => <option value={type}>{eventTypeLabel(type, lang)}</option>)}
           </select>
         </label>
         <label class="field">
-          <span class="field-label">Public</span>
+          <span class="field-label">{t('agenda.filterAudience')}</span>
           <select class="select" data-filter="audience">
-            <option value="tous">Tous</option>
+            <option value="tous">{t('agenda.all')}</option>
             {EVENT_AUDIENCES.map((audience) => <option value={audience}>{eventAudienceLabel(audience, lang)}</option>)}
           </select>
         </label>
         <label class="field">
-          <span class="field-label">Mois</span>
+          <span class="field-label">{t('agenda.filterMonth')}</span>
           <select class="select" data-filter="month">
-            <option value="tous">Tous</option>
+            <option value="tous">{t('agenda.all')}</option>
             {months.map((month) => <option value={month}>{monthLabel(month, lang)}</option>)}
           </select>
         </label>
       </form>
-      <p class="mt-4 text-sm font-semibold text-nuit" data-event-count>{evenements.length} événement(s)</p>
+      <p class="mt-4 text-sm font-semibold text-nuit" data-event-count data-count-template={t('agenda.results')}>{t('agenda.results', { count: evenements.length })}</p>
 
       <div class="mt-8 grid gap-6 lg:grid-cols-2" data-calendars>
         {months.map((month) => (
@@ -110,20 +115,20 @@ function monthCells(key: string) {
       <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3" data-event-list>
         {evenements.map((event) => <EventCard event={event} lang={lang} headingLevel="h2" />)}
       </div>
-      <p class="mt-6 rounded-md border border-dashed border-ardoise-clair p-4 text-ardoise" data-event-empty hidden>Aucun événement ne correspond à ces critères.</p>
+      <p class="mt-6 rounded-md border border-dashed border-ardoise-clair p-4 text-ardoise" data-event-empty hidden>{t('agenda.noResult')}</p>
     </div>
   </section>
 
   <section class="section !pt-0">
     <div class="container-site">
-      <TicketingPlaceholder />
+      <TicketingPlaceholder lang={lang} />
     </div>
   </section>
 
   <CtaBanner
-    title="Visites de groupe, scolaires, entreprises"
-    text="À partir d'un groupe, la visite se prépare avec un devis. Le chiffrage de ce prototype est indicatif et n'est pas envoyé."
-    actions={[{ label: 'Demander un devis de visite', href: '/visiter/reserver/', style: 'gold' }]}
+    title={t('agenda.groupsTitle')}
+    text={t('agenda.groupsBanner')}
+    actions={[{ label: t('agenda.groupsCta'), href: localizePath('/visiter/reserver/', lang), style: 'gold' }]}
   />
 </BaseLayout>
 
@@ -151,7 +156,7 @@ function monthCells(key: string) {
       if (ok) visible += 1;
     }
     for (const panel of panels) panel.hidden = month !== 'tous' && panel.dataset.monthPanel !== month;
-    if (count) count.textContent = `${visible} événement(s)`;
+    if (count) count.textContent = (count.dataset.countTemplate ?? '{count}').replace('{count}', String(visible));
     if (empty) empty.hidden = visible !== 0;
   }
 

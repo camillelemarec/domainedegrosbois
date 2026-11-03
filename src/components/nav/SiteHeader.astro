@@ -11,6 +11,7 @@ import site from '@/data/site.json';
 import { localizePath, useTranslations, type Lang } from '@/lib/i18n';
 import Icon from '@/components/ui/Icon.astro';
 import Logo from '@/components/ui/Logo.astro';
+import LangFlag from '@/components/nav/LangFlag.astro';
 
 interface Props { lang: Lang; overlay?: boolean }
 const { lang, overlay = false } = Astro.props;
@@ -93,7 +94,7 @@ const isActive = (item: (typeof navigation.main)[number]) => {
                         ) : (
                           <span class="flex items-center justify-between gap-3 rounded-sm px-3 py-2 text-sm text-ardoise">
                             <span>{child[lang] ?? child.fr}</span>
-                            <span class="shrink-0 text-xs">hors prototype</span>
+                            <span class="shrink-0 text-xs">{t('common.outOfPrototype')}</span>
                           </span>
                         )}
                       </li>
@@ -108,13 +109,14 @@ const isActive = (item: (typeof navigation.main)[number]) => {
     </nav>
 
     <div class="flex items-center gap-2">
-      <a href={site.ticketingUrl} class="btn btn-gold btn-sm lg:btn-md" data-cta="billetterie">
+      <a href={l(site.ticketingUrl)} class="btn btn-gold btn-sm lg:btn-md" data-cta="billetterie">
         <Icon name="ticket" size={18} />
         <span>{t('header.tickets')}</span>
       </a>
       <a href={l('/privatiser/demande-de-devis/')} class="btn btn-cta hidden lg:inline-flex" data-cta="devis">
         {t('nav.privatiser')}
       </a>
+      <LangFlag lang={lang} />
       <button
         type="button"
         class="menu-toggle grid h-11 w-11 place-items-center rounded-sm text-white hover:bg-white/15 lg:hidden"
@@ -138,7 +140,7 @@ const isActive = (item: (typeof navigation.main)[number]) => {
     </div>
     <div class="flex-1 overflow-y-auto px-4 pb-8">
       <div class="grid grid-cols-2 gap-2 py-4">
-        <a href={site.ticketingUrl} class="btn btn-gold"><Icon name="ticket" size={18} />{t('header.tickets')}</a>
+        <a href={l(site.ticketingUrl)} class="btn btn-gold"><Icon name="ticket" size={18} />{t('header.tickets')}</a>
         <a href={l('/privatiser/demande-de-devis/')} class="btn btn-cta">{t('header.quote')}</a>
       </div>
       <ul class="divide-y divide-bleu-clair border-y border-bleu-clair">
@@ -168,7 +170,7 @@ const isActive = (item: (typeof navigation.main)[number]) => {
                       ) : (
                         <span class="flex min-h-11 items-center justify-between gap-3 py-2.5 text-ardoise">
                           {child[lang] ?? child.fr}
-                          <span class="text-xs">hors prototype</span>
+                          <span class="text-xs">{t('common.outOfPrototype')}</span>
                         </span>
                       )}
                     </li>
@@ -197,9 +199,11 @@ const isActive = (item: (typeof navigation.main)[number]) => {
   }
   .site-header.is-home:not(.is-solid) { background: #fff; color: var(--color-ink); }
   .site-header.is-home:not(.is-solid) :global(.nav-link),
-  .site-header.is-home:not(.is-solid) .menu-toggle { color: var(--color-ink); }
+  .site-header.is-home:not(.is-solid) .menu-toggle,
+  .site-header.is-home:not(.is-solid) :global(.lang-toggle) { color: var(--color-ink); }
   .site-header.is-home:not(.is-solid) :global(.nav-link):hover,
-  .site-header.is-home:not(.is-solid) .menu-toggle:hover { background: rgb(228 232 238 / 0.6); }
+  .site-header.is-home:not(.is-solid) .menu-toggle:hover,
+  .site-header.is-home:not(.is-solid) :global(.lang-toggle):hover { background: rgb(228 232 238 / 0.6); }
   .site-header.is-home:not(.is-solid) [data-nav-item].is-open [data-nav-toggle] { background: var(--color-setf-blue-light); }
   .logo-on-slate { display: none; }
   .site-header:not(.is-home) .logo-on-light,

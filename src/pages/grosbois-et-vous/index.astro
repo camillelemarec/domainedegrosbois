@@ -1,12 +1,17 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/nav/Breadcrumb.astro';
+import { useTranslations, type Lang } from '@/lib/i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'fr' } = Astro.props;
+const t = useTranslations(lang);
 ---
 
-<BaseLayout title="Grosbois & vous" description="Engagements, soutien, recrutement et équipes du Domaine de Grosbois. Page à venir.">
+<BaseLayout lang={lang} title={t('pages.youTitle')} description={t('pages.youDescription')}>
   <div class="container-site py-10">
-    <Breadcrumb lang="fr" items={[{ label: 'Grosbois & vous' }]} />
-    <h1 class="mt-8">Grosbois & vous</h1>
-    <p class="lede mt-4 max-w-2xl text-ardoise">Cette page regroupera bientôt nos engagements, les façons de nous soutenir, de nous rejoindre, et la présentation des équipes.</p>
+    <Breadcrumb lang={lang} items={[{ label: t('pages.youTitle') }]} />
+    <h1 class="mt-8">{t('pages.youTitle')}</h1>
+    <p class="lede mt-4 max-w-2xl text-ardoise">{t('pages.youLead')}</p>
   </div>
 </BaseLayout>

@@ -18,7 +18,7 @@ export default defineConfig({
   build: { format: 'directory' },
   i18n: {
     defaultLocale: 'fr',
-    locales: ['fr'],
+    locales: ['fr', 'en'],
     routing: { prefixDefaultLocale: false },
   },
   integrations: [preact()],

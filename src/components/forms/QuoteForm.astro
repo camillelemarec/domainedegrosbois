@@ -3,148 +3,196 @@
  * Formulaire de devis (visite ou privatisation).
  * Calcul et récapitulatif dans le navigateur : aucun envoi, aucun PDF, aucun paiement.
  */
+import { useTranslations, type Lang } from '@/lib/i18n';
+
 interface EspaceOption { id: string; nom: string }
 interface Props {
   contexte: 'visite' | 'privatisation';
   espaces: EspaceOption[];
   intro: string;
+  lang?: Lang;
 }
-const { contexte, espaces, intro } = Astro.props;
+const { contexte, espaces, intro, lang = 'fr' } = Astro.props;
+const t = useTranslations(lang);
 const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-groupe';
+const copy = {
+  errReason: t('quote.errReason'),
+  errVenue: t('quote.errVenue'),
+  errDate: t('quote.errDate'),
+  errPeople: t('quote.errPeople'),
+  errFirst: t('quote.errFirst'),
+  errLast: t('quote.errLast'),
+  errEmail: t('quote.errEmail'),
+  errPhone: t('quote.errPhone'),
+  errMessage: t('quote.errMessage'),
+  errConsent: t('quote.errConsent'),
+  errSummary: t('quote.errSummary'),
+  fieldReason: t('quote.fieldReason'),
+  fieldVenue: t('quote.fieldVenue'),
+  fieldDate: t('quote.fieldDate'),
+  fieldPeople: t('quote.fieldPeople'),
+  fieldFirst: t('quote.fieldFirst'),
+  fieldLast: t('quote.fieldLast'),
+  fieldEmail: t('quote.fieldEmail'),
+  fieldPhone: t('quote.fieldPhone'),
+  fieldMessage: t('quote.fieldMessage'),
+  fieldConsent: t('quote.fieldConsent'),
+  infoReady: t('quote.infoReady'),
+  infoLead: t('quote.infoLead'),
+  quoteTitle: t('quote.quoteTitle'),
+  quoteLead: t('quote.quoteLead'),
+  dateUnknown: t('quote.dateUnknown'),
+  flexibleShort: t('quote.flexibleShort'),
+  participantsLine: t('quote.participantsLine'),
+  reason: t('quote.reason'),
+  info: t('quote.info'),
+  booking: t('quote.booking'),
+  contact: t('quote.contact'),
+  message: t('quote.message'),
+  project: t('quote.project'),
+  date: t('quote.date'),
+  schedule: t('quote.schedule'),
+  adults: t('quote.fieldPeople'),
+  organisation: t('quote.organisation'),
+  billing: t('quote.billing'),
+  totalHt: t('quote.totalHt'),
+  vat: t('quote.vat'),
+  totalTtc: t('quote.totalTtc'),
+};
 ---
 
 <div class="section">
   <div class="container-site grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
     <div>
-      <p class="badge badge-provisional">Tarifs provisoires : simulation à l'écran</p>
-      <h1 class="mt-3">{contexte === 'privatisation' ? 'Demander un devis' : 'Réserver une visite'}</h1>
+      <p class="badge badge-provisional">{t('quote.provisionalRates')}</p>
+      <h1 class="mt-3">{contexte === 'privatisation' ? t('quote.titlePrivatize') : t('quote.titleVisit')}</h1>
       <p class="section-lead mt-3">{intro}</p>
 
       <form id="quote-form" class="mt-8 space-y-10" novalidate>
         <fieldset class="space-y-3">
-          <legend class="font-display text-2xl text-bleu">Motif <span class="text-brique">*</span></legend>
+          <legend class="font-display text-2xl text-bleu">{t('quote.reason')} <span class="text-brique">*</span></legend>
           <div class="grid gap-3 sm:grid-cols-2">
             <label class="choice-card">
               <input class="checkbox" type="radio" name="motif" value="renseignement" />
-              <span><span class="block font-semibold text-nuit">Renseignement</span><span class="mt-1 block text-sm text-ardoise">Une question, sans chiffrage.</span></span>
+              <span><span class="block font-semibold text-nuit">{t('quote.info')}</span><span class="mt-1 block text-sm text-ardoise">{t('quote.infoHelp')}</span></span>
             </label>
             <label class="choice-card">
               <input class="checkbox" type="radio" name="motif" value="reservation" checked />
-              <span><span class="block font-semibold text-nuit">Réservation</span><span class="mt-1 block text-sm text-ardoise">Prépare un devis indicatif.</span></span>
+              <span><span class="block font-semibold text-nuit">{t('quote.booking')}</span><span class="mt-1 block text-sm text-ardoise">{t('quote.bookingHelp')}</span></span>
             </label>
           </div>
           <p id="erreur-motif" class="field-error" hidden></p>
         </fieldset>
 
         <fieldset class="space-y-4">
-          <legend class="font-display text-2xl text-bleu">Votre projet</legend>
+          <legend class="font-display text-2xl text-bleu">{t('quote.project')}</legend>
           <div class="grid gap-4 md:grid-cols-2">
             <label class="field md:col-span-2">
-              <span class="field-label">Type de visite ou d'événement <span class="text-brique">*</span></span>
+              <span class="field-label">{t('quote.type')} <span class="text-brique">*</span></span>
               <select class="select" name="type" id="quote-type">
-                <option value="visite-individuelle" selected={defaultType === 'visite-individuelle'}>Visite individuelle</option>
-                <option value="visite-groupe" selected={defaultType === 'visite-groupe'}>Groupe adultes</option>
-                <option value="visite-scolaire" selected={defaultType === 'visite-scolaire'}>Groupe scolaire ou enfants</option>
-                <option value="visite-entreprise" selected={defaultType === 'visite-entreprise'}>Entreprise, CE, team-building</option>
-                <option value="privatisation" selected={defaultType === 'privatisation'}>Privatisation d'un espace</option>
+                <option value="visite-individuelle" selected={defaultType === 'visite-individuelle'}>{t('quote.typeIndividual')}</option>
+                <option value="visite-groupe" selected={defaultType === 'visite-groupe'}>{t('quote.typeAdults')}</option>
+                <option value="visite-scolaire" selected={defaultType === 'visite-scolaire'}>{t('quote.typeSchool')}</option>
+                <option value="visite-entreprise" selected={defaultType === 'visite-entreprise'}>{t('quote.typeCompany')}</option>
+                <option value="privatisation" selected={defaultType === 'privatisation'}>{t('quote.typeHire')}</option>
               </select>
             </label>
             <label class="field md:col-span-2" id="quote-espace-field" hidden={defaultType !== 'privatisation'}>
-              <span class="field-label">Espace <span class="text-brique">*</span></span>
+              <span class="field-label">{t('quote.venue')} <span class="text-brique">*</span></span>
               <select class="select" name="espace" id="quote-espace">
-                <option value="">Choisir un espace</option>
+                <option value="">{t('quote.chooseVenue')}</option>
                 {espaces.map((espace) => <option value={espace.id}>{espace.nom}</option>)}
               </select>
               <span id="erreur-espace" class="field-error" hidden></span>
             </label>
             <label class="field">
-              <span class="field-label">Date souhaitée <span class="text-brique">*</span></span>
+              <span class="field-label">{t('quote.date')} <span class="text-brique">*</span></span>
               <input class="input" type="date" name="date" id="quote-date" />
               <span id="erreur-date" class="field-error" hidden></span>
             </label>
             <label class="choice-card self-end">
               <input class="checkbox" type="checkbox" name="flexible" />
-              <span class="text-sm text-nuit">Je suis flexible sur la date</span>
+              <span class="text-sm text-nuit">{t('quote.flexible')}</span>
             </label>
             <label class="field">
-              <span class="field-label">Heure de début</span>
+              <span class="field-label">{t('quote.startTime')}</span>
               <input class="input" type="time" name="heureDebut" value="10:00" />
             </label>
             <label class="field">
-              <span class="field-label">Heure de fin</span>
+              <span class="field-label">{t('quote.endTime')}</span>
               <input class="input" type="time" name="heureFin" value="17:00" />
             </label>
             <label class="field">
-              <span class="field-label">Adultes <span class="text-brique">*</span></span>
+              <span class="field-label">{t('quote.adults')} <span class="text-brique">*</span></span>
               <input class="input" type="number" name="adultes" id="quote-adultes" min="0" step="1" value="10" inputmode="numeric" />
             </label>
             <label class="field">
-              <span class="field-label">Enfants</span>
+              <span class="field-label">{t('quote.children')}</span>
               <input class="input" type="number" name="enfants" id="quote-enfants" min="0" step="1" value="0" inputmode="numeric" />
             </label>
             <p id="erreur-participants" class="field-error md:col-span-2" hidden></p>
             <label class="field md:col-span-2">
-              <span class="field-label">Langue de la visite</span>
+              <span class="field-label">{t('quote.visitLang')}</span>
               <select class="select" name="langue">
-                <option value="fr" selected>Français</option>
-                <option value="en">Anglais (demande, non traduit automatiquement)</option>
+                <option value="fr" selected>{t('quote.french')}</option>
+                <option value="en">{t('quote.englishRequest')}</option>
               </select>
             </label>
           </div>
           <div class="grid gap-3">
-            <label class="choice-card"><input class="checkbox" type="checkbox" name="guide" /><span class="text-sm">Guide-conférencier</span></label>
-            <label class="choice-card"><input class="checkbox" type="checkbox" name="livret" /><span class="text-sm">Livret</span></label>
-            <label class="choice-card"><input class="checkbox" type="checkbox" name="restauration" /><span class="text-sm">Pause restauration</span></label>
+            <label class="choice-card"><input class="checkbox" type="checkbox" name="guide" /><span class="text-sm">{t('quote.guide')}</span></label>
+            <label class="choice-card"><input class="checkbox" type="checkbox" name="livret" /><span class="text-sm">{t('quote.booklet')}</span></label>
+            <label class="choice-card"><input class="checkbox" type="checkbox" name="restauration" /><span class="text-sm">{t('quote.catering')}</span></label>
           </div>
         </fieldset>
 
         <fieldset class="space-y-4">
-          <legend class="font-display text-2xl text-bleu">Coordonnées</legend>
+          <legend class="font-display text-2xl text-bleu">{t('quote.contact')}</legend>
           <div class="grid gap-4 md:grid-cols-2">
             <label class="field">
-              <span class="field-label">Prénom <span class="text-brique">*</span></span>
+              <span class="field-label">{t('quote.firstName')} <span class="text-brique">*</span></span>
               <input class="input" name="prenom" id="quote-prenom" autocomplete="given-name" />
               <span id="erreur-prenom" class="field-error" hidden></span>
             </label>
             <label class="field">
-              <span class="field-label">Nom <span class="text-brique">*</span></span>
+              <span class="field-label">{t('quote.lastName')} <span class="text-brique">*</span></span>
               <input class="input" name="nom" id="quote-nom" autocomplete="family-name" />
               <span id="erreur-nom" class="field-error" hidden></span>
             </label>
             <label class="field">
-              <span class="field-label">E-mail <span class="text-brique">*</span></span>
+              <span class="field-label">{t('quote.email')} <span class="text-brique">*</span></span>
               <input class="input" type="email" name="email" id="quote-email" autocomplete="email" />
               <span id="erreur-email" class="field-error" hidden></span>
             </label>
             <label class="field">
-              <span class="field-label">Téléphone <span class="text-brique">*</span></span>
+              <span class="field-label">{t('quote.phone')} <span class="text-brique">*</span></span>
               <input class="input" type="tel" name="telephone" id="quote-telephone" autocomplete="tel" />
               <span id="erreur-telephone" class="field-error" hidden></span>
             </label>
             <div class="md:col-span-2 grid gap-3 sm:grid-cols-2">
               <label class="choice-card">
                 <input class="checkbox" type="radio" name="organisation" value="particulier" checked />
-                <span class="text-sm font-semibold">Particulier</span>
+                <span class="text-sm font-semibold">{t('quote.individual')}</span>
               </label>
               <label class="choice-card">
                 <input class="checkbox" type="radio" name="organisation" value="organisation" />
-                <span class="text-sm font-semibold">Entreprise, association, établissement</span>
+                <span class="text-sm font-semibold">{t('quote.organisation')}</span>
               </label>
             </div>
             <label class="field" id="quote-raison-field" hidden>
-              <span class="field-label">Raison sociale</span>
+              <span class="field-label">{t('quote.companyName')}</span>
               <input class="input" name="raisonSociale" autocomplete="organization" />
             </label>
             <label class="field">
-              <span class="field-label">Adresse de facturation</span>
+              <span class="field-label">{t('quote.billing')}</span>
               <input class="input" name="facturation" autocomplete="billing street-address" />
-              <span class="field-hint">Si elle diffère de l'adresse du contact.</span>
+              <span class="field-hint">{t('quote.billingHint')}</span>
             </label>
           </div>
         </fieldset>
 
         <label class="field">
-          <span class="field-label">Message</span>
+          <span class="field-label">{t('quote.message')}</span>
           <textarea class="textarea" name="message" id="quote-message" maxlength="2000"></textarea>
           <span id="erreur-message" class="field-error" hidden></span>
         </label>
@@ -152,7 +200,7 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
         <label class="choice-card">
           <input class="checkbox" type="checkbox" name="rgpd" id="quote-rgpd" />
           <span class="text-sm text-nuit">
-            J'accepte que la SETF utilise ces informations pour répondre à ma demande. Dans ce prototype, rien n'est envoyé ni enregistré : le récapitulatif reste dans le navigateur.
+            {t('quote.consent')}
             <span class="text-brique"> *</span>
           </span>
         </label>
@@ -160,12 +208,12 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
 
         <div id="quote-summary-error" class="rounded-md border border-erreur/40 bg-white p-4 text-sm text-erreur" role="alert" tabindex="-1" hidden></div>
 
-        <button type="submit" class="btn btn-cta btn-lg">Voir le récapitulatif</button>
-        <p class="text-sm text-ardoise">Pas de PDF, pas d'e-mail, pas de paiement. Les montants sont une hypothèse de travail.</p>
+        <button type="submit" class="btn btn-cta btn-lg">{t('quote.submit')}</button>
+        <p class="text-sm text-ardoise">{t('quote.noSend')}</p>
       </form>
 
       <div id="quote-result" class="mt-2 scroll-mt-28" hidden>
-        <p class="badge badge-provisional">Simulation : aucun document généré</p>
+        <p class="badge badge-provisional">{t('quote.simBadge')}</p>
         <h2 id="quote-result-title" class="mt-3" tabindex="-1"></h2>
         <p id="quote-result-lead" class="mt-2 text-ardoise"></p>
         <dl id="quote-result-meta" class="mt-6 grid gap-3 text-sm sm:grid-cols-2"></dl>
@@ -173,9 +221,9 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
           <table class="w-full min-w-[32rem] border-collapse text-left text-sm">
             <thead>
               <tr class="border-b border-bleu-clair text-xs uppercase tracking-wider text-ardoise">
-                <th class="py-2 pr-3 font-semibold">Désignation</th>
-                <th class="py-2 pr-3 font-semibold">Détail</th>
-                <th class="py-2 text-right font-semibold">Montant HT</th>
+                <th class="py-2 pr-3 font-semibold">{t('quote.colItem')}</th>
+                <th class="py-2 pr-3 font-semibold">{t('quote.colDetail')}</th>
+                <th class="py-2 text-right font-semibold">{t('quote.colAmount')}</th>
               </tr>
             </thead>
             <tbody id="quote-result-lines"></tbody>
@@ -183,25 +231,34 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
           </table>
         </div>
         <p id="quote-result-mention" class="mt-4 text-sm text-ardoise"></p>
-        <p class="mt-4 text-sm text-nuit">Aucun e-mail n'est envoyé. Aucun PDF n'est généré. Les informations restent dans votre navigateur.</p>
-        <button type="button" class="btn btn-outline mt-6" id="quote-edit">Modifier la demande</button>
+        <p class="mt-4 text-sm text-nuit">{t('quote.noEmail')}</p>
+        <button type="button" class="btn btn-outline mt-6" id="quote-edit">{t('quote.edit')}</button>
       </div>
-      <noscript class="mt-6 block text-sm text-ardoise">Activez JavaScript pour afficher le récapitulatif. Aucune donnée n'est transmise.</noscript>
+      <noscript class="mt-6 block text-sm text-ardoise">{t('quote.noscript')}</noscript>
     </div>
 
     <aside class="rounded-md border border-bleu-clair bg-gris-clair p-5 text-sm text-ardoise lg:sticky lg:top-28">
-      <h2 class="font-display text-xl text-bleu">Ce que fait ce formulaire</h2>
+      <h2 class="font-display text-xl text-bleu">{t('quote.asideTitle')}</h2>
       <ul class="mt-3 list-disc space-y-2 pl-4">
-        <li>Il prépare un récapitulatif, chiffré seulement pour une réservation.</li>
-        <li>La grille de tarifs est provisoire (`src/data/tarifs-visites.json`).</li>
-        <li>Le compte Weezevent n'est pas utilisé ici : la billetterie grand public est sur l'agenda.</li>
+        <li>{t('quote.aside1')}</li>
+        <li>{t('quote.aside2')}</li>
+        <li>{t('quote.aside3')}</li>
       </ul>
     </aside>
   </div>
 </div>
 
+<script type="application/json" id="quote-copy" set:html={JSON.stringify(copy)} />
+
 <script>
   import { computeQuote, formatEuros, type QuoteInput, type TypeDemande } from '@/lib/quote';
+  import type { Lang } from '@/lib/i18n';
+
+  const copy = JSON.parse(document.getElementById('quote-copy')?.textContent || '{}') as Record<string, string>;
+  const uiLang: Lang = document.documentElement.lang === 'en' ? 'en' : 'fr';
+  const locale = uiLang === 'en' ? 'en-GB' : 'fr-FR';
+  const fill = (template: string, vars: Record<string, string | number>) =>
+    template.replace(/\{(\w+)\}/g, (_, name: string) => String(vars[name] ?? ''));
 
   const form = document.querySelector<HTMLFormElement>('#quote-form');
   const result = document.querySelector<HTMLElement>('#quote-result');
@@ -289,48 +346,48 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
     const errors: string[] = [];
     const motif = value('motif');
     if (motif !== 'renseignement' && motif !== 'reservation') {
-      showError('motif', 'Indiquez si c’est un renseignement ou une réservation.');
-      errors.push('Motif');
+      showError('motif', copy.errReason);
+      errors.push(copy.fieldReason);
     }
     const type = typeSelect.value as TypeDemande;
     const espaceId = espaceSelect.value;
     if (motif === 'reservation' && type === 'privatisation' && !espaceId) {
-      showError('espace', 'Choisissez un espace.');
-      errors.push('Espace');
+      showError('espace', copy.errVenue);
+      errors.push(copy.fieldVenue);
     }
     const date = value('date');
     if (motif === 'reservation' && !date) {
-      showError('date', 'Indiquez une date.');
-      errors.push('Date');
+      showError('date', copy.errDate);
+      errors.push(copy.fieldDate);
     }
     const adultes = Number(value('adultes') || '0');
     const enfants = Number(value('enfants') || '0');
     if (motif === 'reservation' && (!Number.isFinite(adultes) || !Number.isFinite(enfants) || adultes + enfants < 1)) {
-      showError('participants', 'Indiquez au moins un participant.');
-      errors.push('Participants');
+      showError('participants', copy.errPeople);
+      errors.push(copy.fieldPeople);
     }
     const prenom = value('prenom');
     const nom = value('nom');
     const email = value('email');
     const telephone = value('telephone');
-    if (prenom.length < 2) { showError('prenom', 'Indiquez un prénom.'); errors.push('Prénom'); }
-    if (nom.length < 2) { showError('nom', 'Indiquez un nom.'); errors.push('Nom'); }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('email', 'Indiquez un e-mail valide.'); errors.push('E-mail'); }
-    if (telephone.replace(/\D/g, '').length < 8) { showError('telephone', 'Indiquez un téléphone.'); errors.push('Téléphone'); }
+    if (prenom.length < 2) { showError('prenom', copy.errFirst); errors.push(copy.fieldFirst); }
+    if (nom.length < 2) { showError('nom', copy.errLast); errors.push(copy.fieldLast); }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('email', copy.errEmail); errors.push(copy.fieldEmail); }
+    if (telephone.replace(/\D/g, '').length < 8) { showError('telephone', copy.errPhone); errors.push(copy.fieldPhone); }
     const message = value('message');
     if (motif === 'renseignement' && message.length < 10) {
-      showError('message', 'Précisez votre question (quelques mots suffisent).');
-      errors.push('Message');
+      showError('message', copy.errMessage);
+      errors.push(copy.fieldMessage);
     }
     if (!form.querySelector<HTMLInputElement>('#quote-rgpd')?.checked) {
-      showError('rgpd', 'Le consentement est nécessaire pour préparer le récapitulatif.');
-      errors.push('Consentement');
+      showError('rgpd', copy.errConsent);
+      errors.push(copy.fieldConsent);
     }
     if (errors.length) {
       const summary = document.getElementById('quote-summary-error');
       if (summary) {
         summary.hidden = false;
-        summary.textContent = `Merci de compléter : ${errors.join(', ')}.`;
+        summary.textContent = fill(copy.errSummary, { fields: errors.join(', ') });
         summary.focus();
       }
       return;
@@ -349,7 +406,7 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
       nom,
       prenom,
     };
-    const quote = computeQuote(input);
+    const quote = computeQuote(input, uiLang);
     const title = document.getElementById('quote-result-title');
     const lead = document.getElementById('quote-result-lead');
     const meta = document.getElementById('quote-result-meta');
@@ -365,35 +422,39 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
     const espaceNom = espaceSelect.selectedOptions[0]?.textContent?.trim() ?? '';
     const typeNom = typeSelect.selectedOptions[0]?.textContent?.trim() ?? '';
     const dateLabel = date
-      ? new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${date}T12:00:00`))
-      : 'Non précisée';
+      ? new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${date}T12:00:00`))
+      : copy.dateUnknown;
+    const person = `${prenom} ${nom}`;
 
     if (!quote) {
-      title.textContent = 'Demande de renseignement préparée';
-      lead.textContent = `${prenom} ${nom}, votre question est récapitulée ci-dessous. Elle n’a pas été transmise.`;
-      addMeta('Motif', 'Renseignement');
-      addMeta('Contact', `${prenom} ${nom}, ${email}, ${telephone}`);
-      if (message) addMeta('Message', message);
+      title.textContent = copy.infoReady;
+      lead.textContent = fill(copy.infoLead, { name: person });
+      addMeta(copy.reason, copy.info);
+      addMeta(copy.contact, `${person}, ${email}, ${telephone}`);
+      if (message) addMeta(copy.message, message);
       tableWrap.hidden = true;
       mention.textContent = '';
     } else {
-      title.textContent = `Devis ${quote.numero}`;
-      lead.textContent = `Récapitulatif indicatif pour ${prenom} ${nom}. Validité jusqu’au ${new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${quote.validite}T12:00:00`))}.`;
-      addMeta('Motif', 'Réservation');
-      addMeta('Projet', type === 'privatisation' ? espaceNom : typeNom);
-      addMeta('Date', `${dateLabel}${checked('flexible') ? ' (flexible)' : ''}`);
-      addMeta('Horaires', `${value('heureDebut') || '-'} – ${value('heureFin') || '-'}`);
-      addMeta('Participants', `${adultes} adulte(s), ${enfants} enfant(s)`);
-      addMeta('Contact', `${prenom} ${nom}, ${email}`);
-      if (value('raisonSociale')) addMeta('Organisation', value('raisonSociale'));
-      if (value('facturation')) addMeta('Facturation', value('facturation'));
+      title.textContent = fill(copy.quoteTitle, { number: quote.numero });
+      lead.textContent = fill(copy.quoteLead, {
+        name: person,
+        date: new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${quote.validite}T12:00:00`)),
+      });
+      addMeta(copy.reason, copy.booking);
+      addMeta(copy.project, type === 'privatisation' ? espaceNom : typeNom);
+      addMeta(copy.date, `${dateLabel}${checked('flexible') ? ` (${copy.flexibleShort})` : ''}`);
+      addMeta(copy.schedule, `${value('heureDebut') || '-'} – ${value('heureFin') || '-'}`);
+      addMeta(copy.adults, fill(copy.participantsLine, { adults: adultes, children: enfants }));
+      addMeta(copy.contact, `${person}, ${email}`);
+      if (value('raisonSociale')) addMeta(copy.organisation, value('raisonSociale'));
+      if (value('facturation')) addMeta(copy.billing, value('facturation'));
       for (const row of quote.lignes) {
         const tr = document.createElement('tr');
         tr.className = 'border-b border-bleu-clair';
         for (const [text, className] of [
           [row.label, 'py-2 pr-3'],
           [row.detail, 'py-2 pr-3 text-ardoise'],
-          [formatEuros(row.montantHT), 'py-2 text-right'],
+          [formatEuros(row.montantHT, uiLang), 'py-2 text-right'],
         ] as const) {
           const td = document.createElement('td');
           td.className = className;
@@ -403,9 +464,9 @@ const defaultType = contexte === 'privatisation' ? 'privatisation' : 'visite-gro
         lines.append(tr);
       }
       const totalRows: [string, string][] = [
-        ['Total HT', formatEuros(quote.totalHT)],
-        [`TVA ${Math.round(quote.tauxTva * 100)} %`, formatEuros(quote.tva)],
-        ['Total TTC', formatEuros(quote.totalTTC)],
+        [copy.totalHt, formatEuros(quote.totalHT, uiLang)],
+        [fill(copy.vat, { rate: Math.round(quote.tauxTva * 100) }), formatEuros(quote.tva, uiLang)],
+        [copy.totalTtc, formatEuros(quote.totalTTC, uiLang)],
       ];
       for (const [label, amount] of totalRows) {
         const tr = document.createElement('tr');
