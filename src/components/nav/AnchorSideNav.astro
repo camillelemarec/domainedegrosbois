@@ -30,7 +30,16 @@ const t = useTranslations(lang);
     .anchor-link.is-active { border-left-color: var(--color-gold-dark); color: var(--color-setf-blue); font-weight: 600; }
   }
   @media (max-width: 63.99rem) {
-    .anchor-nav { position: sticky; top: var(--header-height); z-index: 20; background: #fff; padding-block: .5rem; }
+    .anchor-nav {
+      position: sticky;
+      top: var(--header-height);
+      z-index: 20;
+      min-width: 0;
+      max-width: 100%;
+      background: #fff;
+      padding-block: .5rem;
+    }
+    .anchor-nav ul { max-width: 100%; }
     .anchor-link.is-active { background: var(--color-setf-blue); color: #fff; border-color: var(--color-setf-blue); }
   }
 </style>

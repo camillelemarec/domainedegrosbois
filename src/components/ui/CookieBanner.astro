@@ -53,3 +53,14 @@ const t = useTranslations(lang);
   // Lien « Gérer mes cookies » du footer : rouvre le bandeau (tarteaucitron : tarteaucitron.userInterface.openPanel()).
   document.querySelectorAll('[data-cookie-settings]').forEach((el) => el.addEventListener('click', show));
 </script>
+
+<style>
+  @media (max-width: 47.99rem) {
+    [data-cookie-banner] {
+      left: 0.75rem;
+      right: 0.75rem;
+      max-width: calc(100vw - 1.5rem);
+    }
+    [data-cookie-banner] :global(.flex-1) { min-width: 0; }
+  }
+</style>

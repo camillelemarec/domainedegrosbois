@@ -3,8 +3,9 @@
  * Header global (p.9, p.10 ; benchmark enseignements 1 et 2) :
  * barre principale sticky avec logo (lien accueil), 6 onglets à sous-menus,
  * recherche et DOUBLE CTA permanent
- * « Billetterie » / « Privatiser ». Sur mobile : logo, Billetterie, burger ; le panneau
- * reprend les deux CTA en tête.
+ * « Billetterie » / « Privatiser ». Téléphone et tablette : logo, Billetterie, burger ;
+ * le panneau reprend les deux CTA en tête. L’ordinateur (pointeur fin, large écran)
+ * conserve la barre actuelle.
  */
 import navigation from '@/data/navigation.json';
 import site from '@/data/site.json';
@@ -36,13 +37,13 @@ const isActive = (item: (typeof navigation.main)[number]) => {
 
 <header class:list={['site-header relative z-40', overlay && 'is-home']} data-header data-overlay={overlay ? '' : undefined}>
   {/* Barre principale */}
-  <div class="container-site flex items-center justify-between gap-4" style="min-height: var(--header-height)">
-    <a href={l('/')} class="flex h-[4.75rem] shrink-0 items-center" aria-label={t('meta.siteName')}>
+  <div class="header-bar container-site flex items-center justify-between gap-4" style="min-height: var(--header-height)">
+    <a href={l('/')} class="header-logo flex h-[4.75rem] shrink-0 items-center" aria-label={t('meta.siteName')}>
       <span class="logo-on-light"><Logo lang={lang} size="lg" /></span>
       <span class="logo-on-slate"><Logo lang={lang} size="lg" variant="light" /></span>
     </a>
 
-    <nav class="hidden flex-1 justify-center lg:flex" aria-label={t('a11y.mainNav')} data-main-nav>
+    <nav class="main-nav hidden flex-1 justify-center" aria-label={t('a11y.mainNav')} data-main-nav>
       <ul class="flex items-stretch gap-0.5">
         {navigation.main.map((item) => (
           <li class="relative" data-nav-item={item.children.length ? '' : undefined}>
@@ -108,18 +109,18 @@ const isActive = (item: (typeof navigation.main)[number]) => {
       </ul>
     </nav>
 
-    <div class="flex items-center gap-2">
+    <div class="header-tools flex shrink-0 items-center gap-2">
       <a href={l(site.ticketingUrl)} class="btn btn-gold btn-sm lg:btn-md" data-cta="billetterie">
         <Icon name="ticket" size={18} />
-        <span>{t('header.tickets')}</span>
+        <span class="header-cta-label">{t('header.tickets')}</span>
       </a>
-      <a href={l('/privatiser/demande-de-devis/')} class="btn btn-cta hidden lg:inline-flex" data-cta="devis">
+      <a href={l('/privatiser/demande-de-devis/')} class="header-devis btn btn-cta hidden" data-cta="devis">
         {t('nav.privatiser')}
       </a>
       <LangFlag lang={lang} />
       <button
         type="button"
-        class="menu-toggle grid h-11 w-11 place-items-center rounded-sm text-white hover:bg-white/15 lg:hidden"
+        class="menu-toggle grid h-11 w-11 place-items-center rounded-sm text-white hover:bg-white/15"
         aria-label={t('a11y.openMenu')}
         aria-expanded="false"
         aria-controls="mobile-menu"
@@ -131,7 +132,7 @@ const isActive = (item: (typeof navigation.main)[number]) => {
   </div>
 
   {/* Menu mobile */}
-  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 hidden flex-col bg-white lg:hidden" data-mobile-menu role="dialog" aria-modal="true" aria-label={t('a11y.mainNav')}>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 hidden flex-col bg-white" data-mobile-menu role="dialog" aria-modal="true" aria-label={t('a11y.mainNav')}>
     <div class="flex items-center justify-between border-b border-bleu-clair px-4" style="min-height: var(--header-height)">
       <a href={l('/')} class="flex h-12 items-center"><Logo lang={lang} /></a>
       <button type="button" class="grid h-11 w-11 place-items-center rounded-sm text-nuit hover:bg-bleu-clair/60" aria-label={t('a11y.closeMenu')} data-mobile-close>
@@ -216,7 +217,51 @@ const isActive = (item: (typeof navigation.main)[number]) => {
   [data-nav-item].is-open [data-nav-toggle] svg { transform: rotate(180deg); }
   [data-nav-item].is-open [data-nav-toggle] { background: rgb(255 255 255 / 0.16); }
   .mobile-menu.is-open { display: flex; }
+  .site-header.is-menu-open { z-index: 70; }
+  /* Ordinateur : même barre qu’avant (nav, Privatiser, pas de burger). */
+  @media (min-width: 64rem) and (pointer: fine) {
+    .main-nav { display: flex !important; }
+    .header-devis { display: inline-flex !important; }
+    .menu-toggle { display: none !important; }
+  }
   @media (min-width: 64rem) { .lg\:btn-md { min-height: var(--tap-target); padding: 0.65rem 1.4rem; font-size: var(--text-sm); } }
+  /* Téléphone : le burger, le drapeau et Billetterie tiennent dans la largeur. */
+  @media (max-width: 34rem) {
+    :global(:root) { --header-height: 4.25rem; }
+    .header-bar {
+      gap: 0.5rem;
+      min-height: 4.25rem !important;
+      padding-inline: 0.75rem;
+    }
+    .header-logo {
+      flex-shrink: 1 !important;
+      height: 3rem;
+      min-width: 0;
+      max-width: calc(100vw - 12.75rem);
+    }
+    .header-logo :global(img) {
+      width: auto;
+      max-width: 100%;
+      height: 3rem;
+      object-fit: contain;
+      object-position: left center;
+    }
+    .header-logo :global(.logo-lg .logo-mark) { width: 2.5rem; height: 2.5rem; }
+    .header-logo :global(.logo-wordmark) { gap: 0.4rem; max-width: 100%; }
+    .header-tools { gap: 0.25rem; }
+    .header-cta-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    [data-cta='billetterie'] { padding-inline: 0.65rem; }
+  }
 </style>
 
 <script>
@@ -262,6 +307,7 @@ const isActive = (item: (typeof navigation.main)[number]) => {
   const closeBtn = document.querySelector<HTMLButtonElement>('[data-mobile-close]');
   function openMobile() {
     menu?.classList.add('is-open');
+    header?.classList.add('is-menu-open');
     openBtn?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
     closeBtn?.focus();
@@ -269,10 +315,17 @@ const isActive = (item: (typeof navigation.main)[number]) => {
   function closeMobile() {
     if (!menu?.classList.contains('is-open')) return;
     menu.classList.remove('is-open');
+    header?.classList.remove('is-menu-open');
     openBtn?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
     openBtn?.focus();
   }
   openBtn?.addEventListener('click', openMobile);
   closeBtn?.addEventListener('click', closeMobile);
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) closeMobile();
+  });
+  window.matchMedia('(min-width: 64rem) and (pointer: fine)').addEventListener('change', (event) => {
+    if (event.matches) closeMobile();
+  });
 </script>
